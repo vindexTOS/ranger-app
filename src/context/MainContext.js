@@ -6,8 +6,16 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth'
 import { auth, db } from '../FirebaseConfig'
-import { collection } from 'firebase/firestore'
+import {
+  collection,
+  serverTimestamp,
+  addDoc,
+  onSnapshot,
+  query,
+  orderBy,
+} from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
 
 const MainContext = createContext()
 
@@ -51,13 +59,35 @@ export const MainContextProvider = ({ children }) => {
   }, [])
 
   // push up workout updates
+  const { handleSubmit, register } = useForm()
+  const [pushup, setPushup] = React.useState([])
 
-  const [pushup, setPushup] = React.useState({
-    setOne: 0,
-    setTwo: 0,
-    setTree: 0,
-    setFore: 0,
-    setFive: 0,
+  const handlePushupSubmit = async (data) => {
+    pushup.push(data)
+    console.log(pushup)
+    const { uid } = auth.currentUser
+    await addDoc(collection(db, 'pushup'), {
+      sets: pushup,
+
+      uid,
+      timestamp: serverTimestamp(),
+    })
+  }
+
+  // get data from firebase
+
+  const [pushupData, setPushupdata] = React.useState([])
+
+  React.useEffect(() => {
+    const q = query(collection(db, 'pushup'), orderBy('timestamp'))
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      let pushUp = []
+      querySnapshot.forEach((doc) => {
+        pushUp.push({ ...doc.data(), id: doc.id })
+      })
+      setPushupdata(pushUp)
+    })
+    return () => unsub()
   })
   return (
     <MainContext.Provider
@@ -70,6 +100,10 @@ export const MainContextProvider = ({ children }) => {
         setPushup,
         pushup,
         handleLogOut,
+        handlePushupSubmit,
+        handleSubmit,
+        register,
+        pushupData,
       }}
     >
       {children}
