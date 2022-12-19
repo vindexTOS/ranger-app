@@ -12,13 +12,7 @@ function Workoutroom() {
     pushupData,
   } = MainUseContext()
 
-  const [con, setCon] = React.useState({
-    set1: true,
-    set2: true,
-    set3: true,
-    set4: true,
-    set5: true,
-  })
+  const [con, setCon] = React.useState(true)
 
   const style = {
     form: `flex items-center justify-center `,
@@ -38,7 +32,7 @@ function Workoutroom() {
           {/* single input div //////////////////////////////////////////////// */}
 
           <div className={style.singleInput}>
-            {con.set1 ? (
+            {con ? (
               <input
                 type="number"
                 name="setOne"
@@ -46,12 +40,19 @@ function Workoutroom() {
                 className={style.input}
               />
             ) : (
-              <span className={style.input}>{pushupData[0].setOne}</span>
+              <span className={style.input}>
+                {pushupData.map((item, index) => {
+                  if (pushupData.length - 1 <= index) {
+                    console.log(item)
+                    return <p key={item.id}>{item.sets[0].setOne}</p>
+                  }
+                })}
+              </span>
             )}
-            <button type="button" onClick={() => setCon({ set1: !true })}>
+            <button type="button" onClick={() => setCon(!con)}>
               <AiFillCheckSquare
                 className={`${
-                  con.set1 ? 'text-[2.5rem] ' : ' text-[2.5rem]  text-[#e69b3a]'
+                  con ? 'text-[2.5rem] ' : ' text-[2.5rem]  text-[#e69b3a]'
                 }`}
               />
             </button>
