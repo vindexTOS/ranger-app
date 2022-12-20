@@ -59,19 +59,29 @@ export const MainContextProvider = ({ children }) => {
   }, [])
 
   // push up workout updates
-  const { handleSubmit, register } = useForm()
+  const { handleSubmit, register, getValues } = useForm()
   const [pushup, setPushup] = React.useState([])
 
-  const handlePushupSubmit = async (data) => {
-    pushup.push(data)
-    console.log(pushup)
-    const { uid } = auth.currentUser
-    await addDoc(collection(db, 'pushup'), {
-      sets: pushup,
+  const handlePushupSubmit = async (data, e) => {
+    e.preventDefault()
 
-      uid,
-      timestamp: serverTimestamp(),
-    })
+    let setOne = getValues('setOne')
+    let setTwo = getValues('setTwo')
+    let setTree = getValues('setTree')
+    let setFore = getValues('setFore')
+    let setFive = getValues('setFive')
+
+    if (setOne || setTwo || setTree || setFore || setFive !== '') {
+      pushup.push(data)
+      console.log(pushup)
+      const { uid } = auth.currentUser
+      await addDoc(collection(db, 'pushup'), {
+        sets: pushup,
+
+        uid,
+        timestamp: serverTimestamp(),
+      })
+    }
   }
 
   // get data from firebase
@@ -88,7 +98,7 @@ export const MainContextProvider = ({ children }) => {
       setPushupdata(pushUp)
     })
     return () => unsub()
-  })
+  }, [])
   return (
     <MainContext.Provider
       value={{
@@ -104,6 +114,7 @@ export const MainContextProvider = ({ children }) => {
         handleSubmit,
         register,
         pushupData,
+        getValues,
       }}
     >
       {children}
