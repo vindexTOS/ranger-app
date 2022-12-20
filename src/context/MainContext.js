@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -102,6 +102,30 @@ export const MainContextProvider = ({ children }) => {
   }, [])
 
   // algorithm for push ups //
+  const [userData, setUserData] = useState([])
+  /// form values
+
+  /// async function
+  const userDataSubmit = async (data) => {
+    let user_age = getValues('User_age')
+    let user_gender = getValues('User_gender')
+    let user_smokes = getValues('User_smokes')
+    let kg_lb = getValues('kg_lb')
+    let user_weight = getValues('User_weight')
+    let user_max = parseInt(getValues('User_max'))
+
+    if (user_max > 0) {
+      userData.push(data)
+      const { uid } = auth.currentUser
+
+      await addDoc(collection(db, 'user_data'), {
+        userInfo: userData,
+        timestamp: serverTimestamp(),
+        uid,
+      })
+      // navigate to main page
+    }
+  }
 
   return (
     <MainContext.Provider
@@ -119,6 +143,8 @@ export const MainContextProvider = ({ children }) => {
         register,
         pushupData,
         getValues,
+        userDataSubmit,
+        userData,
       }}
     >
       {children}

@@ -9,22 +9,24 @@ function Entery() {
     weightDiv: `flex flex-row`,
   }
 
-  const { register, pushupData, getValues, handleSubmit } = MainUseContext()
+  const {
+    register,
+    pushupData,
+    getValues,
+    handleSubmit,
+    userDataSubmit,
+    userData,
+  } = MainUseContext()
 
-  const [userData, setUserData] = useState({})
+  /*const pushUps = () => {
+    let pushUp = parseInt(getValues('User_max'))
 
-  const userFormSubmit = (data) => {
-    setUserData(data)
-  }
-
-  const pushUps = () => {
-    let pushUp = getValues('User_max')
-    return pushUp
-  }
+    console.log(pushUp * 0.6)
+  }*/
 
   return (
     <div className={style.mainDiv}>
-      <form onSubmit={handleSubmit(userFormSubmit)} className={style.form}>
+      <form onSubmit={handleSubmit(userDataSubmit)} className={style.form}>
         <div className={style.inputDiv}>
           <label>Age</label>
           <input
