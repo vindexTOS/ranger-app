@@ -22,6 +22,7 @@ const MainContext = createContext()
 export const MainContextProvider = ({ children }) => {
   const watchlistData = collection(db, 'watchlist')
   const navigate = useNavigate()
+  const { handleSubmit, register, getValues } = useForm()
 
   const [user, setUser] = React.useState({})
   // user creation in firebase
@@ -59,7 +60,6 @@ export const MainContextProvider = ({ children }) => {
   }, [])
 
   // push up workout updates
-  const { handleSubmit, register, getValues } = useForm()
   const [pushup, setPushup] = React.useState([])
 
   const handlePushupSubmit = async (data, e) => {
@@ -83,8 +83,9 @@ export const MainContextProvider = ({ children }) => {
       })
     }
   }
+  // testing inputs functionality ////
 
-  // get data from firebase
+  // get data from firebase //
 
   const [pushupData, setPushupdata] = React.useState([])
 
@@ -99,6 +100,9 @@ export const MainContextProvider = ({ children }) => {
     })
     return () => unsub()
   }, [])
+
+  // algorithm for push ups //
+
   return (
     <MainContext.Provider
       value={{

@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import SignIn from './components/log/SignIn'
 import SignUp from './components/log/SignUp'
 import Main from './components/Main'
+import Entery from './components/Entery'
 import { MainContextProvider } from './context/MainContext'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/main" element={<Main />} />
+        <Route path="/test" element={<Entery />} />
       </Routes>
     </MainContextProvider>
   )

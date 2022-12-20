@@ -14,7 +14,7 @@ function SignUp() {
     setError('')
     try {
       await createUser(email, password)
-      navigate('/main')
+      navigate('/test')
     } catch (e) {
       console.log(e.message)
       setError(e.message)
