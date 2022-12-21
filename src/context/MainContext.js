@@ -64,13 +64,11 @@ export const MainContextProvider = ({ children }) => {
 
   const handlePushupSubmit = async (data, e) => {
     e.preventDefault()
-
     let setOne = getValues('setOne')
     let setTwo = getValues('setTwo')
     let setTree = getValues('setTree')
     let setFore = getValues('setFore')
     let setFive = getValues('setFive')
-
     if (setOne || setTwo || setTree || setFore || setFive !== '') {
       pushup.push(data)
       console.log(pushup)
@@ -117,14 +115,57 @@ export const MainContextProvider = ({ children }) => {
     if (user_max > 0) {
       userData.push(data)
       const { uid } = auth.currentUser
-
+      const maxReps = () => {
+        let newData = userData.map((item) => {
+          return item.User_max
+        })
+        return newData
+      }
       await addDoc(collection(db, 'user_data'), {
         userInfo: userData,
+        userMax: maxReps(),
         timestamp: serverTimestamp(),
         uid,
       })
       // navigate to main page
     }
+  }
+  // use effect for max
+
+  const [maxPushup, setMaxpushup] = React.useState([])
+  React.useEffect(() => {
+    const q = query(collection(db, 'user_data'), orderBy('timestamp'))
+
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      let newMax = []
+      querySnapshot.forEach((doc) => {
+        newMax.push({ ...doc.data(), id: doc.id })
+      })
+      setMaxpushup(newMax)
+    })
+
+    return () => unsub()
+  }, [])
+  // push ups suggestions calculator
+  const [suggestions, setSuggestions] = React.useState({
+    set1: '',
+    set2: '',
+    set3: '',
+    set4: '',
+    set5: '',
+  })
+  const pushUpalgo = () => {
+    const { set1, set2, set3, set4, set5 } = suggestions
+    const { sets } = pushupData
+    const newVal = maxPushup.map((item, index) => {
+      if (maxPushup.length - 1 <= index) {
+        let max = parseInt(item.userMax)
+        // this returns 60% of max pushup input
+        let procMax = max * 0.6
+        return set1
+      }
+    })
+    return console.log(pushupData)
   }
 
   return (
@@ -145,6 +186,8 @@ export const MainContextProvider = ({ children }) => {
         getValues,
         userDataSubmit,
         userData,
+        maxPushup,
+        pushUpalgo,
       }}
     >
       {children}
