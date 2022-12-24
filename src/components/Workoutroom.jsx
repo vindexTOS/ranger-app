@@ -14,6 +14,7 @@ function Workoutroom() {
     getValues,
     maxPushup,
     pushUpalgo,
+    suggestions,
   } = MainUseContext()
 
   const [con, setCon] = React.useState(true)
@@ -35,7 +36,8 @@ function Workoutroom() {
     <div className={style.mainDiv}>
       <PrevSets />
       <form onSubmit={handleSubmit(handlePushupSubmit)} className={style.form}>
-        <p>{pushUpalgo()}</p>
+        <p onClick={() => pushUpalgo()}>CLICK ME</p>
+        <h1>{suggestions.set1}</h1>
         <div className={style.inputDiv}>
           {/* single input div //////////////////////////////////////////////// */}
 

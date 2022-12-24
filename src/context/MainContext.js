@@ -146,6 +146,8 @@ export const MainContextProvider = ({ children }) => {
 
     return () => unsub()
   }, [])
+
+  // push up alogithm starts here/////////////////////////////////////////////////////////////
   // push ups suggestions calculator
   const [suggestions, setSuggestions] = React.useState({
     set1: '',
@@ -155,17 +157,40 @@ export const MainContextProvider = ({ children }) => {
     set5: '',
   })
   const pushUpalgo = () => {
+    // set data is stored here
     const { set1, set2, set3, set4, set5 } = suggestions
-    const { sets } = pushupData
+    //first set of the last workout user did from firebase IP
+    const setOneMap = () => {
+      let newVal = pushupData.filter((item, index) => {
+        //filtering and getting last value
+        if (pushupData.length - 1 <= index) {
+          return item
+        }
+      })
+      //mapping the filterd value
+      let setOneMapped = newVal.map((val) => {
+        let newVal = val.sets[0].setOne
+
+        return newVal
+      })
+      let newNum = parseInt(setOneMapped.join())
+
+      return newNum
+    }
+
+    // max
+
     const newVal = maxPushup.map((item, index) => {
       if (maxPushup.length - 1 <= index) {
         let max = parseInt(item.userMax)
         // this returns 60% of max pushup input
         let procMax = max * 0.6
-        return set1
+        if (setOneMap() >= procMax) {
+          setSuggestions({ set1: setOneMap() + 2 })
+        }
       }
     })
-    return console.log(pushupData)
+    return newVal
   }
 
   return (
@@ -188,6 +213,7 @@ export const MainContextProvider = ({ children }) => {
         userData,
         maxPushup,
         pushUpalgo,
+        suggestions,
       }}
     >
       {children}
