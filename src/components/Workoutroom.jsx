@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { MainUseContext } from '../context/MainContext'
 import { AiFillCheckSquare } from 'react-icons/ai'
 import { motion as m } from 'framer-motion'
@@ -14,7 +14,11 @@ function Workoutroom() {
     getValues,
     maxPushup,
     pushUpalgo,
-    suggestions,
+    sug1,
+    sug2,
+    sug3,
+    sug4,
+    sug5,
   } = MainUseContext()
 
   const [con, setCon] = React.useState(true)
@@ -36,8 +40,13 @@ function Workoutroom() {
     <div className={style.mainDiv}>
       <PrevSets />
       <form onSubmit={handleSubmit(handlePushupSubmit)} className={style.form}>
-        <p onClick={() => pushUpalgo()}>CLICK ME</p>
-        <h1>{suggestions.set1}</h1>
+        <div className="flex flex-col">
+          <h1>{sug1}</h1>
+          <h1>{sug2}</h1>
+          <h1>{sug3}</h1>
+          <h1>{sug4}</h1>
+          <h1>{sug5}</h1>
+        </div>
         <div className={style.inputDiv}>
           {/* single input div //////////////////////////////////////////////// */}
 

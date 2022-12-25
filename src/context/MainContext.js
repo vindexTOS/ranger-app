@@ -148,17 +148,16 @@ export const MainContextProvider = ({ children }) => {
   }, [])
 
   // push up alogithm starts here/////////////////////////////////////////////////////////////
+
+  const [sug1, setSug1] = useState(0)
+  const [sug2, setSug2] = useState(0)
+  const [sug3, setSug3] = useState(0)
+  const [sug4, setSug4] = useState(0)
+  const [sug5, setSug5] = useState(0)
   // push ups suggestions calculator
-  const [suggestions, setSuggestions] = React.useState({
-    set1: '',
-    set2: '',
-    set3: '',
-    set4: '',
-    set5: '',
-  })
+
   const pushUpalgo = () => {
     // set data is stored here
-    const { set1, set2, set3, set4, set5 } = suggestions
     //first set of the last workout user did from firebase IP
     const setOneMap = () => {
       let newVal = pushupData.filter((item, index) => {
@@ -178,6 +177,44 @@ export const MainContextProvider = ({ children }) => {
       return newNum
     }
 
+    // setTwo
+
+    const setTwoMap = () => {
+      let newVal = pushupData.filter((item, index) => {
+        if (pushupData.length - 1 <= index) {
+          return item
+        }
+      })
+      // mapping
+
+      let setTwoMapped = newVal.map((val) => {
+        let newVal = val.sets[0].setTwo
+
+        return newVal
+      })
+      let newNum = parseInt(setTwoMapped.join())
+
+      return newNum
+    }
+    // setTree
+
+    const setTreeMap = () => {
+      let newVal = pushupData.filter((item, index) => {
+        if (pushupData.length - 1 <= index) {
+          return item
+        }
+      })
+
+      //mapping
+
+      let setTreeMapped = newVal.map((val) => {
+        let newVal = val.sets[0].setTree
+
+        return newVal
+      })
+      let newNum = parseInt(setTreeMapped.join())
+      return newNum
+    }
     // max
 
     const newVal = maxPushup.map((item, index) => {
@@ -185,13 +222,30 @@ export const MainContextProvider = ({ children }) => {
         let max = parseInt(item.userMax)
         // this returns 60% of max pushup input
         let procMax = max * 0.6
+
+        setSug1(procMax)
+        setSug2(procMax - 2)
+        setSug3(procMax - 4)
+        setSug4(procMax - 5)
+        setSug5(procMax - 6)
+
         if (setOneMap() >= procMax) {
-          setSuggestions({ set1: setOneMap() + 2 })
+          setSug1(setOneMap() + 2)
+        }
+        if (setTwoMap() >= procMax) {
+          setSug2(setTwoMap() + 2)
+        }
+        if (setTreeMap() >= procMax) {
+          setSug3(setTreeMap() + 1)
         }
       }
     })
+    console.log('n')
     return newVal
   }
+  React.useEffect(() => {
+    pushUpalgo()
+  }, [pushupData])
 
   return (
     <MainContext.Provider
@@ -210,10 +264,15 @@ export const MainContextProvider = ({ children }) => {
         pushupData,
         getValues,
         userDataSubmit,
+        pushUpalgo,
         userData,
         maxPushup,
-        pushUpalgo,
-        suggestions,
+
+        sug1,
+        sug2,
+        sug3,
+        sug4,
+        sug5,
       }}
     >
       {children}
