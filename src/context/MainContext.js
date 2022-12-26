@@ -215,7 +215,45 @@ export const MainContextProvider = ({ children }) => {
       let newNum = parseInt(setTreeMapped.join())
       return newNum
     }
-    // max
+    // set  four mapping
+
+    const setFourMap = () => {
+      let newVal = pushupData.filter((item, index) => {
+        if (pushupData.length - 1 <= index) {
+          return item
+        }
+      })
+
+      //mapping
+
+      let setFourMapped = newVal.map((val) => {
+        let newVal = val.sets[0].setFore
+
+        return newVal
+      })
+      let newNum = parseInt(setFourMapped.join())
+      return newNum
+    }
+
+    // set four ends here
+    /// set five start
+    const setFiveMap = () => {
+      let newVal = pushupData.filter((item, index) => {
+        if (pushupData.length - 1 <= index) {
+          return item
+        }
+      })
+
+      //mapping
+
+      let setFiveMapped = newVal.map((val) => {
+        let newVal = val.sets[0].setFive
+
+        return newVal
+      })
+      let newNum = parseInt(setFiveMapped.join())
+      return newNum
+    }
 
     const newVal = maxPushup.map((item, index) => {
       if (maxPushup.length - 1 <= index) {
@@ -228,15 +266,72 @@ export const MainContextProvider = ({ children }) => {
         setSug3(procMax - 4)
         setSug4(procMax - 5)
         setSug5(procMax - 6)
-
+        // set one
         if (setOneMap() >= procMax) {
+          setSug1(setOneMap() + 1)
+        }
+        if (setOneMap() >= procMax + 2) {
           setSug1(setOneMap() + 2)
         }
-        if (setTwoMap() >= procMax) {
+        if (setOneMap() >= procMax + 4) {
+          setSug1(setOneMap() + 3)
+        }
+        if (setOneMap() < procMax) {
+          setSug1(procMax - 1)
+        }
+
+        // set two
+        if (setTwoMap() >= sug2) {
+          setSug2(setTwoMap() + 1)
+        }
+        if (setTwoMap() >= sug2 + 2) {
           setSug2(setTwoMap() + 2)
         }
-        if (setTreeMap() >= procMax) {
+        if (setTwoMap() >= sug2 + 4) {
+          setSug2(setTwoMap() + 3)
+        }
+        if (setTwoMap() < sug2) {
+          setSug2(sug2 - 1)
+        }
+        // set three
+
+        if (setTreeMap() >= sug3) {
           setSug3(setTreeMap() + 1)
+        }
+        if (setTreeMap() >= sug3 + 2) {
+          setSug3(setTreeMap() + 2)
+        }
+        if (setTreeMap() >= sug3 + 4) {
+          setSug3(setTreeMap() + 3)
+        }
+        if (setTreeMap() < sug3) {
+          setSug3(sug3 - 1)
+        }
+        // set four
+        if (setFourMap() >= sug4) {
+          setSug4(setFourMap() + 2)
+        }
+        if (setFourMap() >= sug4 + 2) {
+          setSug4(setFourMap() + 2)
+        }
+        if (setFourMap() >= sug4 + 4) {
+          setSug4(setFourMap() + 3)
+        }
+        if (setFourMap() < sug4) {
+          setSug4(sug4 - 1)
+        }
+        // set five
+        if (setFiveMap() >= sug5) {
+          setSug5(setFiveMap() + 2)
+        }
+        if (setFiveMap() >= sug5 + 2) {
+          setSug5(setFiveMap() + 2)
+        }
+        if (setFiveMap() >= sug5 + 4) {
+          setSug5(setFiveMap() + 3)
+        }
+        if (setFiveMap() < sug5) {
+          setSug5(sug5 - 1)
         }
       }
     })
