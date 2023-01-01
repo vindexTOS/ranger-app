@@ -12,6 +12,7 @@ import {
   addDoc,
   onSnapshot,
   query,
+  where,
   orderBy,
 } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
@@ -94,10 +95,41 @@ export const MainContextProvider = ({ children }) => {
       querySnapshot.forEach((doc) => {
         pushUp.push({ ...doc.data(), id: doc.id })
       })
-      setPushupdata(pushUp)
+      console.log(pushUp)
+      let userUid = pushUp
+        .filter((item, index) => {
+          if (user.uid === item.uid) {
+            return item.uid
+          }
+        })
+        .map((item, index) => {
+          const { uid } = item
+          return uid
+        })
+
+      let lastUserUid = userUid
+        .filter((item, index) => {
+          if (userUid.length - 1 <= index) {
+            return item
+          }
+        })
+        .join('')
+      console.log(user.uid)
+      console.log(lastUserUid)
+      if (lastUserUid == user.uid) {
+        setPushupdata(pushUp)
+      }
     })
     return () => unsub()
-  }, [])
+  }, [user])
+  // specifice user pushup Uid finder ////////
+  let pushupUid = pushupData.filter((val) => {
+    if (user !== null) {
+      if (user.uid == val.uid) {
+        return val
+      }
+    }
+  })
 
   // algorithm for push ups //
   const [userData, setUserData] = useState([])
@@ -128,12 +160,14 @@ export const MainContextProvider = ({ children }) => {
         uid,
       })
       // navigate to main page
+      navigate('/main')
     }
   }
   // use effect for max
 
   const [maxPushup, setMaxpushup] = React.useState([])
   React.useEffect(() => {
+    if (user == null) return
     const q = query(collection(db, 'user_data'), orderBy('timestamp'))
 
     const unsub = onSnapshot(q, (querySnapshot) => {
@@ -145,7 +179,7 @@ export const MainContextProvider = ({ children }) => {
     })
 
     return () => unsub()
-  }, [])
+  }, [user])
 
   // push up alogithm starts here/////////////////////////////////////////////////////////////
 
@@ -155,14 +189,21 @@ export const MainContextProvider = ({ children }) => {
   const [sug4, setSug4] = useState(0)
   const [sug5, setSug5] = useState(0)
   // push ups suggestions calculator
-
+  // finding speficie user max when sighn in
+  let maxUid = maxPushup.filter((val) => {
+    if (user !== null) {
+      if (user.uid == val.uid) {
+        return val
+      }
+    }
+  })
   const pushUpalgo = () => {
     // set data is stored here
     //first set of the last workout user did from firebase IP
     const setOneMap = () => {
-      let newVal = pushupData.filter((item, index) => {
+      let newVal = pushupUid.filter((item, index) => {
         //filtering and getting last value
-        if (pushupData.length - 1 <= index) {
+        if (pushupUid.length - 1 <= index) {
           return item
         }
       })
@@ -180,8 +221,8 @@ export const MainContextProvider = ({ children }) => {
     // setTwo
 
     const setTwoMap = () => {
-      let newVal = pushupData.filter((item, index) => {
-        if (pushupData.length - 1 <= index) {
+      let newVal = pushupUid.filter((item, index) => {
+        if (pushupUid.length - 1 <= index) {
           return item
         }
       })
@@ -199,8 +240,8 @@ export const MainContextProvider = ({ children }) => {
     // setTree
 
     const setTreeMap = () => {
-      let newVal = pushupData.filter((item, index) => {
-        if (pushupData.length - 1 <= index) {
+      let newVal = pushupUid.filter((item, index) => {
+        if (pushupUid.length - 1 <= index) {
           return item
         }
       })
@@ -218,8 +259,8 @@ export const MainContextProvider = ({ children }) => {
     // set  four mapping
 
     const setFourMap = () => {
-      let newVal = pushupData.filter((item, index) => {
-        if (pushupData.length - 1 <= index) {
+      let newVal = pushupUid.filter((item, index) => {
+        if (pushupUid.length - 1 <= index) {
           return item
         }
       })
@@ -238,8 +279,8 @@ export const MainContextProvider = ({ children }) => {
     // set four ends here
     /// set five start
     const setFiveMap = () => {
-      let newVal = pushupData.filter((item, index) => {
-        if (pushupData.length - 1 <= index) {
+      let newVal = pushupUid.filter((item, index) => {
+        if (pushupUid.length - 1 <= index) {
           return item
         }
       })
@@ -255,12 +296,11 @@ export const MainContextProvider = ({ children }) => {
       return newNum
     }
 
-    const newVal = maxPushup.map((item, index) => {
-      if (maxPushup.length - 1 <= index) {
+    const newVal = maxUid.map((item, index) => {
+      if (maxUid.length - 1 <= index) {
         let max = parseInt(item.userMax)
         // this returns 60% of max pushup input
         let procMax = max * 0.6
-
         setSug1(procMax)
         setSug2(procMax - 2)
         setSug3(procMax - 4)
@@ -327,7 +367,7 @@ export const MainContextProvider = ({ children }) => {
         if (setFiveMap() >= sug5 + 2) {
           setSug5(setFiveMap() + 2)
         }
-        if (setFiveMap() >= sug5 + 4) {
+        if (setFiveMap() >= sug5 + 3) {
           setSug5(setFiveMap() + 3)
         }
         if (setFiveMap() < sug5) {
@@ -335,12 +375,12 @@ export const MainContextProvider = ({ children }) => {
         }
       }
     })
-    console.log('n')
+    console.log(maxPushup)
     return newVal
   }
   React.useEffect(() => {
     pushUpalgo()
-  }, [pushupData])
+  }, [maxPushup])
 
   return (
     <MainContext.Provider
@@ -362,7 +402,7 @@ export const MainContextProvider = ({ children }) => {
         pushUpalgo,
         userData,
         maxPushup,
-
+        pushupUid,
         sug1,
         sug2,
         sug3,

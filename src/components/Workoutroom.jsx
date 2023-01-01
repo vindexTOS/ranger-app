@@ -7,10 +7,11 @@ function Workoutroom() {
   const {
     pushup,
     setPushup,
+    pushupData,
     handlePushupSubmit,
     handleSubmit,
     register,
-
+    user,
     getValues,
     maxPushup,
     pushUpalgo,
@@ -40,6 +41,7 @@ function Workoutroom() {
     <div className={style.mainDiv}>
       <PrevSets />
       <form onSubmit={handleSubmit(handlePushupSubmit)} className={style.form}>
+        <button onClick={() => console.log(maxPushup)}>CLIC CLICK</button>
         <div className="flex flex-col">
           <h1>{sug1}</h1>
           <h1>{sug2}</h1>

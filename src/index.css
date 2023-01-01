@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.signin {
+  background-color: #54bff5;
+  background-image: linear-gradient(160deg, #54bff5 0%, #34ffc5 100%);
+}
+.form {
+  background-color: #ffffff;
+  background-image: linear-gradient(45deg, #ffffff 0%, #daf9f9 100%);
+
+  box-shadow: 3px 4px 7px 2px rgba(0, 0, 0, 0.56);
+  -webkit-box-shadow: 3px 4px 7px 2px rgba(0, 0, 0, 0.56);
+  -moz-box-shadow: 3px 4px 7px 2px rgba(0, 0, 0, 0.56);
+}
+.form input {
+  background-color: transparent;
+  outline: none;
+}
+
+.form button {
+  box-shadow: 4px 4px 7px -2px rgba(0, 0, 0, 0.56);
+  -webkit-box-shadow: 4px 4px 7px -2px rgba(0, 0, 0, 0.56);
+  -moz-box-shadow: 4px 4px 7px -2px rgba(0, 0, 0, 0.56);
+}

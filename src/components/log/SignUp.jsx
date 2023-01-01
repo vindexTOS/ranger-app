@@ -26,12 +26,12 @@ function SignUp() {
         <h1>Sign up to Ranger Training Course</h1>{' '}
       </div>
       <form className="flex flex-col gap-5" onSubmit={handleSubmitUp}>
-        <div className="flex flex-col">
+        <div className="flex flex-col ">
           <label>Email</label>
           <input
             onChange={(e) => setEmail(e.target.value)}
             type="email"
-            className="border py-2"
+            className="border py-2  "
           />
         </div>
         <div className="flex flex-col">
