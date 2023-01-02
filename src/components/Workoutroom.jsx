@@ -29,8 +29,8 @@ function Workoutroom() {
   const [con4, setCon4] = React.useState(true)
 
   const style = {
-    mainDiv: `flex flex-col gap-4`,
-    form: `flex items-center justify-center `,
+    mainDiv: ` w-[100%] flex flex-col  items-center gap-4`,
+    form: `flex items-center justify-center w-[50%] h-[500px] bg-white`,
 
     input: `bg-blue-500 w-[9rem] h-[2rem] text-black`,
     inputDiv: `flex flex-col gap-2`,
@@ -41,7 +41,6 @@ function Workoutroom() {
     <div className={style.mainDiv}>
       <PrevSets />
       <form onSubmit={handleSubmit(handlePushupSubmit)} className={style.form}>
-        <button onClick={() => console.log(maxPushup)}>CLIC CLICK</button>
         <div className="flex flex-col">
           <h1>{sug1}</h1>
           <h1>{sug2}</h1>

@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import { MainUseContext } from '../context/MainContext'
+import { BsGenderAmbiguous } from 'react-icons/bs'
+import { GiCigarette, GiWeightScale } from 'react-icons/gi'
+import { motion as m } from 'framer-motion'
 function Entery() {
   const style = {
-    mainDiv: ` w-[100vw] h-[100vh] flex items-center justify-center `,
-    form: `flex flex-col gap-5`,
-    input: `outline`,
-    inputDiv: `flex flex-col gap-2`,
+    mainDiv: ` enterydiv w-[100%] h-[100vh] flex items-center justify-center `,
+    form: `enteryform w-[50%] h-[500px] rounded-[8px] flex flex-col gap-4   justify-center  p-10  about-div max_sm:mt-5 max_sm:h-[80%] max_sm:w-[90%] max_lg:w-[60%] max_lg:h-[80%]`,
+    input: `outline entery-input`,
+    inputDiv: `flex flex-col  gap-3 border-b-2`,
     weightDiv: `flex flex-row`,
+    label: `flex flex-row items-center   gap-2`,
+    button: `border  hover:bg-blue-500 mt-5 h-[3rem] text-white rounded-[15px] w-[50%] flex  items-center justify-center gap-2`,
   }
 
   const {
@@ -28,22 +33,28 @@ function Entery() {
     <div className={style.mainDiv}>
       <form onSubmit={handleSubmit(userDataSubmit)} className={style.form}>
         <div className={style.inputDiv}>
-          <label>Age</label>
           <input
             {...register('User_age')}
             type="number"
+            placeholder="Age"
             className={style.input}
           />
         </div>
         <div className={style.inputDiv}>
-          <label>Gender</label>
-          <select {...register('User_gender')} className={style.input}>
-            <option>Male</option>
-            <option>Female</option>
+          <label className={`${style.label} text-[#54bff5]`}>
+            {' '}
+            <BsGenderAmbiguous className="text-pink-400" /> Gender
+          </label>
+          <select {...register('User_gender')} className={`${style.input} `}>
+            <option className="text-[#54bff5]">Male</option>
+            <option className="text-pink-600">Female</option>
           </select>
         </div>
         <div className={style.inputDiv}>
-          <label>Are you an somker ?</label>
+          <label className={`${style.label} text-[#54bff5]`}>
+            <GiCigarette className="text-yellow-500" />
+            Do you smoke ?
+          </label>
           <select {...register('User_smokes')} className={style.input}>
             <option>Yes</option>
             <option>Passive</option>
@@ -51,9 +62,13 @@ function Entery() {
           </select>
         </div>
         <div className={style.inputDiv}>
+          <label className={`${style.label} text-[#54bff5]`}>
+            <GiWeightScale className="text-blue-600" />
+            Your weight
+          </label>
           <div className={style.weightDiv}>
             {' '}
-            <select {...register('kg_lb')} className="outline">
+            <select {...register('kg_lb')}>
               <option>Kg</option>
               <option>Lb</option>
             </select>
@@ -61,7 +76,7 @@ function Entery() {
           </div>
         </div>
         <div className={style.inputDiv}>
-          <label>
+          <label className="text-[#54bff5]">
             How many push ups can you do on one set ? Do them now and input your
             data
           </label>
@@ -72,9 +87,21 @@ function Entery() {
             placeholder="Max Push Ups"
           />
         </div>
-        <button type="submit" onClick={() => console.log(userData)}>
-          SUbmit
-        </button>
+        <div className="w-[100%] flex items-center justify-center">
+          <m.button
+            type="submit"
+            onClick={() => console.log(userData)}
+            className={style.button}
+            style={{
+              background: 'linear-gradient(160deg, #54bff5 0%, #34ffc5 100%)',
+            }}
+            whileHover={{
+              background: 'linear-gradient(160deg, #34ffc5 0%,  #54bff5 100%)',
+            }}
+          >
+            Submit
+          </m.button>
+        </div>
       </form>
     </div>
   )
