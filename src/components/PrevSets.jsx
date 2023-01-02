@@ -13,7 +13,7 @@ function PrevSets(props) {
   return (
     <div className={style.prevDiv}>
       {' '}
-      <h1>previous day's workout {convertDate(timestamp)}</h1>
+      <h1>previous day's workout {timestamp}</h1>
       <div className={style.mainDiv}>
         <div className={style.prevPush}>
           {pushupUid.map((item, index) => {

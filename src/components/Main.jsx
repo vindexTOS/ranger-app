@@ -17,6 +17,7 @@ function Main() {
 
       <div className={style.workDiv}>
         <Workoutroom />
+        {Date()}
         <History />
       </div>
     </div>

@@ -15,6 +15,7 @@ import {
   where,
   orderBy,
 } from 'firebase/firestore'
+
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
@@ -76,7 +77,7 @@ export const MainContextProvider = ({ children }) => {
       const { uid } = auth.currentUser
       await addDoc(collection(db, 'pushup'), {
         sets: pushup,
-
+        time: Date(),
         uid,
         timestamp: serverTimestamp(),
       })
@@ -392,9 +393,7 @@ export const MainContextProvider = ({ children }) => {
         }
       })
       .map((val) => {
-        if (pushupData !== null) {
-          return val.timestamp.seconds
-        }
+        return val.time
       })
       .join('')
     setTimeStamp(newTime)

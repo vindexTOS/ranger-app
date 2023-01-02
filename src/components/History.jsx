@@ -27,20 +27,22 @@ function History() {
       </div>
       <div className={style.outsideMapdiv}>
         {pushupUid.map((val, index) => {
-          return (
-            <div key={index} className={style.mapDiv}>
-              <div className={style.timeDiv}>
-                <h1> {convertDate(val.timestamp.seconds)}</h1>
+          if (pushupUid) {
+            return (
+              <div key={index} className={style.mapDiv}>
+                <div className={style.timeDiv}>
+                  <h1> {val.time}</h1>
+                </div>
+                <div className={style.setDiv}>
+                  <h1 className={style.setHeader}>{val.sets[0].setOne}</h1>
+                  <h1 className={style.setHeader}>{val.sets[0].setTwo}</h1>
+                  <h1 className={style.setHeader}>{val.sets[0].setTree}</h1>
+                  <h1 className={style.setHeader}>{val.sets[0].setFore}</h1>
+                  <h1 className={style.setHeader}>{val.sets[0].setFive}</h1>
+                </div>
               </div>
-              <div className={style.setDiv}>
-                <h1 className={style.setHeader}>{val.sets[0].setOne}</h1>
-                <h1 className={style.setHeader}>{val.sets[0].setTwo}</h1>
-                <h1 className={style.setHeader}>{val.sets[0].setTree}</h1>
-                <h1 className={style.setHeader}>{val.sets[0].setFore}</h1>
-                <h1 className={style.setHeader}>{val.sets[0].setFive}</h1>
-              </div>
-            </div>
-          )
+            )
+          }
         })}
       </div>
     </div>
