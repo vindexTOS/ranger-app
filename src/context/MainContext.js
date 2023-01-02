@@ -381,6 +381,36 @@ export const MainContextProvider = ({ children }) => {
   React.useEffect(() => {
     pushUpalgo()
   }, [maxPushup])
+  // getting date from firebase date function
+  const [timestamp, setTimeStamp] = useState(null)
+  const [allTimestamp, setAllTimeStamp] = useState(null)
+  React.useEffect(() => {
+    let newTime = pushupUid
+      .filter((val, index) => {
+        if (pushupUid.length - 1 <= index) {
+          return val
+        }
+      })
+      .map((val) => {
+        if (pushupData !== null) {
+          return val.timestamp.seconds
+        }
+      })
+      .join('')
+    setTimeStamp(newTime)
+  }, [pushupData])
+
+  const convertDate = (time) => {
+    //time should be server timestamp seconds only
+
+    let dateInMillis = time * 1000
+    let date = new Date(dateInMillis)
+    let myDate = date.toLocaleDateString()
+    let myTime = date.toLocaleTimeString()
+    myDate = myDate.replaceAll('/', '-')
+    console.log('time time')
+    return myDate + ' ' + myTime
+  }
 
   return (
     <MainContext.Provider
@@ -408,6 +438,9 @@ export const MainContextProvider = ({ children }) => {
         sug3,
         sug4,
         sug5,
+        timestamp,
+        convertDate,
+        allTimestamp,
       }}
     >
       {children}
