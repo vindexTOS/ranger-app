@@ -384,7 +384,6 @@ export const MainContextProvider = ({ children }) => {
   }, [maxPushup])
   // getting date from firebase date function
   const [timestamp, setTimeStamp] = useState(null)
-  const [allTimestamp, setAllTimeStamp] = useState(null)
   React.useEffect(() => {
     let newTime = pushupUid
       .filter((val, index) => {
@@ -396,20 +395,56 @@ export const MainContextProvider = ({ children }) => {
         return val.time
       })
       .join('')
+      .slice(0, 24)
     setTimeStamp(newTime)
   }, [pushupData])
 
-  const convertDate = (time) => {
-    //time should be server timestamp seconds only
+  /// quote api and random quote generator
+  const [quote, setQuote] = useState([])
+  let qouteUrl = `https://type.fit/api/quotes`
+  const [randomQuote, setRandomQuote] = useState(null)
 
-    let dateInMillis = time * 1000
-    let date = new Date(dateInMillis)
-    let myDate = date.toLocaleDateString()
-    let myTime = date.toLocaleTimeString()
-    myDate = myDate.replaceAll('/', '-')
-    console.log('time time')
-    return myDate + ' ' + myTime
-  }
+  React.useEffect(() => {
+    fetch(qouteUrl)
+      .then(function (response) {
+        return response.json()
+      })
+      .then(function (data) {
+        setQuote(data)
+        console.log(quote)
+      })
+    let topArry = quote.map((val) => {
+      return val.text
+    })
+
+    let randomizer = Math.floor(Math.random() * topArry.length)
+
+    let newRandom = topArry[randomizer]
+    setRandomQuote(newRandom)
+  }, [user])
+
+  // stats functions
+  const [pushupStats, setpushupStats] = useState(null)
+
+  React.useEffect(() => {
+    const statsFunction = () => {
+      let newMap = pushupUid.map((val) => {
+        let setOne = Number(val.sets[0].setOne)
+        let setTwo = Number(val.sets[0].setTwo)
+        let setThree = Number(val.sets[0].setTree)
+        let setFore = Number(val.sets[0].setFore)
+        let setFive = Number(val.sets[0].setFive)
+        let num = null
+
+        for (let i = 0; i < val.sets.length; i++) {
+          num = setOne + setTwo + setThree + setFore + setFive
+        }
+        return num
+      })
+      setpushupStats(newMap)
+    }
+    statsFunction()
+  }, [pushupData])
 
   return (
     <MainContext.Provider
@@ -431,6 +466,7 @@ export const MainContextProvider = ({ children }) => {
         pushUpalgo,
         userData,
         maxPushup,
+        maxUid,
         pushupUid,
         sug1,
         sug2,
@@ -438,8 +474,9 @@ export const MainContextProvider = ({ children }) => {
         sug4,
         sug5,
         timestamp,
-        convertDate,
-        allTimestamp,
+        randomQuote,
+        quote,
+        pushupStats,
       }}
     >
       {children}

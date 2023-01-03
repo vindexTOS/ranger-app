@@ -4,12 +4,13 @@ function History() {
   const { pushupUid, convertDate } = MainUseContext()
 
   const style = {
+    mainDiv: ` btnshaddow w-[350px] h-[300px]  bg-white     rounded-[12px] pb-5`,
+
     mapDiv: `flex flex-row gap-5 mt-2  ml-[5px]`,
     outsideMapdiv: `overflow-y-scroll scroll h-[200px]  pb-2`,
     timeDiv: `btnshaddow flex items-center justify-center text-blue-500 font-bold bg-[#ffd31d] overflow-hidden text-[12px] h-[1.6rem] w-[40%] rounded-[8px]`,
     setDiv: `flex gap-2 flex-row `,
     setHeader: `bg-blue-300 w-[1.7rem] text-center rounded-[50%] text-white btnshaddow`,
-    mainDiv: ` btnshaddow w-[450px] h-[300px]  bg-white mr-10 mb-[25rem] rounded-[12px] pb-5`,
     headerDiv: `w-[100%] flex items-center justify-center `,
     header: `btnshaddow w-[60%] h-[2rem] flex items-center justify-center text-center bg-[#ffa700] mt-[5px] font-bold text-white rounded-[15px]`,
     titlesDiv: `w-[100%] flex justify-between mt-5 mb-5 `,
@@ -27,11 +28,13 @@ function History() {
       </div>
       <div className={style.outsideMapdiv}>
         {pushupUid.map((val, index) => {
+          let newDate = ''
           if (pushupUid) {
+            newDate = val.time
             return (
               <div key={index} className={style.mapDiv}>
                 <div className={style.timeDiv}>
-                  <h1> {val.time}</h1>
+                  <h1> {newDate.slice(4, 16)}</h1>
                 </div>
                 <div className={style.setDiv}>
                   <h1 className={style.setHeader}>{val.sets[0].setOne}</h1>
