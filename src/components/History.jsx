@@ -4,7 +4,7 @@ function History() {
   const { pushupUid, convertDate } = MainUseContext()
 
   const style = {
-    mainDiv: ` btnshaddow w-[350px] h-[300px]  bg-white     rounded-[12px] pb-5`,
+    mainDiv: ` btnshaddow  w-[350px]     h-[300px]  bg-white  rounded-[12px] pb-5 max_xl:ml-10`,
 
     mapDiv: `flex flex-row gap-5 mt-2  ml-[5px]`,
     outsideMapdiv: `overflow-y-scroll scroll h-[200px]  pb-2`,

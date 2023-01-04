@@ -6,6 +6,12 @@ body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
+  background-color: #54bff5;
+  background-image: linear-gradient(160deg, #54bff5 0%, #34ffc5 100%);
+}
+.stats-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(19rem, 20rem));
 }
 .signin {
   background-color: #54bff5;

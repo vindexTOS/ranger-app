@@ -30,7 +30,7 @@ function Workoutroom() {
 
   const style = {
     mainDiv: ` w-[100%]   flex flex-col mb-10    items-center gap-10`,
-    form: `btnshaddow roomform flex items-center justify-center   w-[100%] max_md:w-[90%]  h-[500px] bg-white rounded-[8px]`,
+    form: `btnshaddow roomform flex items-center justify-center   w-[100%]  max_lg:w-[80%] max_md:w-[70%]  h-[500px] bg-white rounded-[8px]`,
     sugheader: `w-[4rem] h-[4rem] text-[2rem] max_md:w-[2.5rem] max_md:h-[1.9rem]   text-center flex justify-center items-center text-white font-bold bg-yellow-500`,
     input: `bg-[#ffd31d]  w-[9rem] h-[4rem] max_md:h-[2rem] text-[3rem]  text-[#54bff5] flex items-center justify-center`,
     inputDiv: `flex flex-col gap-2 mt-10`,

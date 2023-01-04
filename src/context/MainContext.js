@@ -446,6 +446,50 @@ export const MainContextProvider = ({ children }) => {
     statsFunction()
   }, [pushupData])
 
+  // statistics logic
+  const [totalPushups, setTotalpushups] = React.useState(null)
+
+  let workoutmax = 0
+  pushupUid.map((val) => {
+    let setOne = Number(val.sets[0].setOne)
+    let setTwo = Number(val.sets[0].setTwo)
+    let setThree = Number(val.sets[0].setTree)
+    let setFore = Number(val.sets[0].setFore)
+    let setFive = Number(val.sets[0].setFive)
+
+    if (workoutmax < setOne) {
+      workoutmax = setOne
+    }
+    if (workoutmax < setTwo) {
+      workoutmax = setTwo
+    }
+    if (workoutmax < setThree) {
+      workoutmax = setThree
+    }
+    if (workoutmax < setFore) {
+      workoutmax = setFore
+    }
+    if (workoutmax < setFive) {
+      workoutmax = setFive
+    }
+  })
+  const [testedMax, settestedMax] = React.useState(null)
+  setTimeout(() => {
+    if (maxUid[0].userMax !== undefined) {
+      settestedMax(maxUid[0].userMax.join(''))
+    }
+  }, 10000)
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      let pushupStatReducer = pushupStats.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        0,
+      )
+      setTotalpushups(pushupStatReducer)
+    }, 2000)
+  }, [pushupStats])
+
   return (
     <MainContext.Provider
       value={{
@@ -477,6 +521,9 @@ export const MainContextProvider = ({ children }) => {
         randomQuote,
         quote,
         pushupStats,
+        totalPushups,
+        testedMax,
+        workoutmax,
       }}
     >
       {children}

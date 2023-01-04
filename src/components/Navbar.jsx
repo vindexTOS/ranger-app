@@ -10,8 +10,16 @@ function Navbar() {
   const style = {
     nav: ` flex flex-col w-[100%] h-[60px] nav	`,
     navdiv: `flex flex-row mt-3 gap-5 items-center justify-end w-[95%]`,
-    button: `btnshaddow flex w-[70px] bg-[#ffd31d] items-center justify-center rounded-[8px] text-center`,
-    header: ` btnshaddow w-[190px] h-[30px] bg-white rounded-[8px] flex  items-center  gap-5`,
+    button: `${
+      user == null
+        ? 'hidden'
+        : 'btnshaddow flex w-[70px] bg-[#ffd31d] items-center justify-center rounded-[8px] text-center'
+    }`,
+    header: `${
+      user == null
+        ? 'hidden'
+        : 'btnshaddow w-[190px] h-[30px] bg-white rounded-[8px] flex  items-center  gap-5'
+    } `,
     p: `text-[0.8rem]`,
   }
   return (
@@ -19,7 +27,7 @@ function Navbar() {
       <div className={style.navdiv}>
         <m.h1 initial={{ y: -300 }} animate={{ y: 0 }} className={style.header}>
           <AiOutlineUser className="ml-2 text-green-400" />
-          <p className={style.p}>{user.email}</p>
+          <p className={style.p}>{user !== null ? user.email : 'User'}</p>
         </m.h1>
         <m.button
           className={style.button}

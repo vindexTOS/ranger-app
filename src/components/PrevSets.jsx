@@ -7,7 +7,7 @@ function PrevSets(props) {
     prevPush: `bg-[#54bff5] rounded-[12px] h-[5rem] w-[6rem] flex items-center justify-center`,
     mainDiv: `flex gap-2`,
     sets: `text-[3rem] text-white`,
-    prevDiv: `w-[100%] h-[10rem] btnshaddow rounded-[12px] bg-white flex flex-col gap-2 items-center justify-center `,
+    prevDiv: `w-[100%] h-[10rem] btnshaddow rounded-[12px] bg-white flex flex-col gap-2 items-center justify-center  max_lg:w-[80%] max_md:w-[70%]`,
   }
 
   return (
