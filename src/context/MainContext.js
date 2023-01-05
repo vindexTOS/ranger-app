@@ -381,7 +381,7 @@ export const MainContextProvider = ({ children }) => {
   }
   React.useEffect(() => {
     pushUpalgo()
-  }, [maxPushup])
+  }, [maxPushup, pushupData])
   // getting date from firebase date function
   const [timestamp, setTimeStamp] = useState(null)
   React.useEffect(() => {
@@ -473,6 +473,7 @@ export const MainContextProvider = ({ children }) => {
       workoutmax = setFive
     }
   })
+
   const [testedMax, settestedMax] = React.useState(null)
   setTimeout(() => {
     if (maxUid[0].userMax !== undefined) {

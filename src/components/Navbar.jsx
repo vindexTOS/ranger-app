@@ -4,6 +4,7 @@ import { motion as m } from 'framer-motion'
 import { MainUseContext } from '../context/MainContext'
 import { IoMdLogOut } from 'react-icons/io'
 import { AiOutlineUser } from 'react-icons/ai'
+import { Link } from 'react-router-dom'
 
 function Navbar() {
   const { user, handleLogOut } = MainUseContext()
@@ -42,6 +43,9 @@ function Navbar() {
         >
           <IoMdLogOut /> <span className="mb-[2px]">log out</span>
         </m.button>
+      </div>
+      <div>
+        <Link to="/main">Main</Link>
       </div>
     </nav>
   )
