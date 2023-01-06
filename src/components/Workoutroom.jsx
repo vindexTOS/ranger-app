@@ -29,14 +29,14 @@ function Workoutroom() {
   const [con4, setCon4] = React.useState(true)
 
   const style = {
-    mainDiv: ` w-[100%]   flex flex-col mb-10    items-center gap-10`,
-    form: `btnshaddow roomform flex items-center justify-center   w-[100%]  max_lg:w-[80%] max_md:w-[70%]  h-[500px] bg-white rounded-[8px]`,
-    sugheader: `w-[4rem] h-[4rem] text-[2rem] max_md:w-[2.5rem] max_md:h-[1.9rem]   text-center flex justify-center items-center text-white font-bold bg-yellow-500`,
-    input: `bg-[#ffd31d]  w-[9rem] h-[4rem] max_md:h-[2rem] text-[3rem]  text-[#54bff5] flex items-center justify-center`,
-    inputDiv: `flex flex-col gap-2 mt-10`,
-    singleInput: ` flex flex-row items-center justify-center gap-2`,
-    spanP: `text-white flex items-center  text-center mb-[5px]`,
-    button: `btnshaddow mt-5 font-bold flex w-[14rem] h-[3rem] max_md:w-[9rem] max_md:h-[2rem]  items-center justify-center rounded-[12px] text-center text-white`,
+    mainDiv: ` w-[100%]    flex flex-col mb-[3.5rem] gap-10   items-center `,
+    form: `  roomform flex items-center justify-center   w-[100%]  max_lg:w-[80%] max_md:w-[70%]  h-[500px]  rounded-[8px]`,
+    sugheader: `w-[4rem] h-[4rem] text-[2rem] max_md:w-[2.5rem] max_md:h-[1.9rem]   text-center flex justify-center items-center text-gray-400 font-bold `,
+    input: ` pushup-input text-center  w-[9rem] h-[4rem] max_md:h-[2rem] text-[3rem] border-b-2  text-orange-600 flex items-center justify-center`,
+    inputDiv: `flex flex-col gap-2 mt-10 border-b-2`,
+    singleInput: ` flex flex-row items-center justify-center gap-10`,
+    spanP: `text-gray-400 flex items-center  rounded-[12px] text-center mb-[5px]`,
+    button: ` border-l-2 border-b-2 rounded-l-[40px] mt-5 font-bold flex w-[14rem] h-[3rem] max_md:w-[9rem] max_md:h-[2rem]  items-center justify-center rounded-[12px] text-center text-black`,
   }
 
   return (
@@ -52,11 +52,14 @@ function Workoutroom() {
             {con ? (
               <input
                 type="number"
+                placeholder="0"
                 {...register('setOne')}
                 className={style.input}
               />
             ) : (
-              <span className={`${style.input}  bg-blue-300 `}>
+              <span
+                className={`${style.input}   bg-yellow-100 rounded-[12px] `}
+              >
                 <p className={style.spanP}>{getValues('setOne')}</p>
               </span>
             )}
@@ -77,11 +80,12 @@ function Workoutroom() {
             {con1 ? (
               <input
                 type="number"
+                placeholder="0"
                 {...register('setTwo')}
                 className={style.input}
               />
             ) : (
-              <span className={`${style.input} bg-blue-300`}>
+              <span className={`${style.input}  bg-yellow-100 rounded-[12px]`}>
                 <p className={style.spanP}> {getValues('setTwo')} </p>
               </span>
             )}
@@ -103,11 +107,12 @@ function Workoutroom() {
             {con2 ? (
               <input
                 type="number"
+                placeholder="0"
                 {...register('setTree')}
                 className={style.input}
               />
             ) : (
-              <span className={`${style.input} bg-blue-300`}>
+              <span className={`${style.input}  bg-yellow-100 rounded-[12px]`}>
                 <p className={style.spanP}>{getValues('setTree')}</p>
               </span>
             )}
@@ -129,11 +134,12 @@ function Workoutroom() {
             {con3 ? (
               <input
                 type="number"
+                placeholder="0"
                 {...register('setFore')}
                 className={style.input}
               />
             ) : (
-              <span className={`${style.input} bg-blue-300`}>
+              <span className={`${style.input}  bg-yellow-100 rounded-[12px]`}>
                 <p className={style.spanP}>{getValues('setFore')}</p>
               </span>
             )}
@@ -153,12 +159,13 @@ function Workoutroom() {
             <h1 className={style.sugheader}>{sug5}</h1>{' '}
             {con4 ? (
               <input
+                placeholder="0"
                 type="number"
                 {...register('setFive')}
                 className={style.input}
               />
             ) : (
-              <span className={`${style.input} bg-blue-300`}>
+              <span className={`${style.input}  bg-yellow-100 rounded-[12px]`}>
                 <p className={style.spanP}>{getValues('setFive')}</p>
               </span>
             )}
@@ -175,13 +182,8 @@ function Workoutroom() {
           <div className="w-[100%] flex   justify-center">
             <m.button
               className={style.button}
-              style={{
-                background: 'linear-gradient(160deg, #54bff5 0%, #34ffc5 100%)',
-              }}
               whileHover={{
-                background:
-                  'linear-gradient(160deg, #34ffc5 0%,  #54bff5 100%)',
-                color: 'white',
+                borderEndEndRadius: '12px',
               }}
               type="submit"
             >

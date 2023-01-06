@@ -88,7 +88,7 @@ function SignUp() {
       </form>
       <h1>
         You already have an account ?{' '}
-        <Link to="/" className="underline text-orange-600">
+        <Link to="/ " className="underline text-orange-600">
           {' '}
           Sign In
         </Link>

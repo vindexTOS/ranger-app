@@ -4,10 +4,10 @@ function PrevSets(props) {
   const { pushupUid, timestamp, convertDate } = MainUseContext()
 
   const style = {
-    prevPush: `bg-[#54bff5] rounded-[12px] h-[5rem] w-[6rem] flex items-center justify-center`,
+    prevPush: ` border-l-2 rounded-l-[50%] rounded-r-[40%]  border-b-2 rounded-[8px] h-[5rem] w-[6rem] flex items-center justify-center`,
     mainDiv: `flex gap-2`,
-    sets: `text-[3rem] text-white`,
-    prevDiv: `w-[100%] h-[10rem] btnshaddow rounded-[12px] bg-white flex flex-col gap-2 items-center justify-center  max_lg:w-[80%] max_md:w-[70%]`,
+    sets: `text-[3rem] text-black`,
+    prevDiv: `w-[100%] h-[9rem]  rounded-[12px]  purp-bg flex flex-col gap-2 items-center justify-center  max_lg:w-[80%] max_md:w-[70%]`,
   }
 
   return (

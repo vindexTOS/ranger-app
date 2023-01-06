@@ -19,7 +19,7 @@ function SignIn() {
     setError('')
     try {
       await signin(email, password)
-      navigate('/main')
+      navigate('/workroom/pushups')
     } catch (e) {
       console.log(e.message)
       setError('user not found or login info is wrong !')

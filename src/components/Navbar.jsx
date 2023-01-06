@@ -45,7 +45,7 @@ function Navbar() {
         </m.button>
       </div>
       <div>
-        <Link to="/main">Main</Link>
+        <Link to="/workroom/pushups">Main</Link>
       </div>
     </nav>
   )

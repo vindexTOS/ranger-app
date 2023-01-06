@@ -161,7 +161,7 @@ export const MainContextProvider = ({ children }) => {
         uid,
       })
       // navigate to main page
-      navigate('/main')
+      navigate('/workroom/pushups')
     }
   }
   // use effect for max

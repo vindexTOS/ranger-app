@@ -8,6 +8,8 @@ import Entery from './components/Entery'
 import StatsPage from './components/pages/Stats.page'
 import { MainContextProvider } from './context/MainContext'
 import Navbar from './components/Navbar'
+import Protectedroute from './components/protectedroute'
+import Workoutroom from './components/Workoutroom'
 
 function App() {
   return (
@@ -17,9 +19,34 @@ function App() {
         <Route path="/" element={<SignIn />} />
         <Route path="about" element={<About />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/test" element={<Entery />} />
-        <Route path="/stats" element={<StatsPage />} />
+
+        <Route
+          path="/workroom"
+          element={
+            <Protectedroute>
+              <Main />
+            </Protectedroute>
+          }
+        >
+          <Route path="pushups" element={<Workoutroom />} />{' '}
+        </Route>
+
+        <Route
+          path="/test"
+          element={
+            <Protectedroute>
+              <Entery />
+            </Protectedroute>
+          }
+        />
+        <Route
+          path="/stats"
+          element={
+            <Protectedroute>
+              <StatsPage />
+            </Protectedroute>
+          }
+        />
       </Routes>
     </MainContextProvider>
   )

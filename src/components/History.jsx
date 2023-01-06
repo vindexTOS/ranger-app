@@ -4,17 +4,17 @@ function History() {
   const { pushupUid, convertDate } = MainUseContext()
 
   const style = {
-    mainDiv: ` btnshaddow  w-[350px]     h-[300px]  bg-white  rounded-[12px] pb-5 max_xl:ml-10`,
+    mainDiv: ` btnshaddow  w-[350px]     h-[300px]   div-bg rounded-[12px] pb-5 max_xl:ml-10`,
 
     mapDiv: `flex flex-row gap-5 mt-2  ml-[5px]`,
-    outsideMapdiv: `overflow-y-scroll scroll h-[200px]  pb-2`,
-    timeDiv: `btnshaddow flex items-center justify-center text-blue-500 font-bold bg-[#ffd31d] overflow-hidden text-[12px] h-[1.6rem] w-[40%] rounded-[8px]`,
+    outsideMapdiv: `overflow-y-scroll scroll h-[200px] rounded-[12px]  pb-2`,
+    timeDiv: `btnshaddow flex items-center justify-center text-color font-bold blue-bg overflow-hidden text-[12px] h-[1.6rem] w-[40%] rounded-[8px]`,
     setDiv: `flex gap-2 flex-row `,
-    setHeader: `bg-blue-300 w-[1.7rem] text-center rounded-[50%] text-white btnshaddow`,
+    setHeader: `blue-bg w-[1.7rem] text-center rounded-[50%] text-color btnshaddow`,
     headerDiv: `w-[100%] flex items-center justify-center `,
-    header: `btnshaddow w-[60%] h-[2rem] flex items-center justify-center text-center bg-[#ffa700] mt-[5px] font-bold text-white rounded-[15px]`,
+    header: `btnshaddow w-[60%] h-[2rem] flex items-center justify-center text-center blue-bg mt-[5px] font-bold text-color rounded-[15px]`,
     titlesDiv: `w-[100%] flex justify-between mt-5 mb-5 `,
-    titleHeader: `w-[3rem] text-center bg-[#ffa700] text-white btnshaddow rounded-[8px]  `,
+    titleHeader: `w-[3rem] text-center blue-bg   text-color btnshaddow rounded-[8px]  `,
   }
   return (
     <div className={style.mainDiv}>
