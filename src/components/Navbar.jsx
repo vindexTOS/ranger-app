@@ -9,7 +9,9 @@ import { Link } from 'react-router-dom'
 function Navbar() {
   const { user, handleLogOut } = MainUseContext()
   const style = {
-    nav: ` flex flex-col w-[100%] h-[60px] nav	`,
+    nav: `${
+      user == null ? 'hidden' : 'z-20 flex flex-col w-[100%] h-[60px]  nav'
+    }	`,
     navdiv: `flex flex-row mt-3 gap-5 items-center justify-end w-[95%]`,
     button: `${
       user == null

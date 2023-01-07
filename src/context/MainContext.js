@@ -491,6 +491,82 @@ export const MainContextProvider = ({ children }) => {
     }, 2000)
   }, [pushupStats])
 
+  // use reducers
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'pushup':
+        return {
+          pushup: (state.pushup = true),
+          pullup: (state.pushup = false),
+          squat: (state.squat = false),
+          running: (state.running = false),
+          statistics: (state.statistics = false),
+          history: (state.history = false),
+          achivments: (state.achivments = false),
+        }
+      case 'pullup':
+        return {
+          pushup: (state.pushup = false),
+          pullup: (state.pushup = true),
+          squat: (state.squat = false),
+          running: (state.running = false),
+          statistics: (state.statistics = false),
+          history: (state.history = false),
+          achivments: (state.achivments = false),
+        }
+      case 'squat':
+        return {
+          pushup: (state.pushup = false),
+          pullup: (state.pushup = false),
+          squat: (state.squat = true),
+          running: (state.running = false),
+          statistics: (state.statistics = false),
+          history: (state.history = false),
+          achivments: (state.achivments = false),
+        }
+      case 'running':
+        return {
+          pushup: (state.pushup = false),
+          pullup: (state.pushup = false),
+          squat: (state.squat = false),
+          running: (state.running = true),
+          statistics: (state.statistics = false),
+          history: (state.history = false),
+          achivments: (state.achivments = false),
+        }
+      case 'statistics':
+        return {
+          pushup: (state.pushup = false),
+          pullup: (state.pushup = false),
+          squat: (state.squat = false),
+          running: (state.running = false),
+          statistics: (state.statistics = true),
+          history: (state.history = false),
+          achivments: (state.achivments = false),
+        }
+      case 'history':
+        return {
+          pushup: (state.pushup = false),
+          pullup: (state.pushup = false),
+          squat: (state.squat = false),
+          running: (state.running = false),
+          statistics: (state.statistics = false),
+          history: (state.history = true),
+          achivments: (state.achivments = false),
+        }
+      case 'achivments':
+        return {
+          pushup: (state.pushup = false),
+          pullup: (state.pushup = false),
+          squat: (state.squat = false),
+          running: (state.running = false),
+          statistics: (state.statistics = false),
+          history: (state.history = false),
+          achivments: (state.achivments = true),
+        }
+    }
+  }
+
   return (
     <MainContext.Provider
       value={{
@@ -525,6 +601,7 @@ export const MainContextProvider = ({ children }) => {
         totalPushups,
         testedMax,
         workoutmax,
+        reducer,
       }}
     >
       {children}

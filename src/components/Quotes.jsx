@@ -4,7 +4,7 @@ function Quotes() {
   const { randomQuote } = MainUseContext()
 
   const style = {
-    mainDiv: `flex flex-row items-center justify-center w-[350px]     h-[10rem] btnshaddow div-bg rounded-[12px] max_xl:ml-10 `,
+    mainDiv: `flex flex-row items-center justify-center w-[350px]     h-[10rem]   border-r-2 border-b-2  rounded-b-[14px]  max_xl:ml-10 `,
     header: `text-center w-[90%] text-[#54bff5]`,
   }
 
