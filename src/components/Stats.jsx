@@ -1,6 +1,7 @@
 import React from 'react'
 import { MainUseContext } from '../context/MainContext'
 import { ImStatsDots } from 'react-icons/im'
+import { motion as m } from 'framer-motion'
 
 function Stats() {
   const { pushupUid, totalPushups, testedMax, workoutmax } = MainUseContext()
@@ -8,13 +9,17 @@ function Stats() {
   const style = {
     mainDiv: `w-[350px]     h-[10rem]  max_xl:ml-10 gap-2 flex flex-col items-center border-r-2     `,
     subDiv: `flex flex-row gap-5 items-center `,
-    header: `btnshaddow w-[40%] gap-3 h-[2rem] flex items-center justify-start text-center blue-bg mt-[5px] font-bold .text-color rounded-[15px]`,
-    statHeader: `btnshaddow flex items-center justify-start text-blue-500 font-bold  blue-bg overflow-hidden text-[12px] h-[1.2rem] w-[180px] rounded-[8px]`,
-    pstat: `w-[4rem] h-[1.2rem]  blue-bg  text-color rounded-[12px] text-center flex items-center justify-center`,
+    header: `  w-[40%] gap-10 h-[2rem] flex items-center justify-start text-center mt-[5px]   border-t-2`,
+    statHeader: ` border-b-2 flex items-center justify-start text-gray-500 font-bold    overflow-hidden text-[12px] h-[1.2rem] w-[180px]  `,
+    pstat: `w-[4rem] h-[1.2rem]   border-b-2  text-color   text-center flex items-center justify-center`,
   }
 
   return (
-    <div className={style.mainDiv}>
+    <div
+      initial={{ x: 400 }}
+      animate={{ x: 0, transition: { duration: 1 } }}
+      className={style.mainDiv}
+    >
       <h1 className={style.header}>
         Statistics
         <ImStatsDots />

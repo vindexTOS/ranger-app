@@ -1,18 +1,18 @@
 import React from 'react'
 
 import { motion as m } from 'framer-motion'
-import { MainUseContext } from '../context/MainContext'
+import { MainUseContext } from '../../context/MainContext'
 import { IoMdLogOut } from 'react-icons/io'
-import { AiOutlineUser } from 'react-icons/ai'
+import { AiOutlineUser, AiOutlineBars } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 
 function Navbar() {
-  const { user, handleLogOut } = MainUseContext()
+  const { user, handleLogOut, dispatch } = MainUseContext()
   const style = {
     nav: `${
-      user == null ? 'hidden' : 'z-20 flex flex-col w-[100%] h-[60px]  nav'
+      user == null ? 'hidden' : '  flex flex-row   w-[100%] h-[60px]  nav'
     }	`,
-    navdiv: `flex flex-row mt-3 gap-5 items-center justify-end w-[95%]`,
+    navdiv: `flex flex-row mt-3 gap-5 items-center justify-end w-[95%]  `,
     button: `${
       user == null
         ? 'hidden'
@@ -27,6 +27,13 @@ function Navbar() {
   }
   return (
     <nav className={style.nav}>
+      <div className="flex flex-row gap-5 items-center 1xl:hidden">
+        <AiOutlineBars
+          onClick={() => dispatch({ type: 'dropdown' })}
+          className="h-[2rem] text-[3rem] "
+        />
+      </div>
+
       <div className={style.navdiv}>
         <m.h1 initial={{ y: -300 }} animate={{ y: 0 }} className={style.header}>
           <AiOutlineUser className="ml-2 text-green-400" />
@@ -45,9 +52,6 @@ function Navbar() {
         >
           <IoMdLogOut /> <span className="mb-[2px]">log out</span>
         </m.button>
-      </div>
-      <div>
-        <Link to="/workroom/pushups">Main</Link>
       </div>
     </nav>
   )

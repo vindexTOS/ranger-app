@@ -21,9 +21,10 @@ module.exports = {
 
       xl: '1280px',
       // => @media (min-width: 1280px) { ... }
-
+      '1xl': '1361px',
       '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
+
       max_Xll: { max: '1360px' },
       max_xl: { max: '1279px' },
       // => @media (max-width: 1279px) { ... }

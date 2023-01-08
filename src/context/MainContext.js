@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState, useReducer } from 'react'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -411,7 +411,6 @@ export const MainContextProvider = ({ children }) => {
       })
       .then(function (data) {
         setQuote(data)
-        console.log(quote)
       })
     let topArry = quote.map((val) => {
       return val.text
@@ -564,8 +563,20 @@ export const MainContextProvider = ({ children }) => {
           history: (state.history = false),
           achivments: (state.achivments = true),
         }
+      case 'dropdown':
+        return { dropdown: !state.dropdown }
     }
   }
+  const [state, dispatch] = useReducer(reducer, {
+    pushup: true,
+    pullup: false,
+    squat: false,
+    running: false,
+    statistics: false,
+    history: false,
+    achivments: false,
+    dropdown: false,
+  })
 
   return (
     <MainContext.Provider
@@ -601,7 +612,9 @@ export const MainContextProvider = ({ children }) => {
         totalPushups,
         testedMax,
         workoutmax,
-        reducer,
+
+        dispatch,
+        state,
       }}
     >
       {children}

@@ -14,6 +14,9 @@ body h1 {
 body a {
   font-family: 'Rowdies', cursive;
 }
+body p {
+  font-family: 'Rowdies', cursive;
+}
 
 .stats-wrapper {
   display: grid;

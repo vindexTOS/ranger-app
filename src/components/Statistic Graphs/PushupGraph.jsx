@@ -12,7 +12,7 @@ import {
 
 function PushupGraph({ pushupStatData }) {
   const style = {
-    pushupStat: `w-[100%] h-[300px] bg-white btnshaddow rounded-[12px] flex flex-col items-center justify-center`,
+    pushupStat: ` w-[100%] h-[300px] bg-white btnshaddow rounded-[12px] flex flex-col items-center justify-center`,
   }
   return (
     <div className={style.pushupStat}>

@@ -21,7 +21,7 @@ function StatsPage() {
   }, [pushupStats])
 
   const style = {
-    mainDiv: `flex flex-row items-center justify-center   w-[100vw] h-[100vh] `,
+    mainDiv: ` scroll flex flex-row items-center justify-center mb-[8.2rem] max_md:ml-10 rounded-[10px] w-[100vw] h-[90vh] border-t-2 overflow-y-scroll`,
     conteinerDiv: `stats-wrapper   gap-5 items-center justify-center w-[90%] h-[90%]`,
     pushupStat: `w-[100%] h-[300px] bg-white btnshaddow rounded-[12px] flex flex-col items-center justify-center`,
   }

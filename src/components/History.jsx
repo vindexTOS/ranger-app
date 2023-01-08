@@ -1,20 +1,22 @@
 import React from 'react'
 import { MainUseContext } from '../context/MainContext'
+import { motion as m } from 'framer-motion'
 function History() {
   const { pushupUid, convertDate } = MainUseContext()
 
   const style = {
     mainDiv: `   w-[350px]   text  h-[310px]   border-t-2 border-r-2    pb-4 rounded-b-0 rounded-t-[14px] max_xl:ml-10`,
 
-    mapDiv: `flex flex-row gap-5 mt-2   ml-[5px]`,
+    mapDiv: `flex flex-row gap-5 mt-2  ml-[5px]`,
+
     outsideMapdiv: `overflow-y-scroll scroll h-[200px] rounded-[12px]  pb-2`,
-    timeDiv: ` flex items-center border-l-2 border-b-2 justify-center text-color font-bold  overflow-hidden text-[12px] h-[1.6rem] w-[40%] rounded-[8px]`,
+    timeDiv: ` flex items-center   border-b-2 justify-center text-color font-bold  overflow-hidden text-[12px] h-[1.6rem] w-[40%]`,
     setDiv: `flex gap-2 flex-row `,
-    setHeader: `  w-[1.7rem] text-center rounded-[50%] border-l-2 border-b-2 text-color  `,
+    setHeader: `  w-[1.7rem] text-center    border-b-2 text-color  `,
     headerDiv: `w-[100%] flex items-center justify-center `,
     header: ` w-[60%] h-[2rem] flex items-center justify-center text-center   mt-[5px] font-bold text-color rounded-[15px]`,
     titlesDiv: `w-[100%] flex justify-between mt-5 mb-5 `,
-    titleHeader: `w-[3rem] text-center     text-color   rounded-[8px]  `,
+    titleHeader: `w-[3rem] text-center     text-color    border-b-2 `,
   }
   return (
     <div className={style.mainDiv}>

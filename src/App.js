@@ -6,7 +6,7 @@ import About from './components/info/About'
 import Main from './components/Main'
 import Entery from './components/Entery'
 import { MainContextProvider } from './context/MainContext'
-import Navbar from './components/Navbar'
+import Navbar from './components/navigation/Navbar'
 import Protectedroute from './components/protectedroute'
 import Workoutroom from './components/Workoutroom'
 import Pullups from './components/pages/Pullups'
@@ -40,7 +40,7 @@ function App() {
           <Route path="running" element={<Running />} />
           <Route path="stats" element={<StatsPage />} />
           <Route path="history" element={<HistoryPage />} />
-          <Route path="achivments" element={<Achivments />} />
+          <Route path="achievements" element={<Achivments />} />
         </Route>
 
         <Route
