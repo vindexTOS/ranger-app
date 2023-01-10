@@ -1,40 +1,20 @@
-import React, { PureComponent, useEffect, useState } from 'react'
-import { MainUseContext } from '../../context/MainContext'
-import PushupGraph from '../Statistic Graphs/PushupGraph'
+import React from 'react'
+import StatNav from '../Statistic Graphs/StatNav'
+import PushUpMain from '../Statistic Graphs/pushup-stats/PushUpGrapgMain'
+import { Outlet } from 'react-router-dom'
+
 function StatsPage() {
-  const {
-    pushupUid,
-    totalPushups,
-    testedMax,
-    workoutmax,
-    pushupStats,
-  } = MainUseContext()
-
-  const [pushupStatData, setPushupStatData] = useState(null)
-  useEffect(() => {
-    setTimeout(() => {
-      let newData = pushupStats.map((val) => {
-        return { stats: val }
-      })
-      setPushupStatData(newData)
-    }, 5000)
-  }, [pushupStats])
-
   const style = {
-    mainDiv: ` scroll flex flex-row items-center justify-center mb-[8.2rem] max_md:ml-10 rounded-[10px] w-[100vw] h-[90vh] border-t-2 overflow-y-scroll`,
-    conteinerDiv: `stats-wrapper   gap-5 items-center justify-center w-[90%] h-[90%]`,
-    pushupStat: `w-[100%] h-[300px] bg-white btnshaddow rounded-[12px] flex flex-col items-center justify-center`,
+    mainSection: `w-[100%] h-[100%]     flex flex-row  gap-5  mr-[6rem]   items-center  max_md:mt-[4rem]`,
+    mainDiv: ` scroll border-t-2 rounded-[8px] bg-red-600  flex pb-10 items-center justify-center w-[90%] h-[700px] gap-5  mb-10    overflow-y-scroll`,
   }
-
   return (
-    <div className={style.mainDiv}>
-      <div className={style.conteinerDiv}>
-        <PushupGraph pushupStatData={pushupStatData} />
-        <div className={style.pushupStat}></div>
-        <div className={style.pushupStat}></div>
-        <div className={style.pushupStat}></div>
+    <section className={style.mainSection}>
+      <div className={style.mainDiv}>
+        <Outlet />
       </div>
-    </div>
+      <StatNav />
+    </section>
   )
 }
 

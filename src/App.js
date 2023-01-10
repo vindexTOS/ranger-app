@@ -13,9 +13,10 @@ import Pullups from './components/pages/Pullups'
 import Squats from './components/pages/Squats'
 import Running from './components/pages/Running'
 import StatsPage from './components/pages/Stats.page'
-
 import HistoryPage from './components/pages/History.page'
 import Achivments from './components/pages/Achivmens'
+/// statistic graph imports
+import PushUpStatMain from './components/Statistic Graphs/pushup-stats/PushUpGrapgMain'
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <Route path="/" element={<SignIn />} />
         <Route path="about" element={<About />} />
         <Route path="/signup" element={<SignUp />} />
-
+        {/* main page routes and side nav */}
         <Route
           path="/workroom"
           element={
@@ -38,7 +39,10 @@ function App() {
           <Route path="pullups" element={<Pullups />} />
           <Route path="squats" element={<Squats />} />
           <Route path="running" element={<Running />} />
-          <Route path="stats" element={<StatsPage />} />
+          <Route path="stats" element={<StatsPage />}>
+            {/* stats page routes and navigation  */}
+            <Route path="pushup-stats" element={<PushUpStatMain />} />
+          </Route>
           <Route path="history" element={<HistoryPage />} />
           <Route path="achievements" element={<Achivments />} />
         </Route>

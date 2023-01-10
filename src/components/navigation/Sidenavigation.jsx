@@ -13,8 +13,8 @@ function Sidenavigation(props) {
   const { state, dispatch } = MainUseContext()
 
   const style = {
-    section: ` w-[70%] flex flex-col gap-[2.5rem] max_Xll:hidden  mb-[2.6rem]`,
-    nav: ` w-[93%] flex   justify-center     h-[700px]   ml-[1rem]  rounded-l-[14px] rounded-r-[8px] border-l-2  border-t-2 `,
+    section: ` w-[400px] h-[700px] flex flex-col gap-[2.5rem] max_Xll:hidden  mb-[3.5rem] `,
+    nav: ` w-[400px] flex   justify-center     h-[700px]   ml-[1rem]  rounded-l-[14px] rounded-r-[8px] border-l-2  border-t-2 `,
     navWrapper: `mt-10 navbar flex flex-col gap-[8px]  text-[1.2rem] items-center`,
     link: `w-[16rem] h-[3.3rem] flex items-center gap-4 text-gray-500 border-r-2 border-b-2 rounded-[8px]`,
     imgicon: `w-[15%] ml-2`,
@@ -30,72 +30,80 @@ function Sidenavigation(props) {
     }
   }
 
+  const LinkDiv = (type, state, link, fun, img, title) => {
+    return (
+      <Link
+        onClick={() => dispatch({ type: type })}
+        className={style.link}
+        style={fun(state)}
+        to={link}
+      >
+        <img src={img} className={style.imgicon} />
+        {title}
+      </Link>
+    )
+  }
   return (
     <section className={style.section}>
       <nav className={style.nav}>
         <div className={style.navWrapper}>
           {' '}
-          <Link
-            onClick={() => dispatch({ type: 'pushup' })}
-            className={style.link}
-            style={navbuttonstyling(state.pushup)}
-            to="pushups"
-          >
-            <img src={pushupicon} className={style.imgicon} />
-            Push ups
-          </Link>
-          <Link
-            onClick={() => dispatch({ type: 'pullup' })}
-            style={navbuttonstyling(state.pullup)}
-            className={style.link}
-            to="pullups"
-          >
-            <img src={pullupicon} className={style.imgicon} /> Pull ups
-          </Link>
-          <Link
-            onClick={() => dispatch({ type: 'squat' })}
-            style={navbuttonstyling(state.squat)}
-            className={style.link}
-            to="squats"
-          >
-            <img src={squaticon} className={style.imgicon} />
-            Squats
-          </Link>
-          <Link
-            onClick={() => dispatch({ type: 'running' })}
-            style={navbuttonstyling(state.running)}
-            className={style.link}
-            to="running"
-          >
-            <img src={runicon} className={style.imgicon} />
-            Running
-          </Link>
-          <Link
-            onClick={() => dispatch({ type: 'statistics' })}
-            style={navbuttonstyling(state.statistics)}
-            className={style.link}
-            to="stats"
-          >
-            <img src={statsicon} className={style.imgicon} /> Statistics
-          </Link>
-          <Link
-            onClick={() => dispatch({ type: 'history' })}
-            style={navbuttonstyling(state.history)}
-            className={style.link}
-            to="history"
-          >
-            {' '}
-            <img src={calendaricon} className={style.imgicon} /> History
-          </Link>
-          <Link
-            onClick={() => dispatch({ type: 'achivments' })}
-            style={navbuttonstyling(state.achivments)}
-            className={style.link}
-            to="achievements"
-          >
-            <img src={awardicon} className={style.imgicon} />
-            Achievements
-          </Link>
+          {LinkDiv(
+            'pushup',
+            state.pushup,
+            'pushups',
+            navbuttonstyling,
+            pushupicon,
+            'Push Ups',
+          )}
+          {LinkDiv(
+            'pullup',
+            state.pullup,
+            'pullups',
+            navbuttonstyling,
+            pullupicon,
+            'Pull Ups',
+          )}
+          {LinkDiv(
+            'squat',
+            state.squat,
+            'squats',
+            navbuttonstyling,
+            squaticon,
+            'Squats',
+          )}
+          {LinkDiv(
+            'running',
+            state.running,
+            'running',
+            navbuttonstyling,
+            runicon,
+            'Running',
+          )}
+          {LinkDiv(
+            'statistics',
+            state.statistics,
+            'stats/pushup-stats',
+            navbuttonstyling,
+            statsicon,
+            'Statistics',
+          )}
+          {LinkDiv(
+            'history',
+            state.history,
+            'history',
+            navbuttonstyling,
+            calendaricon,
+            'History',
+          )}
+          {LinkDiv(
+            'achivments',
+            state.achivments,
+            'achievements',
+            navbuttonstyling,
+            awardicon,
+            'Achievements',
+          )}
         </div>
       </nav>
     </section>

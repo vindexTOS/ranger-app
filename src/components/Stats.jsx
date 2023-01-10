@@ -7,7 +7,7 @@ function Stats() {
   const { pushupUid, totalPushups, testedMax, workoutmax } = MainUseContext()
 
   const style = {
-    mainDiv: `w-[350px]     h-[10rem]  max_xl:ml-10 gap-2 flex flex-col items-center border-r-2     `,
+    mainDiv: `w-[350px]      h-[10rem]  max_xl:ml-10 gap-2 flex flex-col items-center border-r-2     `,
     subDiv: `flex flex-row gap-5 items-center `,
     header: `  w-[40%] gap-10 h-[2rem] flex items-center justify-start text-center mt-[5px]   border-t-2`,
     statHeader: ` border-b-2 flex items-center justify-start text-gray-500 font-bold    overflow-hidden text-[12px] h-[1.2rem] w-[180px]  `,

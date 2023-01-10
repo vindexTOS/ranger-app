@@ -11,11 +11,8 @@ import {
 } from 'recharts'
 
 function PushupGraph({ pushupStatData }) {
-  const style = {
-    pushupStat: ` w-[100%] h-[300px] bg-white btnshaddow rounded-[12px] flex flex-col items-center justify-center`,
-  }
   return (
-    <div className={style.pushupStat}>
+    <>
       <ResponsiveContainer width="90%" height="80%">
         <LineChart
           width={300}
@@ -40,7 +37,7 @@ function PushupGraph({ pushupStatData }) {
         </LineChart>
       </ResponsiveContainer>{' '}
       <h1>PUSH UP STATISTICS</h1>
-    </div>
+    </>
   )
 }
 
