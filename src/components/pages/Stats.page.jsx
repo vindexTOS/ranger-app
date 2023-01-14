@@ -5,15 +5,15 @@ import { Outlet } from 'react-router-dom'
 
 function StatsPage() {
   const style = {
-    mainSection: `w-[100%] h-[100%]     flex flex-row  gap-5  mr-[6rem]   items-center  max_md:mt-[4rem]`,
-    mainDiv: ` scroll border-t-2 rounded-[8px] bg-red-600  flex pb-10 items-center justify-center w-[90%] h-[700px] gap-5  mb-10    overflow-y-scroll`,
+    mainSection: `w-[100%]   h-[750px] flex flex-col items-center  max_md:mt-[4rem]`,
+    mainDiv: `   rounded-[8px]   flex   items-center justify-center w-[100%] h-[700px]  `,
   }
   return (
     <section className={style.mainSection}>
+      <StatNav />
       <div className={style.mainDiv}>
         <Outlet />
       </div>
-      <StatNav />
     </section>
   )
 }

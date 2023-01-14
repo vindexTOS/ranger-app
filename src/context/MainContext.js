@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useReducer } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useReducer,
+  useEffect,
+} from 'react'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -18,6 +24,7 @@ import {
 
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { async } from '@firebase/util'
 
 const MainContext = createContext()
 
@@ -123,6 +130,7 @@ export const MainContextProvider = ({ children }) => {
     })
     return () => unsub()
   }, [user])
+
   // specifice user pushup Uid finder ////////
   let pushupUid = pushupData.filter((val) => {
     if (user !== null) {
@@ -131,8 +139,9 @@ export const MainContextProvider = ({ children }) => {
       }
     }
   })
-
+  useEffect(() => {}, [pushupData])
   // algorithm for push ups //
+  // user data is stored next state named maxPushup/setmaxPushup() ///////////////////////////////////
   const [userData, setUserData] = useState([])
   /// form values
 
@@ -141,7 +150,7 @@ export const MainContextProvider = ({ children }) => {
     let user_age = getValues('User_age')
     let user_gender = getValues('User_gender')
     let user_smokes = getValues('User_smokes')
-    let kg_lb = getValues('kg_lb')
+    let kg_lb = getValues('im_me')
     let user_weight = getValues('User_weight')
     let user_max = parseInt(getValues('User_max'))
 
@@ -157,6 +166,7 @@ export const MainContextProvider = ({ children }) => {
       await addDoc(collection(db, 'user_data'), {
         userInfo: userData,
         userMax: maxReps(),
+
         timestamp: serverTimestamp(),
         uid,
       })
@@ -165,7 +175,7 @@ export const MainContextProvider = ({ children }) => {
     }
   }
   // use effect for max
-
+  // this also works as full user info store
   const [maxPushup, setMaxpushup] = React.useState([])
   React.useEffect(() => {
     if (user == null) return
@@ -181,6 +191,16 @@ export const MainContextProvider = ({ children }) => {
 
     return () => unsub()
   }, [user])
+
+  // pulling out full user info for algorithm
+
+  let userInfoUid = maxPushup.filter((val) => {
+    if (user !== null) {
+      if (user.uid == val.uid) {
+        return val
+      }
+    }
+  })
 
   // push up alogithm starts here/////////////////////////////////////////////////////////////
 
@@ -198,10 +218,42 @@ export const MainContextProvider = ({ children }) => {
       }
     }
   })
+  // pulling specific information from firebase user info doc check line 148 for key values for this specific data
+
+  const userInformationa = (specificInfo) => {
+    let newVal = userInfoUid.filter((item, index) => {
+      //filtering and getting last value
+      if (userInfoUid.length - 1 <= index) {
+        return item
+      }
+    })
+    //mapping the filterd value
+    let newUserInfo = newVal.map((val) => {
+      let newVal = val.userInfo[0][specificInfo]
+
+      return newVal
+    })
+
+    return newUserInfo
+  }
+  // this function converts pounds in to kilograms and converts data in to BMI
+  const BMIconvertor = () => {
+    let userHeight = Number(userInformationa('User_height'))
+    let userWeight = Number(userInformationa('User_weight'))
+    let resultBMI = 0
+    if (userInformationa('im_me') == 'Imperial') {
+      let inchesTocm = userHeight / 3.281
+
+      let lbToKg = userWeight / 2.22
+      return lbToKg / Math.pow(2, inchesTocm - 0.1)
+    } else {
+      let metricHeight = userHeight / 100
+      return userWeight / Math.pow(2, metricHeight - 0.1)
+    }
+  }
   const pushUpalgo = () => {
-    // set data is stored here
     //first set of the last workout user did from firebase IP
-    const setOneMap = () => {
+    const lastSetCounter = (set) => {
       let newVal = pushupUid.filter((item, index) => {
         //filtering and getting last value
         if (pushupUid.length - 1 <= index) {
@@ -210,7 +262,7 @@ export const MainContextProvider = ({ children }) => {
       })
       //mapping the filterd value
       let setOneMapped = newVal.map((val) => {
-        let newVal = val.sets[0].setOne
+        let newVal = val.sets[0][set]
 
         return newVal
       })
@@ -219,164 +271,122 @@ export const MainContextProvider = ({ children }) => {
       return newNum
     }
 
-    // setTwo
-
-    const setTwoMap = () => {
-      let newVal = pushupUid.filter((item, index) => {
-        if (pushupUid.length - 1 <= index) {
-          return item
-        }
-      })
-      // mapping
-
-      let setTwoMapped = newVal.map((val) => {
-        let newVal = val.sets[0].setTwo
-
-        return newVal
-      })
-      let newNum = parseInt(setTwoMapped.join())
-
-      return newNum
-    }
-    // setTree
-
-    const setTreeMap = () => {
-      let newVal = pushupUid.filter((item, index) => {
-        if (pushupUid.length - 1 <= index) {
-          return item
-        }
-      })
-
-      //mapping
-
-      let setTreeMapped = newVal.map((val) => {
-        let newVal = val.sets[0].setTree
-
-        return newVal
-      })
-      let newNum = parseInt(setTreeMapped.join())
-      return newNum
-    }
-    // set  four mapping
-
-    const setFourMap = () => {
-      let newVal = pushupUid.filter((item, index) => {
-        if (pushupUid.length - 1 <= index) {
-          return item
-        }
-      })
-
-      //mapping
-
-      let setFourMapped = newVal.map((val) => {
-        let newVal = val.sets[0].setFore
-
-        return newVal
-      })
-      let newNum = parseInt(setFourMapped.join())
-      return newNum
-    }
-
-    // set four ends here
-    /// set five start
-    const setFiveMap = () => {
-      let newVal = pushupUid.filter((item, index) => {
-        if (pushupUid.length - 1 <= index) {
-          return item
-        }
-      })
-
-      //mapping
-
-      let setFiveMapped = newVal.map((val) => {
-        let newVal = val.sets[0].setFive
-
-        return newVal
-      })
-      let newNum = parseInt(setFiveMapped.join())
-      return newNum
-    }
-
     const newVal = maxUid.map((item, index) => {
       if (maxUid.length - 1 <= index) {
+        let procMax = 0
+
         let max = parseInt(item.userMax)
+        if (Number(userInformationa('User_age')) >= 40) {
+          // if user is more than 40 years old we make procMax aka programs starting max for push ups program to 40% instad of 50% or 60%
+          procMax = max * 0.4
+          // calucating procMax by BMI  inner If statment
+          if (BMIconvertor() >= 35) {
+            procMax = max * 0.2
+          } else if (BMIconvertor() >= 30) {
+            procMax = max * 0.3
+          } else if (BMIconvertor() > 25) {
+            procMax = max * 0.35555
+          }
+          //inner if statemnt
+        } else if (Number(userInformationa('User_age')) >= 25) {
+          // if user is more than 25 years old we make procMax aka programs starting max for push ups program to 50% instad of 60%
+          procMax = max * 0.5
+          // calucating procMax by BMI  inner If statment
+          if (BMIconvertor() >= 35) {
+            procMax = max * 0.3
+          } else if (BMIconvertor() >= 30) {
+            procMax = max * 0.4
+          } else if (BMIconvertor() > 25) {
+            procMax = max * 0.4555
+          }
+          //inner if statemnt
+        } else if (Number(userInformationa('User_age')) < 25) {
+          procMax = max * 0.6
+          // calucating procMax by BMI  inner If statment
+          if (BMIconvertor() >= 35) {
+            procMax = max * 0.4
+          } else if (BMIconvertor() >= 30) {
+            procMax = max * 0.5
+          } else if (BMIconvertor() > 25) {
+            procMax = max * 0.6
+          }
+          //inner if statemnt
+        }
         // this returns 60% of max pushup input
-        let procMax = max * 0.6
         setSug1(procMax)
         setSug2(procMax - 2)
         setSug3(procMax - 4)
         setSug4(procMax - 5)
         setSug5(procMax - 6)
         // set one
-        if (setOneMap() >= procMax) {
-          setSug1(setOneMap() + 1)
+        if (lastSetCounter('setOne') >= procMax) {
+          setSug1(lastSetCounter('setOne') + 1)
         }
-        if (setOneMap() >= procMax + 2) {
-          setSug1(setOneMap() + 2)
+        if (lastSetCounter('setOne') >= procMax + 2) {
+          setSug1(lastSetCounter('setOne') + 2)
         }
-        if (setOneMap() >= procMax + 4) {
-          setSug1(setOneMap() + 3)
+        if (lastSetCounter('setOne') >= procMax + 4) {
+          setSug1(lastSetCounter('setOne') + 3)
         }
-        if (setOneMap() < procMax) {
+        if (lastSetCounter('setOne') < procMax) {
           setSug1(procMax - 1)
         }
 
         // set two
-        if (setTwoMap() >= sug2) {
-          setSug2(setTwoMap() + 1)
+        if (lastSetCounter('setTwo') >= sug2) {
+          setSug2(lastSetCounter('setTwo') + 1)
         }
-        if (setTwoMap() >= sug2 + 2) {
-          setSug2(setTwoMap() + 2)
+        if (lastSetCounter('setTwo') >= sug2 + 2) {
+          setSug2(lastSetCounter('setTwo') + 2)
         }
-        if (setTwoMap() >= sug2 + 4) {
-          setSug2(setTwoMap() + 3)
+        if (lastSetCounter('setTwo') >= sug2 + 4) {
+          setSug2(lastSetCounter('setTwo') + 3)
         }
-        if (setTwoMap() < sug2) {
+        if (lastSetCounter('setTwo') < sug2) {
           setSug2(sug2 - 1)
         }
         // set three
 
-        if (setTreeMap() >= sug3) {
-          setSug3(setTreeMap() + 1)
+        if (lastSetCounter('setTree') >= sug3) {
+          setSug3(lastSetCounter('setTree') + 1)
         }
-        if (setTreeMap() >= sug3 + 2) {
-          setSug3(setTreeMap() + 2)
+        if (lastSetCounter('setTree') >= sug3 + 2) {
+          setSug3(lastSetCounter('setTree') + 2)
         }
-        if (setTreeMap() >= sug3 + 4) {
-          setSug3(setTreeMap() + 3)
+        if (lastSetCounter('setTree') >= sug3 + 4) {
+          setSug3(lastSetCounter('setTree') + 3)
         }
-        if (setTreeMap() < sug3) {
+        if (lastSetCounter('setTree') < sug3) {
           setSug3(sug3 - 1)
         }
         // set four
-        if (setFourMap() >= sug4) {
-          setSug4(setFourMap() + 2)
+        if (lastSetCounter('setFore') >= sug4) {
+          setSug4(lastSetCounter('setFore') + 2)
         }
-        if (setFourMap() >= sug4 + 2) {
-          setSug4(setFourMap() + 2)
+        if (lastSetCounter('setFore') >= sug4 + 2) {
+          setSug4(lastSetCounter('setFore') + 2)
         }
-        if (setFourMap() >= sug4 + 4) {
-          setSug4(setFourMap() + 3)
+        if (lastSetCounter('setFore') >= sug4 + 4) {
+          setSug4(lastSetCounter('setFore') + 3)
         }
-        if (setFourMap() < sug4) {
+        if (lastSetCounter('setFore') < sug4) {
           setSug4(sug4 - 1)
         }
         // set five
-        if (setFiveMap() >= sug5) {
-          setSug5(setFiveMap() + 2)
+        if (lastSetCounter('setFive') >= sug5) {
+          setSug5(lastSetCounter('setFive') + 2)
         }
-        if (setFiveMap() >= sug5 + 2) {
-          setSug5(setFiveMap() + 2)
+        if (lastSetCounter('setFive') >= sug5 + 2) {
+          setSug5(lastSetCounter('setFive') + 2)
         }
-        if (setFiveMap() >= sug5 + 3) {
-          setSug5(setFiveMap() + 3)
+        if (lastSetCounter('setFive') >= sug5 + 3) {
+          setSug5(lastSetCounter('setFive') + 3)
         }
-        if (setFiveMap() < sug5) {
+        if (lastSetCounter('setFive') < sug5) {
           setSug5(sug5 - 1)
         }
       }
     })
-    console.log(maxPushup)
     return newVal
   }
   React.useEffect(() => {
@@ -472,22 +482,36 @@ export const MainContextProvider = ({ children }) => {
       workoutmax = setFive
     }
   })
+  const maxUidStore = async () => {
+    try {
+      setTimeout(() => {
+        if (maxUid[0].userMax !== undefined) {
+          settestedMax(maxUid[0].userMax.join(''))
+        }
+      }, 1000)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const [testedMax, settestedMax] = React.useState(null)
-  setTimeout(() => {
-    if (maxUid[0].userMax !== undefined) {
-      settestedMax(maxUid[0].userMax.join(''))
+  const totalPushUpCompiler = async () => {
+    try {
+      setTimeout(() => {
+        let pushupStatReducer = pushupStats.reduce(
+          (accumulator, currentValue) => accumulator + currentValue,
+          0,
+        )
+        setTotalpushups(pushupStatReducer)
+      }, 1000)
+    } catch (error) {
+      console.log(error)
     }
-  }, 10000)
+  }
 
   React.useEffect(() => {
-    setTimeout(() => {
-      let pushupStatReducer = pushupStats.reduce(
-        (accumulator, currentValue) => accumulator + currentValue,
-        0,
-      )
-      setTotalpushups(pushupStatReducer)
-    }, 2000)
+    maxUidStore()
+    totalPushUpCompiler()
   }, [pushupStats])
 
   // use reducers
@@ -612,8 +636,11 @@ export const MainContextProvider = ({ children }) => {
         totalPushups,
         testedMax,
         workoutmax,
-
+        userData,
+        userInfoUid,
+        userInformationa,
         dispatch,
+        BMIconvertor,
         state,
       }}
     >

@@ -41,7 +41,12 @@ function DropDownNav(props) {
           {navLinks('Pull ups', 'pullup', 'pullups', pullupicon)}
           {navLinks('Squats', 'squat', 'squats', squaticon)}
           {navLinks('Running', 'running', 'running', runicon)}
-          {navLinks('Statistics', 'statistics', 'stats', statsicon)}
+          {navLinks(
+            'Statistics',
+            'statistics',
+            'stats/pushup-stats',
+            statsicon,
+          )}
           {navLinks('History', 'history', 'history', calendaricon)}
           {navLinks('Achievements', 'achivments', 'achievements', awardicon)}
         </div>

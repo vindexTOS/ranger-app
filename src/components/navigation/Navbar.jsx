@@ -10,7 +10,7 @@ function Navbar() {
   const { user, handleLogOut, dispatch } = MainUseContext()
   const style = {
     nav: `${
-      user == null ? 'hidden' : '  flex flex-row   w-[100%] h-[60px]  nav'
+      user == null ? 'hidden' : '   flex flex-row   w-[100%] h-[60px]  nav'
     }	`,
     navdiv: `flex flex-row mt-3 gap-5 items-center justify-end w-[95%]  `,
     button: `${

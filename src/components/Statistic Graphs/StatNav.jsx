@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 function StatNav() {
   const style = {
-    nav: `flex flex-col items-center justify-center gap-5 rounded-[14px]  mb-20 border-r-2 border-t-2 w-[450px] h-[600px] max_md:hidden `,
+    nav: `flex flex-row   items-center justify-center gap-5 rounded-[14px]  border-r-2 border-t-2 w-[450px] h-[100px] max_md:w-[300px] `,
   }
 
   const NavLinks = (title, link) => {

@@ -62,17 +62,22 @@ function Entery() {
           </select>
         </div>
         <div className={style.inputDiv}>
-          <label className={`${style.label} text-[#54bff5]`}>
-            <GiWeightScale className="text-blue-600" />
-            Your weight
-          </label>
           <div className={style.weightDiv}>
             {' '}
-            <select {...register('kg_lb')}>
-              <option>Kg</option>
-              <option>Lb</option>
+            <select {...register('im_me')}>
+              <option>Metric</option>
+              <option>Imperial</option>
             </select>
-            <input {...register('User_weight')} className={style.input} />
+            <input
+              {...register('User_weight')}
+              className={style.input}
+              placeholder="Weight"
+            />
+            <input
+              {...register('User_height')}
+              className={style.input}
+              placeholder="Height"
+            />
           </div>
         </div>
         <div className={style.inputDiv}>

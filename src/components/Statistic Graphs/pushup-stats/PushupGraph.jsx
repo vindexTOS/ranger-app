@@ -27,11 +27,13 @@ function PushupGraph({ pushupStatData }) {
         >
           <Line
             type="monotone"
-            dataKey="stats"
+            dataKey="Total Push Ups"
             stroke="#8884d8"
             strokeWidth={2}
           />
+
           <XAxis />
+
           <YAxis />
           <Tooltip />
         </LineChart>
