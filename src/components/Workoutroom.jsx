@@ -2,6 +2,7 @@ import React, { useEffect, useReducer } from 'react'
 import { MainUseContext } from '../context/MainContext'
 import { AiFillCheckSquare } from 'react-icons/ai'
 import { motion as m } from 'framer-motion'
+import Timer from './timer/Timer'
 
 import PrevSets from './PrevSets'
 
@@ -31,6 +32,7 @@ function Workoutroom() {
     sug3,
     sug4,
     sug5,
+    timerStarter,
   } = MainUseContext()
 
   const [con, setCon] = React.useState(true)
@@ -89,6 +91,7 @@ function Workoutroom() {
         )}
         <button type="button" onClick={() => setCon(!con)}>
           <AiFillCheckSquare
+            onClick={() => timerStarter()}
             className={`${
               con
                 ? 'text-[4rem]  text-gray-300'
@@ -102,6 +105,8 @@ function Workoutroom() {
   return (
     <div className={style.mainDiv}>
       <PrevSets />
+      <Timer />
+
       <form onSubmit={handleSubmit(handlePushupSubmit)} className={style.form}>
         <div className={style.inputDiv}>
           {/* single input div //////////////////////////////////////////////// */}

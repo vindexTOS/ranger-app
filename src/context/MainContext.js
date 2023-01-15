@@ -307,7 +307,7 @@ export const MainContextProvider = ({ children }) => {
             procMax = max * 0.4
           } else if (BMIconvertor() >= 30) {
             procMax = max * 0.5
-          } else if (BMIconvertor() > 25) {
+          } else if (BMIconvertor() < 25) {
             procMax = max * 0.6
           }
           //inner if statemnt
@@ -320,27 +320,24 @@ export const MainContextProvider = ({ children }) => {
         setSug5(procMax - 6)
         // set one
         if (lastSetCounter('setOne') >= procMax) {
-          setSug1(lastSetCounter('setOne') + 1)
-        }
-        if (lastSetCounter('setOne') >= procMax + 2) {
-          setSug1(lastSetCounter('setOne') + 2)
-        }
-        if (lastSetCounter('setOne') >= procMax + 4) {
           setSug1(lastSetCounter('setOne') + 3)
-        }
-        if (lastSetCounter('setOne') < procMax) {
+        } else if (lastSetCounter('setOne') >= procMax + 2) {
+          setSug1(lastSetCounter('setOne') + 4)
+        } else if (lastSetCounter('setOne') >= procMax + 4) {
+          setSug1(lastSetCounter('setOne') + 5)
+        } else if (lastSetCounter('setOne') < sug1) {
           setSug1(procMax - 1)
         }
 
         // set two
         if (lastSetCounter('setTwo') >= sug2) {
-          setSug2(lastSetCounter('setTwo') + 1)
-        }
-        if (lastSetCounter('setTwo') >= sug2 + 2) {
           setSug2(lastSetCounter('setTwo') + 2)
         }
-        if (lastSetCounter('setTwo') >= sug2 + 4) {
+        if (lastSetCounter('setTwo') >= sug2 + 2) {
           setSug2(lastSetCounter('setTwo') + 3)
+        }
+        if (lastSetCounter('setTwo') >= sug2 + 4) {
+          setSug2(lastSetCounter('setTwo') + 4)
         }
         if (lastSetCounter('setTwo') < sug2) {
           setSug2(sug2 - 1)
@@ -601,7 +598,34 @@ export const MainContextProvider = ({ children }) => {
     achivments: false,
     dropdown: false,
   })
+  ///timer reducer and functions ///////
+  const reducerTimer = (state, action) => {
+    switch (action.type) {
+      case 'countDown':
+        return { countDown: state.countDown - 1000 }
+      case 'decrement':
+        return { countDown: state.countDown - 15000 }
+      case 'increment':
+        return { countDown: state.countDown + 15000 }
+      case 'cancel':
+        return { countDown: (state.countDown = 0) }
+      case 'reset':
+        return { countDown: (state.countDown = 120000) }
+    }
+  }
 
+  const [timeState, timerDispatch] = useReducer(reducerTimer, {
+    countDown: 0,
+  })
+
+  // this dummy state prevents state.countDown to re render and re activate useEffect twice in a row
+  const [dummyState, setDummyState] = useState(false)
+  const timerStarter = () => {
+    timerDispatch({ type: 'reset' })
+    setDummyState(!dummyState)
+  }
+
+  /////////////////////////////////////////////////
   return (
     <MainContext.Provider
       value={{
@@ -642,6 +666,12 @@ export const MainContextProvider = ({ children }) => {
         dispatch,
         BMIconvertor,
         state,
+        reducerTimer,
+        setDummyState,
+        dummyState,
+        timerStarter,
+        timeState,
+        timerDispatch,
       }}
     >
       {children}

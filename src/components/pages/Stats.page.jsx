@@ -2,7 +2,6 @@ import React from 'react'
 import StatNav from '../Statistic Graphs/StatNav'
 import PushUpMain from '../Statistic Graphs/pushup-stats/PushUpGrapgMain'
 import { Outlet } from 'react-router-dom'
-
 function StatsPage() {
   const style = {
     mainSection: `w-[100%]   h-[750px] flex flex-col items-center  max_md:mt-[4rem]`,
