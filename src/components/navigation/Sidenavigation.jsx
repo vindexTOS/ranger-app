@@ -9,7 +9,7 @@ import statsicon from '../../utils/png/statistics.png'
 import calendaricon from '../../utils/png/timetable.png'
 
 import awardicon from '../../utils/png/award.png'
-function Sidenavigation(props) {
+function Sidenavigation() {
   const { state, dispatch } = MainUseContext()
 
   const style = {

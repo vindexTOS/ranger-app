@@ -1,6 +1,5 @@
 import React from 'react'
-import StatNav from '../Statistic Graphs/StatNav'
-import PushUpMain from '../Statistic Graphs/pushup-stats/PushUpGrapgMain'
+import StatNav from './Statistic Graphs/StatNav'
 import { Outlet } from 'react-router-dom'
 function StatsPage() {
   const style = {

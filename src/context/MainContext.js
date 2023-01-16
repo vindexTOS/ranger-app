@@ -75,10 +75,10 @@ export const MainContextProvider = ({ children }) => {
     e.preventDefault()
     let setOne = getValues('setOne')
     let setTwo = getValues('setTwo')
-    let setTree = getValues('setTree')
-    let setFore = getValues('setFore')
+    let setThree = getValues('setThree')
+    let setFour = getValues('setFour')
     let setFive = getValues('setFive')
-    if (setOne || setTwo || setTree || setFore || setFive !== '') {
+    if (setOne || setTwo || setThree || setFour || setFive !== '') {
       pushup.push(data)
       console.log(pushup)
       const { uid } = auth.currentUser
@@ -90,6 +90,7 @@ export const MainContextProvider = ({ children }) => {
       })
     }
   }
+
   // testing inputs functionality ////
 
   // get data from firebase //
@@ -328,7 +329,6 @@ export const MainContextProvider = ({ children }) => {
         } else if (lastSetCounter('setOne') < sug1) {
           setSug1(procMax - 1)
         }
-
         // set two
         if (lastSetCounter('setTwo') >= sug2) {
           setSug2(lastSetCounter('setTwo') + 2)
@@ -342,31 +342,30 @@ export const MainContextProvider = ({ children }) => {
         if (lastSetCounter('setTwo') < sug2) {
           setSug2(sug2 - 1)
         }
-        // set three
-
-        if (lastSetCounter('setTree') >= sug3) {
-          setSug3(lastSetCounter('setTree') + 1)
+        // setsetThree
+        if (lastSetCounter('setThree') >= sug3) {
+          setSug3(lastSetCounter('setThree') + 1)
         }
-        if (lastSetCounter('setTree') >= sug3 + 2) {
-          setSug3(lastSetCounter('setTree') + 2)
+        if (lastSetCounter('setThree') >= sug3 + 2) {
+          setSug3(lastSetCounter('setThree') + 2)
         }
-        if (lastSetCounter('setTree') >= sug3 + 4) {
-          setSug3(lastSetCounter('setTree') + 3)
+        if (lastSetCounter('setThree') >= sug3 + 4) {
+          setSug3(lastSetCounter('setThree') + 3)
         }
-        if (lastSetCounter('setTree') < sug3) {
+        if (lastSetCounter('setThree') < sug3) {
           setSug3(sug3 - 1)
         }
         // set four
-        if (lastSetCounter('setFore') >= sug4) {
-          setSug4(lastSetCounter('setFore') + 2)
+        if (lastSetCounter('setFour') >= sug4) {
+          setSug4(lastSetCounter('setFour') + 2)
         }
-        if (lastSetCounter('setFore') >= sug4 + 2) {
-          setSug4(lastSetCounter('setFore') + 2)
+        if (lastSetCounter('setFour') >= sug4 + 2) {
+          setSug4(lastSetCounter('setFour') + 2)
         }
-        if (lastSetCounter('setFore') >= sug4 + 4) {
-          setSug4(lastSetCounter('setFore') + 3)
+        if (lastSetCounter('setFour') >= sug4 + 4) {
+          setSug4(lastSetCounter('setFour') + 3)
         }
-        if (lastSetCounter('setFore') < sug4) {
+        if (lastSetCounter('setFour') < sug4) {
           setSug4(sug4 - 1)
         }
         // set five
@@ -437,13 +436,13 @@ export const MainContextProvider = ({ children }) => {
       let newMap = pushupUid.map((val) => {
         let setOne = Number(val.sets[0].setOne)
         let setTwo = Number(val.sets[0].setTwo)
-        let setThree = Number(val.sets[0].setTree)
-        let setFore = Number(val.sets[0].setFore)
+        let setThree = Number(val.sets[0].setThree)
+        let setFour = Number(val.sets[0].setFour)
         let setFive = Number(val.sets[0].setFive)
         let num = null
 
         for (let i = 0; i < val.sets.length; i++) {
-          num = setOne + setTwo + setThree + setFore + setFive
+          num = setOne + setTwo + setThree + setFour + setFive
         }
         return num
       })
@@ -460,9 +459,8 @@ export const MainContextProvider = ({ children }) => {
     let setOne = Number(val.sets[0].setOne)
     let setTwo = Number(val.sets[0].setTwo)
     let setThree = Number(val.sets[0].setTree)
-    let setFore = Number(val.sets[0].setFore)
+    let setFour = Number(val.sets[0].setFore)
     let setFive = Number(val.sets[0].setFive)
-
     if (workoutmax < setOne) {
       workoutmax = setOne
     }
@@ -472,8 +470,8 @@ export const MainContextProvider = ({ children }) => {
     if (workoutmax < setThree) {
       workoutmax = setThree
     }
-    if (workoutmax < setFore) {
-      workoutmax = setFore
+    if (workoutmax < setFour) {
+      workoutmax = setFour
     }
     if (workoutmax < setFive) {
       workoutmax = setFive
@@ -511,7 +509,7 @@ export const MainContextProvider = ({ children }) => {
     totalPushUpCompiler()
   }, [pushupStats])
 
-  // use reducers
+  // use reducers for navigation
   const reducer = (state, action) => {
     switch (action.type) {
       case 'pushup':
@@ -626,6 +624,7 @@ export const MainContextProvider = ({ children }) => {
   }
 
   /////////////////////////////////////////////////
+
   return (
     <MainContext.Provider
       value={{

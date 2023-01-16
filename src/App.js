@@ -6,17 +6,18 @@ import About from './components/info/About'
 import Main from './components/Main'
 import Entery from './components/Entery'
 import { MainContextProvider } from './context/MainContext'
+import { PullUpContextProvider } from './context/PullUpContext'
 import Navbar from './components/navigation/Navbar'
 import Protectedroute from './components/protectedroute'
-import Workoutroom from './components/Workoutroom'
-import Pullups from './components/pages/Pullups'
+import Pushups from './components/pages/Pushups.page/Pushups'
+import Pullups from './components/pages/Pullups.page/Pullups'
 import Squats from './components/pages/Squats'
 import Running from './components/pages/Running'
 import StatsPage from './components/pages/Stats.page'
 import HistoryPage from './components/pages/History.page'
 import Achivments from './components/pages/Achivmens'
 /// statistic graph imports
-import PushUpStatMain from './components/Statistic Graphs/pushup-stats/PushUpGrapgMain'
+import PushUpStatMain from './components/pages/Statistic Graphs/pushup-stats/PushUpGrapgMain'
 
 function App() {
   return (
@@ -35,8 +36,15 @@ function App() {
             </Protectedroute>
           }
         >
-          <Route path="pushups" element={<Workoutroom />} />{' '}
-          <Route path="pullups" element={<Pullups />} />
+          <Route path="pushups" element={<Pushups />} />{' '}
+          <Route
+            path="pullups"
+            element={
+              <PullUpContextProvider>
+                <Pullups />
+              </PullUpContextProvider>
+            }
+          />
           <Route path="squats" element={<Squats />} />
           <Route path="running" element={<Running />} />
           <Route path="stats" element={<StatsPage />}>

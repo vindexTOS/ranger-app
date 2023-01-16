@@ -1,5 +1,5 @@
 import React, { PureComponent, useEffect, useState } from 'react'
-import { MainUseContext } from '../../../context/MainContext'
+import { MainUseContext } from '../../../../context/MainContext'
 import PushupGraph from './PushupGraph'
 function PushUpStatMain() {
   const { pushupStats, pushupUid, BMIconvertor } = MainUseContext()

@@ -82,14 +82,26 @@ function Entery() {
         </div>
         <div className={style.inputDiv}>
           <label className="text-[#54bff5]">
-            How many push ups can you do on one set ? Do them now and input your
-            data
+            How many reps can you do on one set for each exercises ? Do them now
+            and input your data
           </label>
           <input
             {...register('User_max')}
             className={style.input}
             type="number"
             placeholder="Max Push Ups"
+          />
+          <input
+            {...register('User_pullUp_Max')}
+            className={style.input}
+            type="number"
+            placeholder="Max Pull Ups"
+          />
+          <input
+            {...register('User_squat_Max')}
+            className={style.input}
+            type="number"
+            placeholder="Max Squats"
           />
         </div>
         <div className="w-[100%] flex items-center justify-center">
