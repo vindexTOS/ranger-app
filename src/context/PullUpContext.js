@@ -121,7 +121,7 @@ export const PullUpContextProvider = ({ children }) => {
   const [sug4, setSug4] = useState(0)
   const [sug5, setSug5] = useState(0)
 
-  const pushUpalgo = () => {
+  const pullUpalgo = () => {
     //first set of the last workout user did from firebase IP
     const lastSetCounter = (set) => {
       let newVal = pullupUid.filter((item, index) => {
@@ -183,30 +183,30 @@ export const PullUpContextProvider = ({ children }) => {
           //inner if statemnt
         }
         // this returns 60% of max pushup input
-        setSug1(procMax)
-        setSug2(procMax - 2)
-        setSug3(procMax - 4)
-        setSug4(procMax - 5)
-        setSug5(procMax - 6)
+        setSug1(procMax < 1 ? Math.ceil(procMax) : procMax)
+        setSug2(sug1 <= 0 ? sug1 + 1 : procMax - 2)
+        setSug3(sug2 <= 0 ? sug2 + 1 : procMax - 4)
+        setSug4(sug3 <= 0 ? sug3 + 1 : procMax - 5)
+        setSug5(sug4 <= 0 ? sug4 + 1 : procMax - 6)
         // set one
         if (lastSetCounter('setOne') >= procMax) {
-          setSug1(lastSetCounter('setOne') + 3)
+          setSug1(lastSetCounter('setOne') + 1)
         } else if (lastSetCounter('setOne') >= procMax + 2) {
-          setSug1(lastSetCounter('setOne') + 4)
+          setSug1(lastSetCounter('setOne') + 2)
         } else if (lastSetCounter('setOne') >= procMax + 4) {
-          setSug1(lastSetCounter('setOne') + 5)
+          setSug1(lastSetCounter('setOne') + 3)
         } else if (lastSetCounter('setOne') < sug1) {
           setSug1(procMax - 1)
         }
         // set two
         if (lastSetCounter('setTwo') >= sug2) {
-          setSug2(lastSetCounter('setTwo') + 2)
+          setSug2(lastSetCounter('setTwo') + 1)
         }
         if (lastSetCounter('setTwo') >= sug2 + 2) {
-          setSug2(lastSetCounter('setTwo') + 3)
+          setSug2(lastSetCounter('setTwo') + 2)
         }
         if (lastSetCounter('setTwo') >= sug2 + 4) {
-          setSug2(lastSetCounter('setTwo') + 4)
+          setSug2(lastSetCounter('setTwo') + 3)
         }
         if (lastSetCounter('setTwo') < sug2) {
           setSug2(sug2 - 1)
@@ -216,36 +216,36 @@ export const PullUpContextProvider = ({ children }) => {
           setSug3(lastSetCounter('setThree') + 1)
         }
         if (lastSetCounter('setThree') >= sug3 + 2) {
-          setSug3(lastSetCounter('setThree') + 2)
+          setSug3(lastSetCounter('setThree') + 1)
         }
         if (lastSetCounter('setThree') >= sug3 + 4) {
-          setSug3(lastSetCounter('setThree') + 3)
+          setSug3(lastSetCounter('setThree') + 2)
         }
         if (lastSetCounter('setThree') < sug3) {
           setSug3(sug3 - 1)
         }
         // set four
         if (lastSetCounter('setFour') >= sug4) {
-          setSug4(lastSetCounter('setFour') + 2)
+          setSug4(lastSetCounter('setFour') + 1)
         }
         if (lastSetCounter('setFour') >= sug4 + 2) {
-          setSug4(lastSetCounter('setFour') + 2)
+          setSug4(lastSetCounter('setFour') + 1)
         }
         if (lastSetCounter('setFour') >= sug4 + 4) {
-          setSug4(lastSetCounter('setFour') + 3)
+          setSug4(lastSetCounter('setFour') + 2)
         }
         if (lastSetCounter('setFour') < sug4) {
           setSug4(sug4 - 1)
         }
         // set five
         if (lastSetCounter('setFive') >= sug5) {
-          setSug5(lastSetCounter('setFive') + 2)
+          setSug5(lastSetCounter('setFive') + 1)
         }
         if (lastSetCounter('setFive') >= sug5 + 2) {
-          setSug5(lastSetCounter('setFive') + 2)
+          setSug5(lastSetCounter('setFive') + 1)
         }
         if (lastSetCounter('setFive') >= sug5 + 3) {
-          setSug5(lastSetCounter('setFive') + 3)
+          setSug5(lastSetCounter('setFive') + 2)
         }
         if (lastSetCounter('setFive') < sug5) {
           setSug5(sug5 - 1)
@@ -255,8 +255,75 @@ export const PullUpContextProvider = ({ children }) => {
     return newVal
   }
   React.useEffect(() => {
-    pushUpalgo()
+    pullUpalgo()
   }, [pullupData])
+  // user PR and functions for statistics /////////////////////////////////////////////////////////////////////////////////////////////////
+  const [pullupStats, setPullUpStats] = useState(null)
+
+  React.useEffect(() => {
+    const statsFunction = () => {
+      let newMap = pullupUid.map((val) => {
+        let setOne = Number(val.sets[0].setOne)
+        let setTwo = Number(val.sets[0].setTwo)
+        let setThree = Number(val.sets[0].setThree)
+        let setFour = Number(val.sets[0].setFour)
+        let setFive = Number(val.sets[0].setFive)
+        let num = null
+
+        for (let i = 0; i < val.sets.length; i++) {
+          num = setOne + setTwo + setThree + setFour + setFive
+        }
+        return num
+      })
+      setPullUpStats(newMap)
+    }
+    statsFunction()
+  }, [pullupData])
+
+  const [totalPullUps, setTotalPullUps] = React.useState(null)
+
+  let workoutmax = 0
+  pullupUid.map((val) => {
+    let setOne = Number(val.sets[0].setOne)
+    let setTwo = Number(val.sets[0].setTwo)
+    let setThree = Number(val.sets[0].setTree)
+    let setFour = Number(val.sets[0].setFore)
+    let setFive = Number(val.sets[0].setFive)
+    if (workoutmax < setOne) {
+      workoutmax = setOne
+    }
+    if (workoutmax < setTwo) {
+      workoutmax = setTwo
+    }
+    if (workoutmax < setThree) {
+      workoutmax = setThree
+    }
+    if (workoutmax < setFour) {
+      workoutmax = setFour
+    }
+    if (workoutmax < setFive) {
+      workoutmax = setFive
+    }
+  })
+
+  const totalPullUpCompiler = async () => {
+    try {
+      setTimeout(() => {
+        let pushupStatReducer = pullupStats.reduce(
+          (accumulator, currentValue) => accumulator + currentValue,
+          0,
+        )
+        setTotalPullUps(pushupStatReducer)
+      }, 1000)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  React.useEffect(() => {
+    totalPullUpCompiler()
+  }, [pullupStats])
+
   return (
     <PullUpContext.Provider
       value={{
@@ -273,6 +340,8 @@ export const PullUpContextProvider = ({ children }) => {
         sug3,
         sug4,
         sug5,
+        totalPullUps,
+        workoutmax,
       }}
     >
       {children}

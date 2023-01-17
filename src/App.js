@@ -7,11 +7,12 @@ import Main from './components/Main'
 import Entery from './components/Entery'
 import { MainContextProvider } from './context/MainContext'
 import { PullUpContextProvider } from './context/PullUpContext'
+import { SquatContextProvider } from './context/SquatContext'
 import Navbar from './components/navigation/Navbar'
 import Protectedroute from './components/protectedroute'
 import Pushups from './components/pages/Pushups.page/Pushups'
 import Pullups from './components/pages/Pullups.page/Pullups'
-import Squats from './components/pages/Squats'
+import Squats from './components/pages/Squat.page/Squats'
 import Running from './components/pages/Running'
 import StatsPage from './components/pages/Stats.page'
 import HistoryPage from './components/pages/History.page'
@@ -32,19 +33,16 @@ function App() {
           path="/workroom"
           element={
             <Protectedroute>
-              <Main />
+              <SquatContextProvider>
+                <PullUpContextProvider>
+                  <Main />
+                </PullUpContextProvider>
+              </SquatContextProvider>
             </Protectedroute>
           }
         >
           <Route path="pushups" element={<Pushups />} />{' '}
-          <Route
-            path="pullups"
-            element={
-              <PullUpContextProvider>
-                <Pullups />
-              </PullUpContextProvider>
-            }
-          />
+          <Route path="pullups" element={<Pullups />} />
           <Route path="squats" element={<Squats />} />
           <Route path="running" element={<Running />} />
           <Route path="stats" element={<StatsPage />}>

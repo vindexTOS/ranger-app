@@ -515,7 +515,7 @@ export const MainContextProvider = ({ children }) => {
       case 'pushup':
         return {
           pushup: (state.pushup = true),
-          pullup: (state.pushup = false),
+          pullup: (state.pullup = false),
           squat: (state.squat = false),
           running: (state.running = false),
           statistics: (state.statistics = false),
@@ -525,7 +525,7 @@ export const MainContextProvider = ({ children }) => {
       case 'pullup':
         return {
           pushup: (state.pushup = false),
-          pullup: (state.pushup = true),
+          pullup: (state.pullup = true),
           squat: (state.squat = false),
           running: (state.running = false),
           statistics: (state.statistics = false),
@@ -535,7 +535,7 @@ export const MainContextProvider = ({ children }) => {
       case 'squat':
         return {
           pushup: (state.pushup = false),
-          pullup: (state.pushup = false),
+          pullup: (state.pullup = false),
           squat: (state.squat = true),
           running: (state.running = false),
           statistics: (state.statistics = false),
@@ -555,7 +555,7 @@ export const MainContextProvider = ({ children }) => {
       case 'statistics':
         return {
           pushup: (state.pushup = false),
-          pullup: (state.pushup = false),
+          pullup: (state.pullup = false),
           squat: (state.squat = false),
           running: (state.running = false),
           statistics: (state.statistics = true),
@@ -565,7 +565,7 @@ export const MainContextProvider = ({ children }) => {
       case 'history':
         return {
           pushup: (state.pushup = false),
-          pullup: (state.pushup = false),
+          pullup: (state.pullup = false),
           squat: (state.squat = false),
           running: (state.running = false),
           statistics: (state.statistics = false),
@@ -575,7 +575,7 @@ export const MainContextProvider = ({ children }) => {
       case 'achivments':
         return {
           pushup: (state.pushup = false),
-          pullup: (state.pushup = false),
+          pullup: (state.pullup = false),
           squat: (state.squat = false),
           running: (state.running = false),
           statistics: (state.statistics = false),

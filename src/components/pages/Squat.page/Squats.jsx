@@ -1,24 +1,21 @@
 import React, { useEffect, useReducer } from 'react'
-import inprogress from '../../../utils/png/work-in-progress.png'
-import Timer from '../../timer/Timer'
+import { SquatUseContext } from '../../../context/SquatContext'
 import { motion as m } from 'framer-motion'
 import { style, inputDiv } from './styles'
-import SidePullUpPannel from './side-pannels/SidePullUpPannel'
-import { MainUseContext } from '../../../context/MainContext'
-import { PullUpUseContext } from '../../../context/PullUpContext'
 import PrevSets from './PrevSets'
-function Pullups(props) {
+import Timer from '../../timer/Timer'
+import SideSquatPannel from './side-pannels/SideSquatPannel'
+function Squats(props) {
   const {
+    handleSquatSubmit,
     handleSubmit,
-    handlePullUpSubmit,
-    pullupData,
-    pullupUid,
+
     sug1,
     sug2,
     sug3,
     sug4,
     sug5,
-  } = PullUpUseContext()
+  } = SquatUseContext()
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -28,6 +25,7 @@ function Pullups(props) {
         throw new Error()
     }
   }
+
   const [con, setCon] = React.useState(true)
   const [con1, setCon1] = React.useState(true)
   const [con2, setCon2] = React.useState(true)
@@ -54,18 +52,17 @@ function Pullups(props) {
 
   const btnStyle = {
     button: `${
-      !state.finish ? 'bg-[#FFA500] text-black' : 'text-orange-500'
-    }  border-2   rounded-[40px] mr-[6rem] mt-5 font-bold flex w-[16rem] h-[4.3rem] max_md:w-[14rem]   items-center justify-center  text-center `,
+      !state.finish ? 'bg-[#FFA500]' : 'text-blue-400 '
+    }  border-2   rounded-[40px] mr-[6rem] mt-5 font-bold flex w-[16rem] h-[4.3rem] max_md:w-[14rem]   items-center justify-center  text-center text-black`,
   }
   return (
     <>
+      {' '}
       <div className={style.mainDiv}>
-        <Timer />
         <PrevSets />
-        <form
-          onSubmit={handleSubmit(handlePullUpSubmit)}
-          className={style.form}
-        >
+        <Timer />
+
+        <form onSubmit={handleSubmit(handleSquatSubmit)} className={style.form}>
           <div className={style.inputDiv}>
             {/* single input div //////////////////////////////////////////////// */}
             {inputDiv(con, setCon, 'setOne', sug1)}
@@ -87,9 +84,9 @@ function Pullups(props) {
           </div>
         </form>
       </div>
-      <SidePullUpPannel />
+      <SideSquatPannel />
     </>
   )
 }
 
-export default Pullups
+export default Squats

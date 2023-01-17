@@ -1,10 +1,9 @@
 import React from 'react'
 import { MainUseContext } from '../context/MainContext'
 import DropDownNav from './navigation/DropDownNav'
-import History from './History'
-import Quotes from './Quotes'
+
 import Sidenavigation from './navigation/Sidenavigation'
-import Stats from './Stats'
+
 import { Outlet } from 'react-router-dom'
 
 function Main() {
@@ -28,16 +27,6 @@ function Main() {
       <div className={style.workDiv}>
         <Sidenavigation />
         <Outlet />
-
-        <div className={style.compDiv}>
-          <History />
-          <div className={style.underline}></div>
-
-          <Stats />
-          <div className={style.underline}></div>
-
-          <Quotes />
-        </div>
       </div>
     </div>
   )

@@ -14,7 +14,9 @@ function Sidenavigation() {
 
   const style = {
     section: ` w-[400px] h-[700px] flex flex-col gap-[2.5rem] max_Xll:hidden  mb-[3.5rem] `,
-    nav: ` w-[400px] flex   justify-center     h-[700px]   ml-[1rem]  rounded-l-[14px] rounded-r-[8px] border-l-2  border-t-2 `,
+    nav: ` w-[400px] flex   justify-center     h-[700px]   ml-[1rem] ${
+      state.pullup ? 'border-orange-400' : state.squat ? 'border-blue-400' : ''
+    }  rounded-l-[14px] rounded-r-[8px] border-l-2  border-t-2 `,
     navWrapper: `mt-10 navbar flex flex-col gap-[8px]  text-[1.2rem] items-center`,
     link: `w-[16rem] h-[3.3rem] flex items-center gap-4 text-gray-500 border-r-2 border-b-2 rounded-[8px]`,
     imgicon: `w-[15%] ml-2`,

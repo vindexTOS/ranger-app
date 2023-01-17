@@ -1,9 +1,9 @@
 import React from 'react'
-import { PullUpUseContext } from '../../../context/PullUpContext'
+import { SquatUseContext } from '../../../context/SquatContext'
 import { motion as m } from 'framer-motion'
 import { prevStyle as style } from './styles'
 function PrevSets() {
-  const { pullupUid, timestamp, maxPullUpUid } = PullUpUseContext()
+  const { squatUid, timestamp } = SquatUseContext()
   /// function for prev single div
   const prevSetDiv = (set) => {
     return (
@@ -12,8 +12,8 @@ function PrevSets() {
         animate={{ y: 0, transition: { duration: 1 } }}
         className={style.prevPush}
       >
-        {pullupUid.map((item, index) => {
-          if (pullupUid.length - 1 <= index) {
+        {squatUid.map((item, index) => {
+          if (squatUid.length - 1 <= index) {
             return (
               <p className={style.sets} key={item.id}>
                 {item.sets[0][set]}
@@ -31,6 +31,7 @@ function PrevSets() {
       animate={{ opacity: 1, transition: { duration: 3 } }}
       className={style.prevDiv}
     >
+      {' '}
       <m.h1
         className={style.header}
         initial={{ y: -20 }}

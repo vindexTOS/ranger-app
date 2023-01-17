@@ -5,6 +5,7 @@ import { motion as m } from 'framer-motion'
 import { style, inputDiv } from './styles'
 import PrevSets from './PrevSets'
 import Timer from '../../timer/Timer'
+import SidePushUpPannel from './side-pannels/SidePushUpPannel.jsx'
 
 function Pushups() {
   const {
@@ -56,32 +57,39 @@ function Pushups() {
     }  border-2   rounded-[40px] mr-[6rem] mt-5 font-bold flex w-[16rem] h-[4.3rem] max_md:w-[14rem]   items-center justify-center  text-center text-black`,
   }
   return (
-    <div className={style.mainDiv}>
-      <PrevSets />
-      <Timer />
+    <>
+      {' '}
+      <div className={style.mainDiv}>
+        <PrevSets />
+        <Timer />
 
-      <form onSubmit={handleSubmit(handlePushupSubmit)} className={style.form}>
-        <div className={style.inputDiv}>
-          {/* single input div //////////////////////////////////////////////// */}
-          {inputDiv(con, setCon, 'setOne', sug1)}
-          {inputDiv(con1, setCon1, 'setTwo', sug2)}
-          {inputDiv(con2, setCon2, 'setThree', sug3)}
-          {inputDiv(con3, setCon3, 'setFour', sug4)}
-          {inputDiv(con4, setCon4, 'setFive', sug5)}
-          <div className={`${'w-[100%] flex     justify-center'}`}>
-            <m.button
-              whileTap={{
-                scale: 1.2,
-              }}
-              className={btnStyle.button}
-              type="submit"
-            >
-              Finish Workout
-            </m.button>
+        <form
+          onSubmit={handleSubmit(handlePushupSubmit)}
+          className={style.form}
+        >
+          <div className={style.inputDiv}>
+            {/* single input div //////////////////////////////////////////////// */}
+            {inputDiv(con, setCon, 'setOne', sug1)}
+            {inputDiv(con1, setCon1, 'setTwo', sug2)}
+            {inputDiv(con2, setCon2, 'setThree', sug3)}
+            {inputDiv(con3, setCon3, 'setFour', sug4)}
+            {inputDiv(con4, setCon4, 'setFive', sug5)}
+            <div className={`${'w-[100%] flex     justify-center'}`}>
+              <m.button
+                whileTap={{
+                  scale: 1.2,
+                }}
+                className={btnStyle.button}
+                type="submit"
+              >
+                Finish Workout
+              </m.button>
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+      <SidePushUpPannel style={style} />
+    </>
   )
 }
 
