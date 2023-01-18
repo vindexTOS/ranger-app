@@ -12,6 +12,7 @@ function Pullups(props) {
     handleSubmit,
     handlePullUpSubmit,
     pullupData,
+    getValues,
     pullupUid,
     sug1,
     sug2,
@@ -57,6 +58,7 @@ function Pullups(props) {
       !state.finish ? 'bg-[#FFA500] text-black' : 'text-orange-500'
     }  border-2   rounded-[40px] mr-[6rem] mt-5 font-bold flex w-[16rem] h-[4.3rem] max_md:w-[14rem]   items-center justify-center  text-center `,
   }
+
   return (
     <>
       <div className={style.mainDiv}>

@@ -186,72 +186,50 @@ export const SquatContextProvider = ({ children }) => {
           }
           //inner if statemnt
         }
-        // this returns 60% of max squat input
-        setSug1(procMax)
-        setSug2(procMax - 2)
-        setSug3(procMax - 4)
-        setSug4(procMax - 5)
-        setSug5(procMax - 6)
+
+        // this returns 60% of max squats input
+        setSug1(Math.floor(procMax))
+        setSug2(Math.floor(procMax) - 2)
+        setSug3(Math.floor(procMax - 4))
+        setSug4(Math.floor(procMax - 5))
+        setSug5(Math.floor(procMax - 6))
+        // if user is novice and cant do more than 5 squats
+        if (procMax < 5) {
+          setSug1(Math.floor(procMax))
+          setSug2(Math.floor(procMax))
+          setSug3(Math.floor(procMax))
+          setSug4(Math.floor(procMax))
+          setSug5(Math.floor(procMax - 1))
+        }
         // set one
-        if (lastSetCounter('setOne') >= procMax) {
-          setSug1(lastSetCounter('setOne') + 3)
-        } else if (lastSetCounter('setOne') >= procMax + 2) {
-          setSug1(lastSetCounter('setOne') + 4)
-        } else if (lastSetCounter('setOne') >= procMax + 4) {
-          setSug1(lastSetCounter('setOne') + 5)
+        if (lastSetCounter('setOne') >= sug1) {
+          setSug1(lastSetCounter('setOne') + 1)
         } else if (lastSetCounter('setOne') < sug1) {
           setSug1(procMax - 1)
         }
+
         // set two
         if (lastSetCounter('setTwo') >= sug2) {
-          setSug2(lastSetCounter('setTwo') + 2)
-        }
-        if (lastSetCounter('setTwo') >= sug2 + 2) {
-          setSug2(lastSetCounter('setTwo') + 3)
-        }
-        if (lastSetCounter('setTwo') >= sug2 + 4) {
-          setSug2(lastSetCounter('setTwo') + 4)
-        }
-        if (lastSetCounter('setTwo') < sug2) {
-          setSug2(sug2 - 1)
+          setSug2(lastSetCounter('setTwo') + 1)
+        } else if (lastSetCounter('setTwo') < sug2) {
+          setSug2(lastSetCounter('setTwo') - 1)
         }
         // setsetThree
         if (lastSetCounter('setThree') >= sug3) {
           setSug3(lastSetCounter('setThree') + 1)
-        }
-        if (lastSetCounter('setThree') >= sug3 + 2) {
-          setSug3(lastSetCounter('setThree') + 2)
-        }
-        if (lastSetCounter('setThree') >= sug3 + 4) {
-          setSug3(lastSetCounter('setThree') + 3)
-        }
-        if (lastSetCounter('setThree') < sug3) {
-          setSug3(sug3 - 1)
+        } else if (lastSetCounter('setThree') < sug3) {
+          setSug3(lastSetCounter('setThree') - 1)
         }
         // set four
         if (lastSetCounter('setFour') >= sug4) {
-          setSug4(lastSetCounter('setFour') + 2)
-        }
-        if (lastSetCounter('setFour') >= sug4 + 2) {
-          setSug4(lastSetCounter('setFour') + 2)
-        }
-        if (lastSetCounter('setFour') >= sug4 + 4) {
-          setSug4(lastSetCounter('setFour') + 3)
-        }
-        if (lastSetCounter('setFour') < sug4) {
-          setSug4(sug4 - 1)
+          setSug4(lastSetCounter('setFour') + 1)
+        } else if (lastSetCounter('setFour') < sug4) {
+          setSug4(lastSetCounter('setFour') - 1)
         }
         // set five
         if (lastSetCounter('setFive') >= sug5) {
-          setSug5(lastSetCounter('setFive') + 2)
-        }
-        if (lastSetCounter('setFive') >= sug5 + 2) {
-          setSug5(lastSetCounter('setFive') + 2)
-        }
-        if (lastSetCounter('setFive') >= sug5 + 3) {
-          setSug5(lastSetCounter('setFive') + 3)
-        }
-        if (lastSetCounter('setFive') < sug5) {
+          setSug5(lastSetCounter('setFive') + 1)
+        } else if (lastSetCounter('setFive') < sug5) {
           setSug5(sug5 - 1)
         }
       }

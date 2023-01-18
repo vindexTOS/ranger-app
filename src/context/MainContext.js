@@ -21,6 +21,7 @@ import {
   where,
   orderBy,
 } from 'firebase/firestore'
+import { Link, useLocation } from 'react-router-dom'
 
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -279,26 +280,26 @@ export const MainContextProvider = ({ children }) => {
         let max = parseInt(item.userMax)
         if (Number(userInformationa('User_age')) >= 40) {
           // if user is more than 40 years old we make procMax aka programs starting max for push ups program to 40% instad of 50% or 60%
-          procMax = max * 0.4
+          procMax = max * 0.5
           // calucating procMax by BMI  inner If statment
           if (BMIconvertor() >= 35) {
             procMax = max * 0.2
           } else if (BMIconvertor() >= 30) {
             procMax = max * 0.3
           } else if (BMIconvertor() > 25) {
-            procMax = max * 0.35555
+            procMax = max * 0.4
           }
           //inner if statemnt
         } else if (Number(userInformationa('User_age')) >= 25) {
           // if user is more than 25 years old we make procMax aka programs starting max for push ups program to 50% instad of 60%
-          procMax = max * 0.5
+          procMax = max * 0.6
           // calucating procMax by BMI  inner If statment
           if (BMIconvertor() >= 35) {
             procMax = max * 0.3
           } else if (BMIconvertor() >= 30) {
             procMax = max * 0.4
           } else if (BMIconvertor() > 25) {
-            procMax = max * 0.4555
+            procMax = max * 0.5
           }
           //inner if statemnt
         } else if (Number(userInformationa('User_age')) < 25) {
@@ -313,72 +314,50 @@ export const MainContextProvider = ({ children }) => {
           }
           //inner if statemnt
         }
+
         // this returns 60% of max pushup input
-        setSug1(procMax)
-        setSug2(procMax - 2)
-        setSug3(procMax - 4)
-        setSug4(procMax - 5)
-        setSug5(procMax - 6)
+        setSug1(Math.floor(procMax))
+        setSug2(Math.floor(procMax) - 2)
+        setSug3(Math.floor(procMax - 4))
+        setSug4(Math.floor(procMax - 5))
+        setSug5(Math.floor(procMax - 6))
+        // if user is novice and cant do more than 5 push ups
+        if (procMax < 5) {
+          setSug1(Math.floor(procMax))
+          setSug2(Math.floor(procMax))
+          setSug3(Math.floor(procMax))
+          setSug4(Math.floor(procMax))
+          setSug5(Math.floor(procMax - 1))
+        }
         // set one
-        if (lastSetCounter('setOne') >= procMax) {
-          setSug1(lastSetCounter('setOne') + 3)
-        } else if (lastSetCounter('setOne') >= procMax + 2) {
-          setSug1(lastSetCounter('setOne') + 4)
-        } else if (lastSetCounter('setOne') >= procMax + 4) {
-          setSug1(lastSetCounter('setOne') + 5)
+        if (lastSetCounter('setOne') >= sug1) {
+          setSug1(lastSetCounter('setOne') + 1)
         } else if (lastSetCounter('setOne') < sug1) {
           setSug1(procMax - 1)
         }
+
         // set two
         if (lastSetCounter('setTwo') >= sug2) {
-          setSug2(lastSetCounter('setTwo') + 2)
-        }
-        if (lastSetCounter('setTwo') >= sug2 + 2) {
-          setSug2(lastSetCounter('setTwo') + 3)
-        }
-        if (lastSetCounter('setTwo') >= sug2 + 4) {
-          setSug2(lastSetCounter('setTwo') + 4)
-        }
-        if (lastSetCounter('setTwo') < sug2) {
-          setSug2(sug2 - 1)
+          setSug2(lastSetCounter('setTwo') + 1)
+        } else if (lastSetCounter('setTwo') < sug2) {
+          setSug2(lastSetCounter('setTwo') - 1)
         }
         // setsetThree
         if (lastSetCounter('setThree') >= sug3) {
           setSug3(lastSetCounter('setThree') + 1)
-        }
-        if (lastSetCounter('setThree') >= sug3 + 2) {
-          setSug3(lastSetCounter('setThree') + 2)
-        }
-        if (lastSetCounter('setThree') >= sug3 + 4) {
-          setSug3(lastSetCounter('setThree') + 3)
-        }
-        if (lastSetCounter('setThree') < sug3) {
-          setSug3(sug3 - 1)
+        } else if (lastSetCounter('setThree') < sug3) {
+          setSug3(lastSetCounter('setThree') - 1)
         }
         // set four
         if (lastSetCounter('setFour') >= sug4) {
-          setSug4(lastSetCounter('setFour') + 2)
-        }
-        if (lastSetCounter('setFour') >= sug4 + 2) {
-          setSug4(lastSetCounter('setFour') + 2)
-        }
-        if (lastSetCounter('setFour') >= sug4 + 4) {
-          setSug4(lastSetCounter('setFour') + 3)
-        }
-        if (lastSetCounter('setFour') < sug4) {
-          setSug4(sug4 - 1)
+          setSug4(lastSetCounter('setFour') + 1)
+        } else if (lastSetCounter('setFour') < sug4) {
+          setSug4(lastSetCounter('setFour') - 1)
         }
         // set five
         if (lastSetCounter('setFive') >= sug5) {
-          setSug5(lastSetCounter('setFive') + 2)
-        }
-        if (lastSetCounter('setFive') >= sug5 + 2) {
-          setSug5(lastSetCounter('setFive') + 2)
-        }
-        if (lastSetCounter('setFive') >= sug5 + 3) {
-          setSug5(lastSetCounter('setFive') + 3)
-        }
-        if (lastSetCounter('setFive') < sug5) {
+          setSug5(lastSetCounter('setFive') + 1)
+        } else if (lastSetCounter('setFive') < sug5) {
           setSug5(sug5 - 1)
         }
       }
@@ -508,92 +487,28 @@ export const MainContextProvider = ({ children }) => {
     maxUidStore()
     totalPushUpCompiler()
   }, [pushupStats])
+  let location = useLocation()
 
   // use reducers for navigation
+
+  const navLinksObj = {
+    pullup: location.pathname == '/workroom/pullups',
+    achivments: location.pathname == '/workroom/achievements',
+    history: location.pathname == '/workroom/history',
+    statistics: location.pathname == '/workroom/stats/pushup-stats',
+    running: location.pathname == '/workroom/running',
+    squat: location.pathname == '/workroom/squats',
+
+    pushup: location.pathname == '/workroom/pushups',
+  }
   const reducer = (state, action) => {
     switch (action.type) {
-      case 'pushup':
-        return {
-          pushup: (state.pushup = true),
-          pullup: (state.pullup = false),
-          squat: (state.squat = false),
-          running: (state.running = false),
-          statistics: (state.statistics = false),
-          history: (state.history = false),
-          achivments: (state.achivments = false),
-        }
-      case 'pullup':
-        return {
-          pushup: (state.pushup = false),
-          pullup: (state.pullup = true),
-          squat: (state.squat = false),
-          running: (state.running = false),
-          statistics: (state.statistics = false),
-          history: (state.history = false),
-          achivments: (state.achivments = false),
-        }
-      case 'squat':
-        return {
-          pushup: (state.pushup = false),
-          pullup: (state.pullup = false),
-          squat: (state.squat = true),
-          running: (state.running = false),
-          statistics: (state.statistics = false),
-          history: (state.history = false),
-          achivments: (state.achivments = false),
-        }
-      case 'running':
-        return {
-          pushup: (state.pushup = false),
-          pullup: (state.pushup = false),
-          squat: (state.squat = false),
-          running: (state.running = true),
-          statistics: (state.statistics = false),
-          history: (state.history = false),
-          achivments: (state.achivments = false),
-        }
-      case 'statistics':
-        return {
-          pushup: (state.pushup = false),
-          pullup: (state.pullup = false),
-          squat: (state.squat = false),
-          running: (state.running = false),
-          statistics: (state.statistics = true),
-          history: (state.history = false),
-          achivments: (state.achivments = false),
-        }
-      case 'history':
-        return {
-          pushup: (state.pushup = false),
-          pullup: (state.pullup = false),
-          squat: (state.squat = false),
-          running: (state.running = false),
-          statistics: (state.statistics = false),
-          history: (state.history = true),
-          achivments: (state.achivments = false),
-        }
-      case 'achivments':
-        return {
-          pushup: (state.pushup = false),
-          pullup: (state.pullup = false),
-          squat: (state.squat = false),
-          running: (state.running = false),
-          statistics: (state.statistics = false),
-          history: (state.history = false),
-          achivments: (state.achivments = true),
-        }
       case 'dropdown':
         return { dropdown: !state.dropdown }
     }
   }
+
   const [state, dispatch] = useReducer(reducer, {
-    pushup: true,
-    pullup: false,
-    squat: false,
-    running: false,
-    statistics: false,
-    history: false,
-    achivments: false,
     dropdown: false,
   })
   ///timer reducer and functions ///////
@@ -671,6 +586,7 @@ export const MainContextProvider = ({ children }) => {
         timerStarter,
         timeState,
         timerDispatch,
+        navLinksObj,
       }}
     >
       {children}
