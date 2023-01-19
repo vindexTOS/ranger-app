@@ -10,10 +10,18 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 
+import statisticsIcon from '../../../../utils/png/workstatistics.png'
+
 function PushupGraph({ pushupStatData }) {
   return (
     <>
-      <ResponsiveContainer width="90%" height="80%">
+      <img className="w-[3rem]" src={statisticsIcon} />
+      <h1>PUSH UP STATISTICS</h1>
+      <ResponsiveContainer
+        width="90%"
+        height="80%"
+        className="border-l-2 border-b-2 border-t-2 rounded-[14px] bg-[#fcfcfa] max_sm:mb-10"
+      >
         <LineChart
           width={300}
           height={100}
@@ -38,7 +46,6 @@ function PushupGraph({ pushupStatData }) {
           <Tooltip />
         </LineChart>
       </ResponsiveContainer>{' '}
-      <h1>PUSH UP STATISTICS</h1>
     </>
   )
 }

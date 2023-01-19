@@ -1,8 +1,20 @@
 import React, { PureComponent, useEffect, useState } from 'react'
+import subStatsDiv from './subStatsDiv'
 import { MainUseContext } from '../../../../context/MainContext'
 import PushupGraph from './PushupGraph'
+import schedule from '../../../../utils/png/calendar.png'
+import prFitness from '../../../../utils/png/fitness-blogger.png'
+import dumbbell from '../../../../utils/png/dumbbell.png'
+import pushuptotal from '../../../../utils/png/pushupcheck.png'
 function PushUpStatMain() {
-  const { pushupStats, pushupUid, BMIconvertor } = MainUseContext()
+  const {
+    pushupStats,
+    pushupUid,
+    totalPushups,
+    testedMax,
+    workoutmax,
+  } = MainUseContext()
+
   // this state takes date and time where total collected push ups was done
   const [pushupStatData, setPushupStatData] = useState()
 
@@ -19,17 +31,39 @@ function PushUpStatMain() {
   }, [pushupUid, pushupStats])
 
   const style = {
-    conteinerDiv: `stats-wrapper w-[100%] h-[100%]  `,
-    pushupStat: `w-[800px] h-[500px] bg-white  border-2 rounded-[12px] flex flex-col items-center justify-center max_md:h-[300px] max_md:w-[370px]`,
+    conteinerDiv: `flex flex-col justify-center items-center w-[100%] h-[100%] gap-10 `,
+    pushupStat: `w-[90%] h-[500px] bg-[#f0f0f0]  border-2 rounded-[12px] flex flex-col items-center justify-center max_sm:w-[100%] max_sm:ml-10 max_md:h-[300px] max_md:w-[370px]`,
+    smallStatsDiv: `w-[90%] flex items-center justify-center flex-row gap-5 max_sm:gap-1 max_sm:ml-10 `,
   }
 
   return (
     <div className={style.conteinerDiv}>
       <div className={style.pushupStat}>
         <PushupGraph pushupStatData={pushupStatData} />
-        <button onClick={() => console.log(BMIconvertor())}>
-          ::::::BU::::::
-        </button>
+      </div>
+      <div className={style.smallStatsDiv}>
+        {subStatsDiv(
+          pushuptotal,
+          totalPushups == null || totalPushups == 0
+            ? 'Loading...'
+            : totalPushups,
+          'Total Push Ups',
+        )}
+        {subStatsDiv(
+          dumbbell,
+          testedMax == null || testedMax == 0 ? 'Loading...' : testedMax,
+          'Tested Max',
+        )}
+        {subStatsDiv(
+          prFitness,
+          workoutmax == null || workoutmax == 0 ? 'Loading...' : workoutmax,
+          'Training PR',
+        )}
+        {subStatsDiv(
+          schedule,
+          pushupUid == null || pushupUid == 0 ? 'Loading...' : pushupUid.length,
+          'Days Trained',
+        )}
       </div>
     </div>
   )

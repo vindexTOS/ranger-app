@@ -495,22 +495,18 @@ export const MainContextProvider = ({ children }) => {
     pullup: location.pathname == '/workroom/pullups',
     achivments: location.pathname == '/workroom/achievements',
     history: location.pathname == '/workroom/history',
-    statistics: location.pathname == '/workroom/stats/pushup-stats',
+    statistics:
+      location.pathname == '/workroom/stats/pushup-stats' ||
+      location.pathname == '/workroom/stats/pullup-stats' ||
+      location.pathname == '/workroom/stats/squat-stats',
     running: location.pathname == '/workroom/running',
     squat: location.pathname == '/workroom/squats',
 
     pushup: location.pathname == '/workroom/pushups',
   }
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case 'dropdown':
-        return { dropdown: !state.dropdown }
-    }
-  }
 
-  const [state, dispatch] = useReducer(reducer, {
-    dropdown: false,
-  })
+  const [dropdown, setDropDown] = useState(false)
+
   ///timer reducer and functions ///////
   const reducerTimer = (state, action) => {
     switch (action.type) {
@@ -577,9 +573,10 @@ export const MainContextProvider = ({ children }) => {
         userData,
         userInfoUid,
         userInformationa,
-        dispatch,
+
         BMIconvertor,
-        state,
+        dropdown,
+        setDropDown,
         reducerTimer,
         setDummyState,
         dummyState,

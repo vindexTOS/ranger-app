@@ -19,7 +19,8 @@ import HistoryPage from './components/pages/History.page'
 import Achivments from './components/pages/Achivmens'
 /// statistic graph imports
 import PushUpStatMain from './components/pages/Statistic Graphs/pushup-stats/PushUpGrapgMain'
-
+import PullUpGraphMain from './components/pages/Statistic Graphs/pullup-stats/PullupGraphMain'
+import SquatGraphMain from './components/pages/Statistic Graphs/squating-stats/SquatGraphMain'
 function App() {
   return (
     <MainContextProvider>
@@ -48,6 +49,8 @@ function App() {
           <Route path="stats" element={<StatsPage />}>
             {/* stats page routes and navigation  */}
             <Route path="pushup-stats" element={<PushUpStatMain />} />
+            <Route path="pullup-stats" element={<PullUpGraphMain />} />
+            <Route path="squat-stats" element={<SquatGraphMain />} />
           </Route>
           <Route path="history" element={<HistoryPage />} />
           <Route path="achievements" element={<Achivments />} />

@@ -7,7 +7,7 @@ import { AiOutlineUser, AiOutlineBars } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 
 function Navbar() {
-  const { user, handleLogOut, dispatch } = MainUseContext()
+  const { user, handleLogOut, setDropDown, dropdown } = MainUseContext()
   const style = {
     nav: `${
       user == null ? 'hidden' : '   flex flex-row   w-[100%] h-[60px]  nav'
@@ -29,7 +29,7 @@ function Navbar() {
     <nav className={style.nav}>
       <div className="flex flex-row gap-5 items-center 1xl:hidden">
         <AiOutlineBars
-          onClick={() => dispatch({ type: 'dropdown' })}
+          onClick={() => setDropDown(!dropdown)}
           className="h-[2rem] text-[3rem] "
         />
       </div>

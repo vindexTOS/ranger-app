@@ -10,7 +10,7 @@ import calendaricon from '../../utils/png/timetable.png'
 
 import awardicon from '../../utils/png/award.png'
 function DropDownNav(props) {
-  const { state, dispatch } = MainUseContext()
+  const { dropdown } = MainUseContext()
 
   const style = {
     section: ` w-[100%] h-[1000px] flex flex-col gap-[2.5rem] bg-gray-600 bg-opacity-75 absolute  z-30  1xl:hidden  mb-20  `,
@@ -20,13 +20,9 @@ function DropDownNav(props) {
     imgicon: `w-[10%] ml-2`,
   }
 
-  const navLinks = (title, stateType, linkTo, icon) => {
+  const navLinks = (title, linkTo, icon) => {
     return (
-      <Link
-        onClick={() => dispatch({ type: stateType })}
-        className={style.link}
-        to={linkTo}
-      >
+      <Link className={style.link} to={linkTo}>
         <img src={icon} className={style.imgicon} />
         {title}
       </Link>
@@ -37,18 +33,18 @@ function DropDownNav(props) {
     <section className={style.section}>
       <nav className={style.nav}>
         <div className={style.navWrapper}>
-          {navLinks('Push ups', 'pushup', 'pushups', pushupicon)}
-          {navLinks('Pull ups', 'pullup', 'pullups', pullupicon)}
-          {navLinks('Squats', 'squat', 'squats', squaticon)}
-          {navLinks('Running', 'running', 'running', runicon)}
+          {navLinks('Push ups', 'pushups', pushupicon)}
+          {navLinks('Pull ups', 'pullups', pullupicon)}
+          {navLinks('Squats', 'squats', squaticon)}
+          {navLinks('Running', 'running', runicon)}
           {navLinks(
             'Statistics',
-            'statistics',
+
             'stats/pushup-stats',
             statsicon,
           )}
-          {navLinks('History', 'history', 'history', calendaricon)}
-          {navLinks('Achievements', 'achivments', 'achievements', awardicon)}
+          {navLinks('History', 'history', calendaricon)}
+          {navLinks('Achievements', 'achievements', awardicon)}
         </div>
       </nav>
     </section>
