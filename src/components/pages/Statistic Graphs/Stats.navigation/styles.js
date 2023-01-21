@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 export const style = {
-  nav: `flex flex-row  items-center justify-center gap-10 max_sm:gap-0 rounded-[14px] max_sm:rounded-[1px] max_sm:border-2 max_sm:w-[100%] border-r-2 border-t-2 w-[50%] h-[100px] max_md:w-[300px] max_sm:ml-10 `,
+  nav: `flex flex-row z-20 items-center justify-center gap-10 max_sm:gap-0 rounded-[14px] max_sm:rounded-[1px] max_sm:border-2 max_sm:w-[100%] border-r-2 border-t-2 w-[50%] h-[100px] max_md:w-[300px] max_sm:ml-10 `,
 }
 export const navbuttonstyling = (state) => {
   const linkbg =

@@ -10,7 +10,7 @@ import calendaricon from '../../utils/png/timetable.png'
 
 import awardicon from '../../utils/png/award.png'
 function DropDownNav(props) {
-  const { dropdown } = MainUseContext()
+  const { setDropDown, dropdown } = MainUseContext()
 
   const style = {
     section: ` w-[100%] h-[1000px] flex flex-col gap-[2.5rem] bg-gray-600 bg-opacity-75 absolute  z-30  1xl:hidden  mb-20  `,
@@ -22,7 +22,11 @@ function DropDownNav(props) {
 
   const navLinks = (title, linkTo, icon) => {
     return (
-      <Link className={style.link} to={linkTo}>
+      <Link
+        className={style.link}
+        to={linkTo}
+        onClick={() => setDropDown(!dropdown)}
+      >
         <img src={icon} className={style.imgicon} />
         {title}
       </Link>

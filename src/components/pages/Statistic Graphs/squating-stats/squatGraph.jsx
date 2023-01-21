@@ -12,11 +12,11 @@ import {
 
 import statisticsIcon from '../../../../utils/png/workstatistics.png'
 
-function PushupGraph({ pushupStatData }) {
+function SquatGraph({ squatStatsData }) {
   return (
     <>
       <img className="w-[3rem]" src={statisticsIcon} />
-      <h1>PUSH UP STATISTICS</h1>
+      <h1>SQUAT STATISTICS</h1>
       <ResponsiveContainer
         width="90%"
         height="100%"
@@ -25,7 +25,7 @@ function PushupGraph({ pushupStatData }) {
         <LineChart
           width={300}
           height={500}
-          data={pushupStatData}
+          data={squatStatsData}
           margin={{
             top: 10,
             right: 10,
@@ -35,7 +35,7 @@ function PushupGraph({ pushupStatData }) {
         >
           <Line
             type="monotone"
-            dataKey="Total Push Ups"
+            dataKey="Total squats"
             stroke="#8884d8"
             strokeWidth={2}
           />
@@ -50,4 +50,4 @@ function PushupGraph({ pushupStatData }) {
   )
 }
 
-export default PushupGraph
+export default SquatGraph

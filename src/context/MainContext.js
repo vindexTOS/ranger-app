@@ -179,6 +179,7 @@ export const MainContextProvider = ({ children }) => {
   // use effect for max
   // this also works as full user info store
   const [maxPushup, setMaxpushup] = React.useState([])
+
   React.useEffect(() => {
     if (user == null) return
     const q = query(collection(db, 'user_data'), orderBy('timestamp'))
@@ -409,24 +410,23 @@ export const MainContextProvider = ({ children }) => {
 
   // stats functions
   const [pushupStats, setpushupStats] = useState(null)
+  const statsFunction = () => {
+    let newMap = pushupUid.map((val) => {
+      let setOne = Number(val.sets[0].setOne)
+      let setTwo = Number(val.sets[0].setTwo)
+      let setThree = Number(val.sets[0].setThree)
+      let setFour = Number(val.sets[0].setFour)
+      let setFive = Number(val.sets[0].setFive)
+      let num = null
 
+      for (let i = 0; i < val.sets.length; i++) {
+        num = setOne + setTwo + setThree + setFour + setFive
+      }
+      return num
+    })
+    setpushupStats(newMap)
+  }
   React.useEffect(() => {
-    const statsFunction = () => {
-      let newMap = pushupUid.map((val) => {
-        let setOne = Number(val.sets[0].setOne)
-        let setTwo = Number(val.sets[0].setTwo)
-        let setThree = Number(val.sets[0].setThree)
-        let setFour = Number(val.sets[0].setFour)
-        let setFive = Number(val.sets[0].setFive)
-        let num = null
-
-        for (let i = 0; i < val.sets.length; i++) {
-          num = setOne + setTwo + setThree + setFour + setFive
-        }
-        return num
-      })
-      setpushupStats(newMap)
-    }
     statsFunction()
   }, [pushupData])
 
@@ -489,7 +489,7 @@ export const MainContextProvider = ({ children }) => {
   }, [pushupStats])
   let location = useLocation()
 
-  // use reducers for navigation
+  // use reducers for navigation/////////////////////////////////////////////////////////////////////////////////
 
   const navLinksObj = {
     pullup: location.pathname == '/workroom/pullups',
@@ -507,7 +507,7 @@ export const MainContextProvider = ({ children }) => {
 
   const [dropdown, setDropDown] = useState(false)
 
-  ///timer reducer and functions ///////
+  ///timer reducer and functions /////////////////////////////////////////////////////////////////////////////////////////
   const reducerTimer = (state, action) => {
     switch (action.type) {
       case 'countDown':
@@ -534,7 +534,7 @@ export const MainContextProvider = ({ children }) => {
     setDummyState(!dummyState)
   }
 
-  /////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
 
   return (
     <MainContext.Provider
@@ -575,6 +575,7 @@ export const MainContextProvider = ({ children }) => {
         userInformationa,
 
         BMIconvertor,
+
         dropdown,
         setDropDown,
         reducerTimer,

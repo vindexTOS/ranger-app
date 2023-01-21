@@ -46,9 +46,7 @@ export const PullUpContextProvider = ({ children }) => {
   /////pulling pull up data to firestore////////////////////////////////////////////////////////////////////////////
 
   const [pullupData, setPullUpdata] = React.useState([])
-
-  useEffect(() => {
-    console.log(pullup + '<<<<<<<<<<<<<<<<<<<<,')
+  const pullUpDataPuller = async () => {
     const q = query(collection(db, 'pullups'), orderBy('timestamp'))
     const unsub = onSnapshot(q, (querySnapshot) => {
       let pullup = []
@@ -80,6 +78,9 @@ export const PullUpContextProvider = ({ children }) => {
       }
     })
     return () => unsub()
+  }
+  useEffect(() => {
+    pullUpDataPuller()
   }, [user])
   //// filtering pull up data based on user UID////////////////////////////////////////////////////////////////////////////
 
@@ -234,7 +235,8 @@ export const PullUpContextProvider = ({ children }) => {
   }
   React.useEffect(() => {
     pullUpalgo()
-  }, [pullupData])
+  }, [maxPushup])
+
   // user PR and functions for statistics /////////////////////////////////////////////////////////////////////////////////////////////////
   const [pullupStats, setPullUpStats] = useState(null)
 
@@ -301,7 +303,6 @@ export const PullUpContextProvider = ({ children }) => {
   React.useEffect(() => {
     totalPullUpCompiler()
   }, [pullupStats])
-
   return (
     <PullUpContext.Provider
       value={{
@@ -311,6 +312,7 @@ export const PullUpContextProvider = ({ children }) => {
         handlePullUpSubmit,
         pullupData,
         pullupUid,
+        pullupStats,
         timestamp,
         maxPullUpUid,
         sug1,

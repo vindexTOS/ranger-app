@@ -238,7 +238,7 @@ export const SquatContextProvider = ({ children }) => {
   }
   React.useEffect(() => {
     Squatalgo()
-  }, [squatData])
+  }, [maxPushup, squatData])
   // user PR and functions for statistics /////////////////////////////////////////////////////////////////////////////////////////////////
   const [squatStats, setSquatStats] = useState(null)
 
@@ -305,6 +305,7 @@ export const SquatContextProvider = ({ children }) => {
   React.useEffect(() => {
     totalSquatCompiler()
   }, [squatStats])
+
   return (
     <squatContext.Provider
       value={{

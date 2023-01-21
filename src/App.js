@@ -15,7 +15,7 @@ import Pullups from './components/pages/Pullups.page/Pullups'
 import Squats from './components/pages/Squat.page/Squats'
 import Running from './components/pages/Running'
 import StatsPage from './components/pages/Stats.page'
-import HistoryPage from './components/pages/History.page'
+import HistoryPage from './components/pages/History.pages/History.page'
 import Achivments from './components/pages/Achivmens'
 /// statistic graph imports
 import PushUpStatMain from './components/pages/Statistic Graphs/pushup-stats/PushUpGrapgMain'
