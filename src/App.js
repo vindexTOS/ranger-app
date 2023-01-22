@@ -8,6 +8,7 @@ import Entery from './components/Entery'
 import { MainContextProvider } from './context/MainContext'
 import { PullUpContextProvider } from './context/PullUpContext'
 import { SquatContextProvider } from './context/SquatContext'
+import { AchievementProvider } from './context/AchievementContext'
 import Navbar from './components/navigation/Navbar'
 import Protectedroute from './components/protectedroute'
 import Pushups from './components/pages/Pushups.page/Pushups'
@@ -16,7 +17,7 @@ import Squats from './components/pages/Squat.page/Squats'
 import Running from './components/pages/Running'
 import StatsPage from './components/pages/Stats.page'
 import HistoryPage from './components/pages/History.pages/History.page'
-import Achivments from './components/pages/Achivmens'
+import Achivments from './components/pages/Achivments.page/Achivmens'
 /// statistic graph imports
 import PushUpStatMain from './components/pages/Statistic Graphs/pushup-stats/PushUpGrapgMain'
 import PullUpGraphMain from './components/pages/Statistic Graphs/pullup-stats/PullupGraphMain'
@@ -53,7 +54,14 @@ function App() {
             <Route path="squat-stats" element={<SquatGraphMain />} />
           </Route>
           <Route path="history" element={<HistoryPage />} />
-          <Route path="achievements" element={<Achivments />} />
+          <Route
+            path="achievements"
+            element={
+              <AchievementProvider>
+                <Achivments />
+              </AchievementProvider>
+            }
+          />
         </Route>
 
         <Route

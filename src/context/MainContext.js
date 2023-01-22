@@ -456,19 +456,18 @@ export const MainContextProvider = ({ children }) => {
       workoutmax = setFive
     }
   })
-  const maxUidStore = async () => {
-    try {
-      setTimeout(() => {
-        if (maxUid[0].userMax !== undefined) {
-          settestedMax(maxUid[0].userMax.join(''))
-        }
-      }, 1000)
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
-  const [testedMax, settestedMax] = React.useState(null)
+  let testedMax = maxUid
+
+    .filter((val, index) => {
+      if (maxUid.length - 1 <= index) {
+        return val
+      }
+    })
+    .map((val) => {
+      return val.userInfo[0].User_pullUp_Max
+    })
+
   const totalPushUpCompiler = async () => {
     try {
       setTimeout(() => {
@@ -484,7 +483,6 @@ export const MainContextProvider = ({ children }) => {
   }
 
   React.useEffect(() => {
-    maxUidStore()
     totalPushUpCompiler()
   }, [pushupStats])
   let location = useLocation()

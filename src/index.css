@@ -3,6 +3,7 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Rowdies&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Rowdies&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,500&display=swap');
 * {
   padding: none;
   margin: none;
@@ -33,6 +34,11 @@ body p {
   grid-template-columns: repeat(auto-fill, minmax(19rem, 25rem));
 
   justify-content: center;
+}
+.award-fonts {
+  font-family: 'Patrick Hand', cursive;
+  text-shadow: 1px 1px 0px #00b1ff;
+  font-size: 1.2rem;
 }
 .signin {
   background-color: #54bff5;
