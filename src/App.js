@@ -4,6 +4,7 @@ import SignIn from './components/log/SignIn'
 import SignUp from './components/log/SignUp'
 import About from './components/info/About'
 import Main from './components/Main'
+import AccountInfo from './components/AccountInfo'
 import Entery from './components/Entery'
 import { MainContextProvider } from './context/MainContext'
 import { PullUpContextProvider } from './context/PullUpContext'
@@ -30,6 +31,22 @@ function App() {
         <Route path="/" element={<SignIn />} />
         <Route path="about" element={<About />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route
+          path="/account-info"
+          element={
+            <Protectedroute>
+              <AccountInfo />
+            </Protectedroute>
+          }
+        />
+        <Route
+          path="/test"
+          element={
+            <Protectedroute>
+              <Entery />
+            </Protectedroute>
+          }
+        />
         {/* main page routes and side nav */}
         <Route
           path="/workroom"
@@ -63,15 +80,6 @@ function App() {
             }
           />
         </Route>
-
-        <Route
-          path="/test"
-          element={
-            <Protectedroute>
-              <Entery />
-            </Protectedroute>
-          }
-        />
       </Routes>
     </MainContextProvider>
   )

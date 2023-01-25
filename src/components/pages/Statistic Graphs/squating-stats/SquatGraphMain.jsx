@@ -54,22 +54,22 @@ function SquatGraphMain() {
       <div className={style.smallStatsDiv}>
         {subStatsDiv(
           squatstatImg,
-          totalSquats == null || totalSquats == 0 ? 'Loading...' : totalSquats,
+          totalSquats == null || totalSquats == 0 ? '...' : totalSquats,
           'Total Squats',
         )}
         {subStatsDiv(
           dumbbell,
-          testedMax == null || testedMax == 0 ? 'Loading...' : testedMax,
+          testedMax == null || testedMax == 0 ? '...' : testedMax,
           'Tested Max',
         )}
         {subStatsDiv(
           prFitness,
-          workoutmax == null || workoutmax == 0 ? 'Loading...' : workoutmax,
+          workoutmax == null || workoutmax == 0 ? '...' : workoutmax,
           'Training PR',
         )}
         {subStatsDiv(
           schedule,
-          squatUid == null || squatUid == 0 ? 'Loading...' : squatUid.length,
+          squatUid == null || squatUid == 0 ? '...' : squatUid.length,
           'Days Trained',
         )}
       </div>

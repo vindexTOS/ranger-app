@@ -10,6 +10,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  updateProfile,
 } from 'firebase/auth'
 import { auth, db } from '../FirebaseConfig'
 import {
@@ -22,7 +23,8 @@ import {
   orderBy,
 } from 'firebase/firestore'
 import { Link, useLocation } from 'react-router-dom'
-
+import { storage } from '../FirebaseConfig'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { async } from '@firebase/util'
@@ -533,10 +535,34 @@ export const MainContextProvider = ({ children }) => {
   }
 
   ////////////////////////////////////////////////////////////////////////////////
-
+  const [userImg, setUserImg] = useState()
+  // const uploadImage = async()=>{
+  //const fileRef = ref(storage,'avatar/' + user.uid +'.png')
+  //   const snapshot = await uploadBytes(fileRef,)
+  //}
+  const uploadImage = () => {
+    if (userImg == null) return
+    const imageRef = ref(storage, `avatar/${userImg.name}`)
+    uploadBytes(imageRef, userImg).then(() => {
+      const photourl = getDownloadURL(imageRef)
+      updateProfile(user, { userImgUrl: photourl })
+      console.log('img uploaded etc')
+    })
+  }
+  const [userImgUrl, setUserImgUrl] = useState()
+  useEffect(() => {
+    if (user?.photoUrl) {
+      setUserImgUrl(user.photoUrl)
+      console.log(user.photoUrl)
+    }
+  }, [])
   return (
     <MainContext.Provider
       value={{
+        userImgUrl,
+        uploadImage,
+        setUserImg,
+        userImg,
         createUser,
         logOut,
         signin,
