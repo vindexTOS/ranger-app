@@ -8,7 +8,7 @@ function Running(props) {
   return (
     <div className={style.mainDiv}>
       {' '}
-      <img className="w-[70%]" src={inprogress} />
+      <img className="w-[200px]" src={inprogress} />
     </div>
   )
 }

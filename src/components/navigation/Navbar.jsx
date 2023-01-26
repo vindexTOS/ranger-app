@@ -7,23 +7,15 @@ import { AiOutlineUser, AiOutlineBars } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 
 function Navbar() {
-  const { user, handleLogOut, setDropDown, dropdown } = MainUseContext()
+  const { user, displayPhoto, setDropDown, dropdown } = MainUseContext()
   const style = {
     nav: `${
       user == null ? 'hidden' : '   flex flex-row   w-[100%] h-[60px]  nav'
     }	`,
-    navdiv: `flex flex-row mt-3 gap-5 items-center justify-end w-[95%]  `,
-    button: `${
-      user == null
-        ? 'hidden'
-        : 'btnshaddow flex w-[70px] bg-[#ffd31d] items-center justify-center rounded-[8px] text-center'
-    }`,
-    header: `${
-      user == null
-        ? 'hidden'
-        : 'btnshaddow w-[190px] h-[30px] bg-white rounded-[8px] flex  items-center  gap-5'
-    } `,
+    navdiv: `flex flex-row   gap-5 items-center justify-end h-[100%] w-[95%]  `,
+
     p: `text-[0.8rem]`,
+    userIcon: `w-[60px] h-[40px] rounded-[50%] border-2 border-orange-500`,
   }
   return (
     <nav className={style.nav}>
@@ -35,23 +27,10 @@ function Navbar() {
       </div>
 
       <div className={style.navdiv}>
-        <m.h1 initial={{ y: -300 }} animate={{ y: 0 }} className={style.header}>
-          <AiOutlineUser className="ml-2 text-green-400" />
-          <p className={style.p}>{user !== null ? user.email : 'User'}</p>
-        </m.h1>
-        <m.button
-          className={style.button}
-          onClick={handleLogOut}
-          initial={{ y: -300 }}
-          animate={{ y: 0 }}
-          whileHover={{
-            background:
-              'linear-gradient(90deg, rgba(255,116,29,1) 0%, rgba(255,97,12,0.9693627450980392) 84%)',
-            color: '#1dfffd',
-          }}
-        >
-          <IoMdLogOut /> <span className="mb-[2px]">log out</span>
-        </m.button>
+        <img
+          className={style.userIcon}
+          src={displayPhoto !== null ? displayPhoto.toString() : null}
+        />
       </div>
     </nav>
   )

@@ -54,24 +54,22 @@ function PullupGraphMain() {
       <div className={style.smallStatsDiv}>
         {subStatsDiv(
           pullupstatsImg,
-          totalPullUps == null || totalPullUps == 0
-            ? 'Loading...'
-            : totalPullUps,
+          totalPullUps == null || totalPullUps == 0 ? '...' : totalPullUps,
           'Total Pull Ups',
         )}
         {subStatsDiv(
           dumbbell,
-          testedMax == null || testedMax == 0 ? 'Loading...' : testedMax,
+          testedMax == null || testedMax == 0 ? '...' : testedMax,
           'Tested Max',
         )}
         {subStatsDiv(
           prFitness,
-          workoutmax == null || workoutmax == 0 ? 'Loading...' : workoutmax,
+          workoutmax == null || workoutmax == 0 ? '...' : workoutmax,
           'Training PR',
         )}
         {subStatsDiv(
           schedule,
-          pullupUid == null || pullupUid == 0 ? 'Loading...' : pullupUid.length,
+          pullupUid == null || pullupUid == 0 ? '...' : pullupUid.length,
           'Days Trained',
         )}
       </div>

@@ -5,11 +5,13 @@ import React, {
   useReducer,
   useEffect,
 } from 'react'
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  updateProfile,
 } from 'firebase/auth'
 import { auth, db } from '../FirebaseConfig'
 import {
@@ -18,14 +20,13 @@ import {
   addDoc,
   onSnapshot,
   query,
-  where,
   orderBy,
 } from 'firebase/firestore'
 import { Link, useLocation } from 'react-router-dom'
-
+import { storage } from '../FirebaseConfig'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { async } from '@firebase/util'
 
 const MainContext = createContext()
 
@@ -534,6 +535,123 @@ export const MainContextProvider = ({ children }) => {
 
   ////////////////////////////////////////////////////////////////////////////////
 
+  // const uploadImage = async()=>{
+  //const fileRef = ref(storage,'avatar/' + user.uid +'.png')
+  //   const snapshot = await uploadBytes(fileRef,)
+  //}
+  const [image, setImage] = useState(null)
+  const [htlmImg, setHtmlImg] = useState(null)
+  const [url, setUrl] = useState(null)
+  const [userName, setUserName] = useState(null)
+  const [sureLoading, setSureLoading] = useState(false)
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0])
+
+      setHtmlImg(URL.createObjectURL(e.target.files[0]))
+    }
+  }
+  const uploadImg = () => {
+    const imageRef = ref(storage, `image${user.uid}`)
+    uploadBytes(imageRef, image)
+      .then(() => {
+        getDownloadURL(imageRef)
+          .then((url) => {
+            setUrl(url)
+          })
+          .catch((error) => {
+            console.log(error.message, 'error getting the image url')
+          })
+        setImage(null)
+      })
+      .catch((error) => {
+        console.log(error.message)
+      })
+    setSureLoading(true)
+  }
+  const handlePfpSubmit = async () => {
+    const { uid } = user
+    if (url !== null) {
+      try {
+        await addDoc(collection(db, 'user'), {
+          pfp: url,
+          userName,
+          uid,
+          timestamp: serverTimestamp(),
+          time: Date(),
+        })
+        navigate('/test')
+        console.log('data send')
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  }
+  const [displayName, setDisplayName] = useState(null)
+  const [displayPhoto, setDisplayPhoto] = useState(null)
+  useEffect(() => {
+    const q = query(collection(db, 'user'), orderBy('timestamp'))
+    const unsub = onSnapshot(q, (querrySnapShot) => {
+      let photo = []
+      querrySnapShot.forEach((doc) => {
+        photo.push({ ...doc.data(), id: doc.id })
+      })
+      console.log(photo)
+      console.log('data resived')
+      let userUid = photo
+        .filter((item) => {
+          if (user.uid === item.uid) {
+            return item.uid
+          }
+        })
+        .map((item) => {
+          const { pfp } = item
+          return pfp
+        })
+      setDisplayPhoto(
+        userUid.filter((val, index) => {
+          if (userUid.length - 1 <= index) {
+            return val
+          }
+        }),
+      )
+      let userUidName = photo
+        .filter((item) => {
+          if (user.uid === item.uid) {
+            return item.uid
+          }
+        })
+        .map((item) => {
+          const { userName } = item
+          return userName
+        })
+      let photoFilter = userUidName.filter((val, index) => {
+        if (userUidName.length - 1 <= index) {
+          return val
+        }
+      })
+      setDisplayName(photoFilter)
+      console.log(displayPhoto)
+    })
+    return () => unsub()
+  }, [user])
+  const skipFunction = () => {
+    navigate('/test')
+  }
+  /*
+   this function also works for future refernces etc .
+  const uploadImage = () => {
+    if (userImg == null) return
+    const imageRef = ref(storage, `avatar/${userImg.name}`)
+    uploadBytes(imageRef, userImg).then(() => {
+      const photourl = getDownloadURL(imageRef)
+      updateProfile(user, { userImgUrl: photourl })
+      console.log('img uploaded etc')
+    })
+
+
+  }*/
+
   return (
     <MainContext.Provider
       value={{
@@ -583,6 +701,16 @@ export const MainContextProvider = ({ children }) => {
         timeState,
         timerDispatch,
         navLinksObj,
+        handleImageChange,
+        setUserName,
+        uploadImg,
+
+        displayPhoto,
+        handlePfpSubmit,
+        htlmImg,
+        skipFunction,
+        sureLoading,
+        setSureLoading,
       }}
     >
       {children}

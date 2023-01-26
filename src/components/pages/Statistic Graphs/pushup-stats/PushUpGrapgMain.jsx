@@ -44,24 +44,22 @@ function PushUpStatMain() {
       <div className={style.smallStatsDiv}>
         {subStatsDiv(
           pushuptotal,
-          totalPushups == null || totalPushups == 0
-            ? 'Loading...'
-            : totalPushups,
+          totalPushups == null || totalPushups == 0 ? '...' : totalPushups,
           'Total Push Ups',
         )}
         {subStatsDiv(
           dumbbell,
-          testedMax == null || testedMax == 0 ? 'Loading...' : testedMax,
+          testedMax == null || testedMax == 0 ? '...' : testedMax,
           'Tested Max',
         )}
         {subStatsDiv(
           prFitness,
-          workoutmax == null || workoutmax == 0 ? 'Loading...' : workoutmax,
+          workoutmax == null || workoutmax == 0 ? '...' : workoutmax,
           'Training PR',
         )}
         {subStatsDiv(
           schedule,
-          pushupUid == null || pushupUid == 0 ? 'Loading...' : pushupUid.length,
+          pushupUid == null || pushupUid == 0 ? '...' : pushupUid.length,
           'Days Trained',
         )}
       </div>
