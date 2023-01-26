@@ -534,11 +534,16 @@ export const MainContextProvider = ({ children }) => {
   }
 
   ////////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
 
+=======
+  const [userImg, setUserImg] = useState()
+>>>>>>> 3abe345c8a141c9a80aceb91067bb62a3e589159
   // const uploadImage = async()=>{
   //const fileRef = ref(storage,'avatar/' + user.uid +'.png')
   //   const snapshot = await uploadBytes(fileRef,)
   //}
+<<<<<<< HEAD
   const [image, setImage] = useState(null)
   const [htlmImg, setHtmlImg] = useState(null)
   const [url, setUrl] = useState(null)
@@ -640,6 +645,8 @@ export const MainContextProvider = ({ children }) => {
   }
   /*
    this function also works for future refernces etc .
+=======
+>>>>>>> 3abe345c8a141c9a80aceb91067bb62a3e589159
   const uploadImage = () => {
     if (userImg == null) return
     const imageRef = ref(storage, `avatar/${userImg.name}`)
@@ -648,13 +655,28 @@ export const MainContextProvider = ({ children }) => {
       updateProfile(user, { userImgUrl: photourl })
       console.log('img uploaded etc')
     })
+<<<<<<< HEAD
 
 
   }*/
 
+=======
+  }
+  const [userImgUrl, setUserImgUrl] = useState()
+  useEffect(() => {
+    if (user?.photoUrl) {
+      setUserImgUrl(user.photoUrl)
+      console.log(user.photoUrl)
+    }
+  }, [])
+>>>>>>> 3abe345c8a141c9a80aceb91067bb62a3e589159
   return (
     <MainContext.Provider
       value={{
+        userImgUrl,
+        uploadImage,
+        setUserImg,
+        userImg,
         createUser,
         logOut,
         signin,
