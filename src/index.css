@@ -28,7 +28,11 @@ body p {
 .stats-fonts {
   font-family: 'Patrick Hand', cursive;
 }
-
+.award-setting-grid-wrapper {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(3rem, 2rem));
+}
 .stats-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(19rem, 25rem));

@@ -3,9 +3,10 @@ import { MainUseContext } from '../context/MainContext'
 import { BsGenderAmbiguous } from 'react-icons/bs'
 import { GiCigarette, GiWeightScale } from 'react-icons/gi'
 import { motion as m } from 'framer-motion'
+import AccountInfo from './AccountInfo'
 function Entery() {
   const style = {
-    mainDiv: ` enterydiv w-[100%] h-[100vh] flex items-center justify-center overflow-x-hidden`,
+    mainDiv: `  w-[100%] h-[100vh] flex items-center justify-center overflow-x-hidden`,
     form: `enteryform w-[50%] h-[500px] rounded-[8px] flex flex-col gap-4   justify-center  p-10  about-div max_sm:mt-5 max_sm:h-[80%] max_sm:w-[90%] max_lg:w-[60%] max_lg:h-[80%]`,
     input: `outline entery-input`,
     inputDiv: `flex flex-col  gap-3 border-b-2`,
@@ -119,6 +120,7 @@ function Entery() {
             Submit
           </m.button>
         </div>
+        <div className="absolute w-[100vw] left-2"> </div>
       </form>
     </div>
   )

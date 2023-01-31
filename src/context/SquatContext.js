@@ -5,7 +5,6 @@ import React, {
   useReducer,
   useEffect,
 } from 'react'
-
 import { auth, db } from '../FirebaseConfig'
 import {
   collection,

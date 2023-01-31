@@ -1,13 +1,20 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import Settings from '../user_settings/Settings'
 import { motion as m } from 'framer-motion'
 import { MainUseContext } from '../../context/MainContext'
-import { IoMdLogOut } from 'react-icons/io'
 import { AiOutlineUser, AiOutlineBars } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
 
 function Navbar() {
-  const { user, displayPhoto, setDropDown, dropdown } = MainUseContext()
+  const {
+    user,
+    displayPhoto,
+    setDropDown,
+    dropdown,
+    displayName,
+  } = MainUseContext()
+
+  const [settingDrop, setSettingDrop] = useState(false)
+
   const style = {
     nav: `${
       user == null ? 'hidden' : '   flex flex-row   w-[100%] h-[60px]  nav'
@@ -15,7 +22,8 @@ function Navbar() {
     navdiv: `flex flex-row   gap-5 items-center justify-end h-[100%] w-[95%]  `,
 
     p: `text-[0.8rem]`,
-    userIcon: `w-[60px] h-[40px] rounded-[50%] border-2 border-orange-500`,
+    userIcon: `w-[52px] h-[52px] rounded-[50%] border-2 border-orange-500 cursor-pointer `,
+    userName: ` flex items-center justify-center gap-2  text-gray-500 text-[15px] w-[7rem] font-extralight border-2 rounded-[14px] text-center border-bg-black `,
   }
   return (
     <nav className={style.nav}>
@@ -27,11 +35,19 @@ function Navbar() {
       </div>
 
       <div className={style.navdiv}>
+        <h1 className={style.userName}>
+          <AiOutlineUser
+            className={`${user ? 'text-green-400' : 'text-red-600'}`}
+          />
+          {displayName !== null ? displayName.toString() : null}
+        </h1>
         <img
+          onClick={() => setSettingDrop(!settingDrop)}
           className={style.userIcon}
           src={displayPhoto !== null ? displayPhoto.toString() : null}
         />
       </div>
+      {settingDrop && <Settings />}
     </nav>
   )
 }

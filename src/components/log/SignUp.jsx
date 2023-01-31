@@ -18,7 +18,7 @@ function SignUp() {
     setError('')
     try {
       await createUser(email, password)
-      navigate('/test')
+      navigate('/account-info')
     } catch (e) {
       console.log(e.message)
       setError('Input feald is empty or email is already registerd !')

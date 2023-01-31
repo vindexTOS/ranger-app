@@ -15,6 +15,10 @@ import {
 } from 'firebase/auth'
 import { auth, db } from '../FirebaseConfig'
 import {
+  where,
+  setDoc,
+  doc,
+  updateDoc,
   collection,
   serverTimestamp,
   addDoc,
@@ -169,7 +173,8 @@ export const MainContextProvider = ({ children }) => {
       await addDoc(collection(db, 'user_data'), {
         userInfo: userData,
         userMax: maxReps(),
-
+        pfp: url,
+        userName,
         timestamp: serverTimestamp(),
         uid,
       })
@@ -491,17 +496,17 @@ export const MainContextProvider = ({ children }) => {
   // use reducers for navigation/////////////////////////////////////////////////////////////////////////////////
 
   const navLinksObj = {
-    pullup: location.pathname == '/workroom/pullups',
-    achivments: location.pathname == '/workroom/achievements',
-    history: location.pathname == '/workroom/history',
+    pullup: location.pathname === '/workroom/pullups',
+    achivments: location.pathname === '/workroom/achievements',
+    history: location.pathname === '/workroom/history',
     statistics:
-      location.pathname == '/workroom/stats/pushup-stats' ||
-      location.pathname == '/workroom/stats/pullup-stats' ||
-      location.pathname == '/workroom/stats/squat-stats',
-    running: location.pathname == '/workroom/running',
-    squat: location.pathname == '/workroom/squats',
+      location.pathname === '/workroom/stats/pushup-stats' ||
+      location.pathname === '/workroom/stats/pullup-stats' ||
+      location.pathname === '/workroom/stats/squat-stats',
+    running: location.pathname === '/workroom/running',
+    squat: location.pathname === '/workroom/squats',
 
-    pushup: location.pathname == '/workroom/pushups',
+    pushup: location.pathname === '/workroom/pushups',
   }
 
   const [dropdown, setDropDown] = useState(false)
@@ -534,21 +539,17 @@ export const MainContextProvider = ({ children }) => {
   }
 
   ////////////////////////////////////////////////////////////////////////////////
-<<<<<<< HEAD
 
-=======
   const [userImg, setUserImg] = useState()
->>>>>>> 3abe345c8a141c9a80aceb91067bb62a3e589159
-  // const uploadImage = async()=>{
-  //const fileRef = ref(storage,'avatar/' + user.uid +'.png')
-  //   const snapshot = await uploadBytes(fileRef,)
-  //}
-<<<<<<< HEAD
+
   const [image, setImage] = useState(null)
   const [htlmImg, setHtmlImg] = useState(null)
   const [url, setUrl] = useState(null)
-  const [userName, setUserName] = useState(null)
+  const [userName, setUserName] = useState('')
+  const [upDateName, setUpdateName] = useState('')
   const [sureLoading, setSureLoading] = useState(false)
+
+  const [photoEdit, setPhotoEdit] = useState(false)
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0])
@@ -572,30 +573,29 @@ export const MainContextProvider = ({ children }) => {
       .catch((error) => {
         console.log(error.message)
       })
+    if (!photoEdit) {
+      navigate('/test')
+    }
     setSureLoading(true)
   }
-  const handlePfpSubmit = async () => {
-    const { uid } = user
-    if (url !== null) {
-      try {
-        await addDoc(collection(db, 'user'), {
-          pfp: url,
-          userName,
-          uid,
-          timestamp: serverTimestamp(),
-          time: Date(),
-        })
-        navigate('/test')
-        console.log('data send')
-      } catch (err) {
-        console.log(err)
-      }
+  const updateUserInfo = async () => {
+    const docRef = doc(db, 'user_info', doc.id)
+    try {
+      await updateDoc(docRef, {
+        pfp: url,
+        userName,
+      })
+      console.log(upDateName)
+    } catch (error) {
+      console.log(error.message)
     }
   }
+
   const [displayName, setDisplayName] = useState(null)
   const [displayPhoto, setDisplayPhoto] = useState(null)
+  const [userProfiles, setUserProfiles] = useState(null)
   useEffect(() => {
-    const q = query(collection(db, 'user'), orderBy('timestamp'))
+    const q = query(collection(db, `user_data`), orderBy('timestamp'))
     const unsub = onSnapshot(q, (querrySnapShot) => {
       let photo = []
       querrySnapShot.forEach((doc) => {
@@ -603,6 +603,7 @@ export const MainContextProvider = ({ children }) => {
       })
       console.log(photo)
       console.log('data resived')
+
       let userUid = photo
         .filter((item) => {
           if (user.uid === item.uid) {
@@ -636,17 +637,33 @@ export const MainContextProvider = ({ children }) => {
         }
       })
       setDisplayName(photoFilter)
+      setUserProfiles(photo)
       console.log(displayPhoto)
     })
+    console.log('re render ? ')
+
     return () => unsub()
   }, [user])
+
   const skipFunction = () => {
     navigate('/test')
-  }
+  } /* const userFinder = async () => {
+    const q = query(
+      collection(db, 'user'),
+      where('displayName', '==', displayName.toString()),
+    )
+    try {
+      const query = await getDocs(q)
+      query.forEach((doc)=>{
+
+      })
+    } catch (error) {
+      
+    }
+  }*/
   /*
    this function also works for future refernces etc .
-=======
->>>>>>> 3abe345c8a141c9a80aceb91067bb62a3e589159
+ 
   const uploadImage = () => {
     if (userImg == null) return
     const imageRef = ref(storage, `avatar/${userImg.name}`)
@@ -655,26 +672,9 @@ export const MainContextProvider = ({ children }) => {
       updateProfile(user, { userImgUrl: photourl })
       console.log('img uploaded etc')
     })
-<<<<<<< HEAD
-
-
-  }*/
-
-=======
-  }
-  const [userImgUrl, setUserImgUrl] = useState()
-  useEffect(() => {
-    if (user?.photoUrl) {
-      setUserImgUrl(user.photoUrl)
-      console.log(user.photoUrl)
-    }
-  }, [])
->>>>>>> 3abe345c8a141c9a80aceb91067bb62a3e589159
-  return (
+ }*/ return (
     <MainContext.Provider
       value={{
-        userImgUrl,
-        uploadImage,
         setUserImg,
         userImg,
         createUser,
@@ -724,15 +724,21 @@ export const MainContextProvider = ({ children }) => {
         timerDispatch,
         navLinksObj,
         handleImageChange,
-        setUserName,
-        uploadImg,
 
+        uploadImg,
+        displayName,
         displayPhoto,
-        handlePfpSubmit,
+
         htlmImg,
         skipFunction,
         sureLoading,
         setSureLoading,
+        photoEdit,
+        setPhotoEdit,
+        updateUserInfo,
+
+        userName,
+        setUserName,
       }}
     >
       {children}
