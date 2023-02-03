@@ -6,11 +6,13 @@ import About from './components/info/About'
 import Main from './components/Main'
 import AccountInfo from './components/AccountInfo'
 import Entery from './components/Entery'
+//context
 import { MainContextProvider } from './context/MainContext'
 import { PullUpContextProvider } from './context/PullUpContext'
 import { SquatContextProvider } from './context/SquatContext'
 import { AchievementProvider } from './context/AchievementContext'
 import { NavContextProvider } from './context/NavBarContext'
+//pages
 import Navbar from './components/navigation/Navbar'
 import Protectedroute from './components/protectedroute'
 import Pushups from './components/pages/Pushups.page/Pushups'
@@ -20,6 +22,7 @@ import Running from './components/pages/Running'
 import StatsPage from './components/pages/Stats.page'
 import HistoryPage from './components/pages/History.pages/History.page'
 import Achivments from './components/pages/Achivments.page/Achivmens'
+import MaxTestRoom from './components/pages/MaxTest/MaxTestRoom'
 /// statistic graph imports
 import PushUpStatMain from './components/pages/Statistic Graphs/pushup-stats/PushUpGrapgMain'
 import PullUpGraphMain from './components/pages/Statistic Graphs/pullup-stats/PullupGraphMain'
@@ -84,6 +87,7 @@ function App() {
                   </AchievementProvider>
                 }
               />
+              <Route path="testroom" element={<MaxTestRoom />} />
             </Route>
           </Routes>{' '}
         </PullUpContextProvider>

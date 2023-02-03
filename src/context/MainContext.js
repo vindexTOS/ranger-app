@@ -159,20 +159,20 @@ export const MainContextProvider = ({ children }) => {
     let user_smokes = getValues('User_smokes')
     let kg_lb = getValues('im_me')
     let user_weight = getValues('User_weight')
-    let user_max = parseInt(getValues('User_max'))
+    let userMax = parseInt(getValues('User_max'))
+    let userPullupMax = parseInt(getValues('User_pullUp_Max'))
+    let userSquatMax = parseInt(getValues('User_squat_Max'))
 
-    if (user_max > 0) {
+    if (userMax > 0) {
       userData.push(data)
       const { uid } = auth.currentUser
-      const maxReps = () => {
-        let newData = userData.map((item) => {
-          return item.User_max
-        })
-        return newData
-      }
+
       await addDoc(collection(db, 'user_data'), {
         userInfo: userData,
-        userMax: maxReps(),
+        userMax,
+
+        userPullupMax,
+        userSquatMax,
         pfp: url,
         userName,
         timestamp: serverTimestamp(),
@@ -196,6 +196,8 @@ export const MainContextProvider = ({ children }) => {
         newMax.push({ ...doc.data(), id: doc.id })
       })
       setMaxpushup(newMax)
+
+      console.log('new here on top etc wingsofredmeption is is is si si s is')
     })
 
     return () => unsub()
@@ -539,6 +541,19 @@ export const MainContextProvider = ({ children }) => {
   }
 
   ////////////////////////////////////////////////////////////////////////////////
+  // pulling doc id
+  const [docId, setDocId] = useState('')
+
+  useEffect(() => {
+    const docIdPuller = () => {
+      maxPushup.filter((val) => {
+        if (val.uid == user.uid) {
+          setDocId(val.id)
+        }
+      })
+    }
+    return docIdPuller()
+  }, [user, maxPushup])
 
   const [userImg, setUserImg] = useState()
 
@@ -579,11 +594,11 @@ export const MainContextProvider = ({ children }) => {
     setSureLoading(true)
   }
   const updateUserInfo = async () => {
-    const docRef = doc(db, 'user_info', doc.id)
+    const docRef = doc(db, 'user_data', docId)
     try {
       await updateDoc(docRef, {
         pfp: url,
-        userName,
+        userName: userName,
       })
       console.log(upDateName)
     } catch (error) {
@@ -672,7 +687,27 @@ export const MainContextProvider = ({ children }) => {
       updateProfile(user, { userImgUrl: photourl })
       console.log('img uploaded etc')
     })
- }*/ return (
+
+    
+ }*/
+
+  // Re test your max states and fucntions updating  data on firebase sied on userInfo
+  const [squatMax, setSquatMax] = useState('')
+  const [pushUpMax, setPushUpMax] = useState(0)
+  const [pullUpMax, setPullUpMax] = useState('')
+
+  const upDateMaxData = async () => {
+    const ref = doc(db, 'user_data', docId)
+    try {
+      await updateDoc(ref, {
+        userMax: pushUpMax,
+      })
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  return (
     <MainContext.Provider
       value={{
         setUserImg,
@@ -711,9 +746,7 @@ export const MainContextProvider = ({ children }) => {
         userData,
         userInfoUid,
         userInformationa,
-
         BMIconvertor,
-
         dropdown,
         setDropDown,
         reducerTimer,
@@ -724,11 +757,9 @@ export const MainContextProvider = ({ children }) => {
         timerDispatch,
         navLinksObj,
         handleImageChange,
-
         uploadImg,
         displayName,
         displayPhoto,
-
         htlmImg,
         skipFunction,
         sureLoading,
@@ -736,9 +767,15 @@ export const MainContextProvider = ({ children }) => {
         photoEdit,
         setPhotoEdit,
         updateUserInfo,
-
         userName,
         setUserName,
+        squatMax,
+        setSquatMax,
+        pushUpMax,
+        setPushUpMax,
+        pullUpMax,
+        setPullUpMax,
+        upDateMaxData,
       }}
     >
       {children}

@@ -7,6 +7,7 @@ import Buff from '../../utils/userinfo/buff.png'
 import Award from './Award'
 import AccountInfo from '../AccountInfo'
 import Camera from '../../utils/userinfo/camera.png'
+import { useNavigate } from 'react-router-dom'
 function Settings() {
   const {
     setUserName,
@@ -46,7 +47,11 @@ function Settings() {
     editProfile: `flex flex-col items-center justify-center gap-1`,
     editHeader: `bg-blue-300 rounded-[10px] text-center w-[9rem] text-white hover:bg-blue-400 cursor-pointer btnshaddow`,
     max: `flex items-center justify-betwneen    w-[19rem] p-2  `,
+    maxIcon: `w-[50px] h-[50px] bg-orange-400 hover:bg-orange-600 p-1 rounded-[50%] cursor-pointer z-10 absolute border-2  btnshaddow `,
+    maxHeader: `border-2 border-l-0 rounded-l-[20px]  text-shaddow w-[21rem] h-[2rem] text-center   rounded-r-[20px] btnshaddow  text-white  bg-orange-400  drop-shadow-md cursor-pointer `,
   }
+  const navigate = useNavigate()
+
   const [test, setTest] = React.useState('')
   return (
     <div className={style.mainDiv}>
@@ -89,7 +94,6 @@ function Settings() {
             >
               Edit Profile
             </h1>
-
             <h1 className={style.header}>
               <AiOutlineUser className="ml-2 text-green-400" />
               {photoEdit ? (
@@ -111,6 +115,7 @@ function Settings() {
                 Update
               </button>
             ) : null}
+         
             {sureLoading && <button onClick={updateUserInfo}>Save</button>}
           </div>
         </div>
@@ -119,14 +124,9 @@ function Settings() {
         <h1 className="w-[100%]  text-center  ">Badges</h1>
         <Award />
       </div>
-      <div className={style.max}>
-        <img
-          className="w-[50px] h-[50px] bg-orange-400 p-1 rounded-[50%]"
-          src={Buff}
-        />
-        <h1 className="border-2 border-l-0 w-[21rem] h-[2rem] text-center pr-2 rounded-r-[20px] border-orange-300 text-red-500 drop-shadow-md ">
-          Test Your Max
-        </h1>
+      <div className={style.max} onClick={() => navigate('workroom/testroom')}>
+        <img className={style.maxIcon} src={Buff} />
+        <h1 className={style.maxHeader}>Test Your Max</h1>
       </div>
       <m.button
         className={style.button}
