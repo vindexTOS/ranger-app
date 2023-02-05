@@ -304,7 +304,16 @@ export const SquatContextProvider = ({ children }) => {
   React.useEffect(() => {
     totalSquatCompiler()
   }, [squatStats])
+  let testedMaxSquat = maxSquatUid
 
+    .filter((val, index) => {
+      if (maxSquatUid.length - 1 <= index) {
+        return val
+      }
+    })
+    .map((val) => {
+      return val.userSquatMax
+    })
   return (
     <squatContext.Provider
       value={{
@@ -328,6 +337,7 @@ export const SquatContextProvider = ({ children }) => {
         maxSquatUid,
         register,
         getValues,
+        testedMaxSquat,
       }}
     >
       {children}

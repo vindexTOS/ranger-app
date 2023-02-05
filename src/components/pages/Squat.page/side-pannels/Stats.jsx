@@ -5,7 +5,12 @@ import { ImStatsDots } from 'react-icons/im'
 import { motion as m } from 'framer-motion'
 
 function Stats() {
-  const { totalSquats, squatUid, workoutmax, maxSquatUid } = SquatUseContext()
+  const {
+    totalSquats,
+    squatUid,
+    workoutmax,
+    testedMaxSquat,
+  } = SquatUseContext()
   const style = {
     mainDiv: `w-[350px]      h-[10rem]  max_xl:ml-10 gap-2 flex flex-col items-center border-r-2   border-blue-400   `,
     subDiv: `flex flex-row gap-5 items-center `,
@@ -13,16 +18,7 @@ function Stats() {
     statHeader: `border-blue-400  border-b-2 flex items-center justify-start text-gray-500 font-bold    overflow-hidden text-[12px] h-[1.2rem] w-[180px]  `,
     pstat: `w-[4rem] h-[1.2rem]   border-b-2  text-color   text-center flex items-center justify-center`,
   }
-  let testedMax = maxSquatUid
 
-    .filter((val, index) => {
-      if (maxSquatUid.length - 1 <= index) {
-        return val
-      }
-    })
-    .map((val) => {
-      return val.userInfo[0].User_squat_Max
-    })
   return (
     <div
       initial={{ x: 400 }}
@@ -39,7 +35,7 @@ function Stats() {
       </div>
       <div className={style.subDiv}>
         <h1 className={style.statHeader}>Tested Max</h1>
-        <p className={style.pstat}>{testedMax}</p>
+        <p className={style.pstat}>{testedMaxSquat}</p>
       </div>
       <div className={style.subDiv}>
         <h1 className={style.statHeader}>Personal Record</h1>

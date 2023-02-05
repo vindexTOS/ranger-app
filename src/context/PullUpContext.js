@@ -303,6 +303,17 @@ export const PullUpContextProvider = ({ children }) => {
   React.useEffect(() => {
     totalPullUpCompiler()
   }, [pullupStats])
+
+  let testedMaxPullUp = maxPullUpUid
+
+    .filter((val, index) => {
+      if (maxPullUpUid.length - 1 <= index) {
+        return val
+      }
+    })
+    .map((val) => {
+      return val.userPullupMax
+    })
   return (
     <PullUpContext.Provider
       value={{
@@ -322,6 +333,7 @@ export const PullUpContextProvider = ({ children }) => {
         sug5,
         totalPullUps,
         workoutmax,
+        testedMaxPullUp,
       }}
     >
       {children}

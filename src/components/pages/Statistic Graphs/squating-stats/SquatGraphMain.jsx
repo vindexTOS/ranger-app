@@ -11,20 +11,11 @@ function SquatGraphMain() {
     squatUid,
     squatStats,
     totalSquats,
-    maxSquatUid,
 
     workoutmax,
+    testedMaxSquat,
   } = SquatUseContext()
-  let testedMax = maxSquatUid
 
-    .filter((val, index) => {
-      if (maxSquatUid.length - 1 <= index) {
-        return val
-      }
-    })
-    .map((val) => {
-      return val.userInfo[0].User_squat_Max
-    })
   // this state takes date and time where total collected push ups was done
   const [squatStatsData, setSquatStatsData] = useState()
 
@@ -59,7 +50,9 @@ function SquatGraphMain() {
         )}
         {subStatsDiv(
           dumbbell,
-          testedMax == null || testedMax == 0 ? '...' : testedMax,
+          testedMaxSquat == null || testedMaxSquat == 0
+            ? '...'
+            : testedMaxSquat,
           'Tested Max',
         )}
         {subStatsDiv(

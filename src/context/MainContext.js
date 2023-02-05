@@ -196,8 +196,6 @@ export const MainContextProvider = ({ children }) => {
         newMax.push({ ...doc.data(), id: doc.id })
       })
       setMaxpushup(newMax)
-
-      console.log('new here on top etc wingsofredmeption is is is si si s is')
     })
 
     return () => unsub()
@@ -473,7 +471,7 @@ export const MainContextProvider = ({ children }) => {
       }
     })
     .map((val) => {
-      return val.userInfo[0].User_pullUp_Max
+      return val.userMax
     })
 
   const totalPushUpCompiler = async () => {
@@ -692,21 +690,40 @@ export const MainContextProvider = ({ children }) => {
  }*/
 
   // Re test your max states and fucntions updating  data on firebase sied on userInfo
-  const [squatMax, setSquatMax] = useState('')
-  const [pushUpMax, setPushUpMax] = useState(0)
-  const [pullUpMax, setPullUpMax] = useState('')
+  const [userSquatMax, setSquatMax] = useState('')
+  const [userMax, setPushUpMax] = useState(0)
+  const [userPullupMax, setPullUpMax] = useState('')
 
-  const upDateMaxData = async () => {
+  const upDatePushUpData = async () => {
     const ref = doc(db, 'user_data', docId)
     try {
       await updateDoc(ref, {
-        userMax: pushUpMax,
+        userMax,
       })
     } catch (error) {
       console.log(error.message)
     }
   }
-
+  const upDatePullUpData = async () => {
+    const ref = doc(db, 'user_data', docId)
+    try {
+      await updateDoc(ref, {
+        userPullupMax,
+      })
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+  const upDateSquatData = async () => {
+    const ref = doc(db, 'user_data', docId)
+    try {
+      await updateDoc(ref, {
+        userSquatMax,
+      })
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
   return (
     <MainContext.Provider
       value={{
@@ -769,13 +786,17 @@ export const MainContextProvider = ({ children }) => {
         updateUserInfo,
         userName,
         setUserName,
-        squatMax,
+
         setSquatMax,
-        pushUpMax,
+
         setPushUpMax,
-        pullUpMax,
+
         setPullUpMax,
-        upDateMaxData,
+
+        maxPushup,
+        upDatePushUpData,
+        upDatePullUpData,
+        upDateSquatData,
       }}
     >
       {children}

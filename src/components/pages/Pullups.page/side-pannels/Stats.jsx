@@ -9,17 +9,9 @@ function Stats() {
     maxPullUpUid,
     totalPullUps,
     workoutmax,
+    testedMaxPullUp,
   } = PullUpUseContext()
-  let testedMax = maxPullUpUid
 
-    .filter((val, index) => {
-      if (maxPullUpUid.length - 1 <= index) {
-        return val
-      }
-    })
-    .map((val) => {
-      return val.userInfo[0].User_pullUp_Max
-    })
   const style = {
     mainDiv: `w-[350px]      h-[10rem]  max_xl:ml-10 gap-2 flex flex-col items-center border-r-2 border-orange-400    `,
     subDiv: `flex flex-row gap-5 items-center `,
@@ -44,7 +36,7 @@ function Stats() {
       </div>
       <div className={style.subDiv}>
         <h1 className={style.statHeader}>Tested Max</h1>
-        <p className={style.pstat}>{testedMax}</p>
+        <p className={style.pstat}>{testedMaxPullUp}</p>
       </div>
       <div className={style.subDiv}>
         <h1 className={style.statHeader}>Personal Record</h1>

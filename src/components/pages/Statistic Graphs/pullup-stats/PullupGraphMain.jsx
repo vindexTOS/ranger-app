@@ -11,20 +11,11 @@ function PullupGraphMain() {
     pullupUid,
     pullupStats,
     totalPullUps,
-    maxPullUpUid,
 
     workoutmax,
+    testedMaxPullUp,
   } = PullUpUseContext()
-  let testedMax = maxPullUpUid
 
-    .filter((val, index) => {
-      if (maxPullUpUid.length - 1 <= index) {
-        return val
-      }
-    })
-    .map((val) => {
-      return val.userInfo[0].User_pullUp_Max
-    })
   // this state takes date and time where total collected push ups was done
   const [pullupStatData, setpullUpStatData] = useState()
 
@@ -59,7 +50,9 @@ function PullupGraphMain() {
         )}
         {subStatsDiv(
           dumbbell,
-          testedMax == null || testedMax == 0 ? '...' : testedMax,
+          testedMaxPullUp == null || testedMaxPullUp == 0
+            ? '...'
+            : testedMaxPullUp,
           'Tested Max',
         )}
         {subStatsDiv(
