@@ -6,6 +6,7 @@ import { IoMdLogOut } from 'react-icons/io'
 import Buff from '../../utils/userinfo/buff.png'
 import Award from './Award'
 import AccountInfo from '../AccountInfo'
+import UserProfiles from '../../utils/userinfo/usersprofiles.png'
 import Camera from '../../utils/userinfo/camera.png'
 import { useNavigate } from 'react-router-dom'
 function Settings() {
@@ -25,7 +26,7 @@ function Settings() {
     sureLoading,
   } = MainUseContext()
   const style = {
-    mainDiv: ` z-30 w-[400px] h-[400px] mt-[3.8rem] gap-2 z-20 right-1 flex flex-col bg-white btnshaddow border-l-2  border-b-2 border-gray-400 rounded-b-[17px] absolute items-center justify-center   `,
+    mainDiv: ` z-50 w-[400px] h-[400px] mt-[3.8rem] gap-2 z-20 right-1 flex flex-col bg-white btnshaddow border-l-2  border-b-2 border-gray-400 rounded-b-[17px] absolute items-center justify-center   `,
     button: `${
       user == null
         ? 'hidden'
@@ -46,7 +47,10 @@ function Settings() {
     awardWrapper: `flex flex-col items-center justify-center border-2 rounded-[14px] `,
     editProfile: `flex flex-col items-center justify-center gap-1`,
     editHeader: `bg-blue-300 rounded-[10px] text-center w-[9rem] text-white hover:bg-blue-400 cursor-pointer btnshaddow`,
+    usersProfilesIcon: `w-[50px] h-[50px] bg-purple-400 hover:bg-blue-300 p-1 rounded-[50%] cursor-pointer z-10 absolute border-2  btnshaddow `,
+    usersProfilesHeader: `border-2 border-l-0 rounded-l-[20px]  text-shaddow w-[21rem] h-[2rem] text-center   rounded-r-[20px] btnshaddow  text-white  bg-purple-400  drop-shadow-md cursor-pointer `,
     max: `flex items-center justify-betwneen    w-[19rem] p-2  `,
+
     maxIcon: `w-[50px] h-[50px] bg-orange-400 hover:bg-orange-600 p-1 rounded-[50%] cursor-pointer z-10 absolute border-2  btnshaddow `,
     maxHeader: `border-2 border-l-0 rounded-l-[20px]  text-shaddow w-[21rem] h-[2rem] text-center   rounded-r-[20px] btnshaddow  text-white  bg-orange-400  drop-shadow-md cursor-pointer `,
   }
@@ -115,7 +119,7 @@ function Settings() {
                 Update
               </button>
             ) : null}
-         
+
             {sureLoading && <button onClick={updateUserInfo}>Save</button>}
           </div>
         </div>
@@ -123,6 +127,13 @@ function Settings() {
       <div className={style.awardWrapper}>
         <h1 className="w-[100%]  text-center  ">Badges</h1>
         <Award />
+      </div>
+      <div
+        className={style.max}
+        onClick={() => navigate('workroom/user-stats')}
+      >
+        <img className={style.usersProfilesIcon} src={UserProfiles} />
+        <h1 className={style.usersProfilesHeader}>User Profiles</h1>
       </div>
       <div className={style.max} onClick={() => navigate('workroom/testroom')}>
         <img className={style.maxIcon} src={Buff} />

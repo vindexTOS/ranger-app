@@ -37,59 +37,59 @@ function App() {
         <PullUpContextProvider>
           <NavContextProvider>
             <Navbar />
-          </NavContextProvider>
-          <Routes>
-            <Route path="/" element={<SignIn />} />
-            <Route path="about" element={<About />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route
-              path="/account-info"
-              element={
-                <Protectedroute>
-                  <AccountInfo />
-                </Protectedroute>
-              }
-            />
-            <Route
-              path="/test"
-              element={
-                <Protectedroute>
-                  <Entery />
-                </Protectedroute>
-              }
-            />
-            {/* main page routes and side nav */}
-            <Route
-              path="/workroom"
-              element={
-                <Protectedroute>
-                  <Main />
-                </Protectedroute>
-              }
-            >
-              <Route path="user-stats" element={<UsersStatistics />} />
-              <Route path="pushups" element={<Pushups />} />
-              <Route path="pullups" element={<Pullups />} />
-              <Route path="squats" element={<Squats />} />
-              <Route path="running" element={<Running />} />
-              <Route path="stats" element={<StatsPage />}>
-                {/* stats page routes and navigation  */}
-                <Route path="pushup-stats" element={<PushUpStatMain />} />
-                <Route path="pullup-stats" element={<PullUpGraphMain />} />
-                <Route path="squat-stats" element={<SquatGraphMain />} />
-              </Route>
-              <Route path="history" element={<HistoryPage />} />
+            <Routes>
+              <Route path="/" element={<SignIn />} />
+              <Route path="about" element={<About />} />
+              <Route path="/signup" element={<SignUp />} />
               <Route
-                path="achievements"
+                path="/account-info"
                 element={
-                  <AchievementProvider>
-                    <Achivments />{' '}
-                  </AchievementProvider>
+                  <Protectedroute>
+                    <AccountInfo />
+                  </Protectedroute>
                 }
               />
-              <Route path="testroom" element={<MaxTestRoom />} />
-            </Route>
-          </Routes>{' '}
+              <Route
+                path="/test"
+                element={
+                  <Protectedroute>
+                    <Entery />
+                  </Protectedroute>
+                }
+              />
+              {/* main page routes and side nav */}
+              <Route
+                path="/workroom"
+                element={
+                  <Protectedroute>
+                    <Main />
+                  </Protectedroute>
+                }
+              >
+                <Route path="user-stats" element={<UsersStatistics />} />
+                <Route path="pushups" element={<Pushups />} />
+                <Route path="pullups" element={<Pullups />} />
+                <Route path="squats" element={<Squats />} />
+                <Route path="running" element={<Running />} />
+                <Route path="stats" element={<StatsPage />}>
+                  {/* stats page routes and navigation  */}
+                  <Route path="pushup-stats" element={<PushUpStatMain />} />
+                  <Route path="pullup-stats" element={<PullUpGraphMain />} />
+                  <Route path="squat-stats" element={<SquatGraphMain />} />
+                </Route>
+                <Route path="history" element={<HistoryPage />} />
+                <Route
+                  path="achievements"
+                  element={
+                    <AchievementProvider>
+                      <Achivments />{' '}
+                    </AchievementProvider>
+                  }
+                />
+                <Route path="testroom" element={<MaxTestRoom />} />
+              </Route>
+            </Routes>{' '}
+          </NavContextProvider>
         </PullUpContextProvider>
       </SquatContextProvider>
     </MainContextProvider>

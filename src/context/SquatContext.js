@@ -327,7 +327,7 @@ export const SquatContextProvider = ({ children }) => {
         sug5,
         squat,
         squatUid,
-        squatData,
+
         squatStats,
         totalSquats,
         workoutmax,

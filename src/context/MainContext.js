@@ -113,7 +113,7 @@ export const MainContextProvider = ({ children }) => {
       console.log(pushUp)
       let userUid = pushUp
         .filter((item, index) => {
-          if (user.uid === item.uid) {
+          if (user?.uid === item.uid) {
             return item.uid
           }
         })
@@ -129,9 +129,9 @@ export const MainContextProvider = ({ children }) => {
           }
         })
         .join('')
-      console.log(user.uid)
+      console.log(user?.uid)
       console.log(lastUserUid)
-      if (lastUserUid == user.uid) {
+      if (lastUserUid == user?.uid) {
         setPushupdata(pushUp)
       }
     })
@@ -141,7 +141,7 @@ export const MainContextProvider = ({ children }) => {
   // specifice user pushup Uid finder ////////
   let pushupUid = pushupData.filter((val) => {
     if (user !== null) {
-      if (user.uid == val.uid) {
+      if (user?.uid == val.uid) {
         return val
       }
     }
@@ -205,7 +205,7 @@ export const MainContextProvider = ({ children }) => {
 
   let userInfoUid = maxPushup.filter((val) => {
     if (user !== null) {
-      if (user.uid == val.uid) {
+      if (user?.uid == val.uid) {
         return val
       }
     }
@@ -222,7 +222,7 @@ export const MainContextProvider = ({ children }) => {
   // finding speficie user max when sighn in
   let maxUid = maxPushup.filter((val) => {
     if (user !== null) {
-      if (user.uid == val.uid) {
+      if (user?.uid == val.uid) {
         return val
       }
     }
@@ -545,7 +545,7 @@ export const MainContextProvider = ({ children }) => {
   useEffect(() => {
     const docIdPuller = () => {
       maxPushup.filter((val) => {
-        if (val.uid == user.uid) {
+        if (val.uid == user?.uid) {
           setDocId(val.id)
         }
       })
@@ -571,7 +571,7 @@ export const MainContextProvider = ({ children }) => {
     }
   }
   const uploadImg = () => {
-    const imageRef = ref(storage, `image${user.uid}`)
+    const imageRef = ref(storage, `image${user?.uid}`)
     uploadBytes(imageRef, image)
       .then(() => {
         getDownloadURL(imageRef)
@@ -619,7 +619,7 @@ export const MainContextProvider = ({ children }) => {
 
       let userUid = photo
         .filter((item) => {
-          if (user.uid === item.uid) {
+          if (user?.uid === item.uid) {
             return item.uid
           }
         })
@@ -636,7 +636,7 @@ export const MainContextProvider = ({ children }) => {
       )
       let userUidName = photo
         .filter((item) => {
-          if (user.uid === item.uid) {
+          if (user?.uid === item.uid) {
             return item.uid
           }
         })
@@ -797,6 +797,7 @@ export const MainContextProvider = ({ children }) => {
         upDatePushUpData,
         upDatePullUpData,
         upDateSquatData,
+        userProfiles,
       }}
     >
       {children}

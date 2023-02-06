@@ -56,7 +56,7 @@ export const PullUpContextProvider = ({ children }) => {
 
       let userUid = pullup
         .filter((item, index) => {
-          if (user.uid === item.uid) {
+          if (user?.uid === item.uid) {
             return item.uid
           }
         })
@@ -73,7 +73,7 @@ export const PullUpContextProvider = ({ children }) => {
         })
         .join('')
 
-      if (lastUserUid == user.uid) {
+      if (lastUserUid == user?.uid) {
         setPullUpdata(pullup)
       }
     })
@@ -86,7 +86,7 @@ export const PullUpContextProvider = ({ children }) => {
 
   let pullupUid = pullupData.filter((val) => {
     if (user !== null) {
-      if (val.uid === user.uid) {
+      if (val.uid === user?.uid) {
         return val
       }
     }
