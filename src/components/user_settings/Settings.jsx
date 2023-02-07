@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MainUseContext } from '../../context/MainContext'
 import { motion as m } from 'framer-motion'
 import { AiOutlineUser, AiOutlineBars } from 'react-icons/ai'
@@ -22,7 +22,8 @@ function Settings() {
     uploadImg,
     handleImageChange,
     htlmImg,
-    updateUserInfo,
+    updateUserPhoto,
+    updateUserName,
     sureLoading,
   } = MainUseContext()
   const style = {
@@ -55,8 +56,7 @@ function Settings() {
     maxHeader: `border-2 border-l-0 rounded-l-[20px]  text-shaddow w-[21rem] h-[2rem] text-center   rounded-r-[20px] btnshaddow  text-white  bg-orange-400  drop-shadow-md cursor-pointer `,
   }
   const navigate = useNavigate()
-
-  const [test, setTest] = React.useState('')
+  const [nameEdit, setNameEdit] = useState(false)
   return (
     <div className={style.mainDiv}>
       {' '}
@@ -94,13 +94,13 @@ function Settings() {
           <div className={style.editProfile}>
             <h1
               className={style.editHeader}
-              onClick={() => setPhotoEdit(!photoEdit)}
+              onClick={() => setNameEdit(!nameEdit)}
             >
-              Edit Profile
+              Edit Name
             </h1>
             <h1 className={style.header}>
               <AiOutlineUser className="ml-2 text-green-400" />
-              {photoEdit ? (
+              {nameEdit ? (
                 <input
                   className="w-[120px]"
                   placeholder="Change Name.."
@@ -113,14 +113,33 @@ function Settings() {
             </h1>
             {htlmImg || photoEdit ? (
               <button
-                className={`${sureLoading && 'hidden'}`}
+                className={`${
+                  sureLoading
+                    ? 'hidden'
+                    : `bg-blue-300 text-white rounded-[8px] pr-1 pl-1`
+                }`}
                 onClick={uploadImg}
               >
                 Update
               </button>
             ) : null}
 
-            {sureLoading && <button onClick={updateUserInfo}>Save</button>}
+            {sureLoading && (
+              <button
+                className="bg-blue-300 text-white rounded-[8px] pr-1 pl-1"
+                onClick={updateUserPhoto}
+              >
+                Save
+              </button>
+            )}
+            {nameEdit && (
+              <button
+                className="bg-blue-300 text-white rounded-[8px] pr-1 pl-1"
+                onClick={updateUserName}
+              >
+                Change name
+              </button>
+            )}
           </div>
         </div>
       </div>

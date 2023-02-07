@@ -477,7 +477,7 @@ export const MainContextProvider = ({ children }) => {
   const totalPushUpCompiler = async () => {
     try {
       setTimeout(() => {
-        let pushupStatReducer = pushupStats.reduce(
+        let pushupStatReducer = pushupStats?.reduce(
           (accumulator, currentValue) => accumulator + currentValue,
           0,
         )
@@ -591,19 +591,27 @@ export const MainContextProvider = ({ children }) => {
     }
     setSureLoading(true)
   }
-  const updateUserInfo = async () => {
+  const updateUserPhoto = async () => {
     const docRef = doc(db, 'user_data', docId)
     try {
       await updateDoc(docRef, {
         pfp: url,
-        userName: userName,
       })
       console.log(upDateName)
     } catch (error) {
       console.log(error.message)
     }
   }
-
+  const updateUserName = async () => {
+    const docRef = doc(db, 'user_data', docId)
+    try {
+      await updateDoc(docRef, {
+        userName: userName,
+      })
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
   const [displayName, setDisplayName] = useState(null)
   const [displayPhoto, setDisplayPhoto] = useState(null)
   const [userProfiles, setUserProfiles] = useState(null)
@@ -783,21 +791,18 @@ export const MainContextProvider = ({ children }) => {
         setSureLoading,
         photoEdit,
         setPhotoEdit,
-        updateUserInfo,
         userName,
         setUserName,
-
         setSquatMax,
-
         setPushUpMax,
-
         setPullUpMax,
-
         maxPushup,
         upDatePushUpData,
         upDatePullUpData,
         upDateSquatData,
         userProfiles,
+        updateUserPhoto,
+        updateUserName,
       }}
     >
       {children}

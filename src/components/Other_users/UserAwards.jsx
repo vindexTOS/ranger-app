@@ -151,7 +151,7 @@ const UserAwards = ({ uid, id, userMax, userPullupMax, userSquatMax }) => {
   }, [pullupStats])
 
   const style = {
-    mainDiv: `w-[70%] h-[100px] flex   items-center justify-end award-setting-grid-wrapper  `,
+    mainDiv: `w-[70%] h-[100px] flex  max_sm:w-[90%] items-center justify-end award-setting-grid-wrapper  `,
     img: `w-[30px] h-[30px] bg-red-400 rounded-[12px]`,
   }
   let totalSession = pushup.length + pullup.length + squat.length

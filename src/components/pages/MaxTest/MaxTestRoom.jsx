@@ -40,16 +40,16 @@ function MaxTestRoom() {
   })
 
   const style = {
-    mainDiv: `w-[100vw] h-[100vh] border-2 flex m-0 p-0  flex-col items-center justify-center rounded-[8px] border-l-0 `,
-    header: `text-[4rem] p-2 mt-2 bg-red-500 rounded-[19px] text-orange-200  flex items-center gap-2 `,
+    mainDiv: `w-[100vw] h-[100vh]  max_sm:h-[1500px]  border-2 flex m-0 p-0  flex-col items-center justify-center max_sm:justify-start rounded-[8px] max_sm:border-0  max_sm:gap-5     border-l-0 `,
+    header: `text-[4rem] p-2 mt-2 bg-red-500 rounded-[19px] text-orange-200  flex items-center gap-2  max_sm:text-[1rem]`,
     headerIcon: `w-[50px] h-[50px] `,
-    testDivWrapper: `w-[100%] h-[100%] flex flex-wrap gap-2 items-center justify-center   `,
-    testDiv: ` bg-red-500 w-[300px] h-[80%] rounded-[19px]  cardshaddow flex flex-col items-center justify-center text-orange-200 text-[1.3rem] gap-2 cursor-pointer`,
+    testDivWrapper: `w-[100%] h-[50%] gap-10 flex flex-wrap  justify-center   `,
+    testDiv: ` bg-red-500 w-[300px]    max_sm:h-[300px]  h-[80%] rounded-[19px]  cardshaddow flex flex-col items-center justify-center text-orange-200 text-[1.3rem] gap-2 cursor-pointer`,
     testIcon: `w-[200px] h-[200px]`,
-    flipTestDiv: `w-[300px] h-[80%] rounded-[19px] bg-orange-200 cardshaddow flex flex-col items-center justify-center gap-5 text-orange-200 text-[1.3rem] gap-2 cursor-pointer border-r-2`,
-    input: `rounded-[8px] w-[11rem] h-[6rem] text-[5rem] text-center outline-none   `,
-    cardHeader: `flex items-center justify-center bg-orange-200 text-center text-[1.6rem] border-2  border-red-500 text-red-500 w-[11rem] h-[6rem] rounded-[8px]`,
-    inputBtn: `text-orange-200  bg-red-500 w-[11rem] h-[6rem] rounded-[8px]`,
+    flipTestDiv: `w-[100px] h-[80%]   max_sm:h-[300px] rounded-[19px] bg-orange-200 cardshaddow flex flex-col items-center justify-center gap-5 text-orange-200 text-[1.3rem]  cursor-pointer border-r-2`,
+    input: `rounded-[8px] w-[11rem]   h-[6rem] text-[5rem] max_sm:text-[1rem] text-center outline-none   `,
+    cardHeader: `flex items-center justify-center bg-orange-200 text-center text-[1.6rem] border-2   border-red-500 text-red-500 w-[11rem]    h-[6rem] rounded-[8px]`,
+    inputBtn: `text-orange-200  bg-red-500 w-[11rem]    h-[6rem] rounded-[8px]`,
     prevMaxHeader: `text-red-500 border-2 p-4 border-red-500 rounded-[8px]`,
   }
   const animations = {
@@ -163,7 +163,7 @@ function MaxTestRoom() {
             </m.h1>
           </m.div>
         )}
-        ,
+
         {!state.pullup ? (
           <CardDiv photo={Dragon} type="pullup" title="WINGS LIKE DRAGON" />
         ) : (

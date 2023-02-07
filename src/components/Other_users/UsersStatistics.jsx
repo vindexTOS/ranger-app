@@ -14,7 +14,7 @@ function UsersStatistics(props) {
   const style = {
     mainDiv: `w-[100vw] relative  h-[700px]   rounded-[8px] border-2 flex flex-col mt-10 items-center justify-center max_sm:ml-2 `,
     subDiv: `flex flex-col items-center  w-[100%] p-5  overflow-y-scroll scroll   gap-5 `,
-    mapDiv: `flex gap-5 items-center  justify-start border-2 p-2 w-[90%] h-[10rem] rounded-[30px] `,
+    mapDiv: `flex gap-5 items-center max_sm:flex-col max_sm:h-[15rem] justify-start border-2 p-2 w-[90%] h-[10rem] rounded-[30px] `,
     imgDiv: `flex   items-center justify-center  gap-2  w-[10rem]   `,
     img: `w-[5rem] h-[5rem] rounded-[50%]   border-2  `,
     userHeader: ` flex flex-row items-center justify-center gap-1  text-[1.2rem] text-gray-400 `,
