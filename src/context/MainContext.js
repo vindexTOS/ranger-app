@@ -732,6 +732,13 @@ export const MainContextProvider = ({ children }) => {
       console.log(error.message)
     }
   }
+  /// dark mode
+  const darkFromLocal = JSON.parse(localStorage.getItem('dark') || false)
+
+  const [dark, setDark] = useState(darkFromLocal)
+  useEffect(() => {
+    localStorage.setItem('dark', JSON.stringify(dark))
+  }, [dark])
   return (
     <MainContext.Provider
       value={{
@@ -803,6 +810,9 @@ export const MainContextProvider = ({ children }) => {
         userProfiles,
         updateUserPhoto,
         updateUserName,
+        dark,
+        setDark,
+        navLinksObj 
       }}
     >
       {children}

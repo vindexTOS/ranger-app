@@ -4,7 +4,7 @@ import Stats from './Stats'
 import Quotes from '../../../Quotes'
 import { MainUseContext } from '../../../../context/MainContext'
 function SidePullUpPannel() {
-  const { navLinksObj } = MainUseContext()
+  const { navLinksObj, dark } = MainUseContext()
   const style = {
     underline: `w-[90%] h-[1px] bg-orange-400   `,
     compDiv: `flex flex-col items-center justify-center gap-5  mb-10 max_lg:hidden  ${

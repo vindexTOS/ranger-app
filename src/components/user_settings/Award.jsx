@@ -11,10 +11,13 @@ function Award() {
     totalPullUps,
     totalPushups,
     totalSquats,
+    dark,
     //award states
   } = NavUseContext()
   const style = {
-    mainDiv: `w-[19rem] h-[100px] flex gap-1  border-t-2   award-setting-grid-wrapper p-2`,
+    mainDiv: `w-[19rem] h-[100px] flex gap-1 ${
+      dark && ' border-t-2 '
+    }  award-setting-grid-wrapper p-2`,
     img: `w-[40px] h-[40px] bg-red-400 rounded-[12px]`,
   }
   let totalSession = pushupUid.length + pullupUid.length + squatUid.length

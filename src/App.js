@@ -14,6 +14,7 @@ import { AchievementProvider } from './context/AchievementContext'
 import { NavContextProvider } from './context/NavBarContext'
 //pages
 import Navbar from './components/navigation/Navbar'
+import Footer from './components/navigation/Footer'
 import Protectedroute from './components/protectedroute'
 import Pushups from './components/pages/Pushups.page/Pushups'
 import Pullups from './components/pages/Pullups.page/Pullups'
@@ -32,7 +33,6 @@ import UsersStatistics from './components/Other_users/UsersStatistics'
 function App() {
   return (
     <MainContextProvider>
-      {' '}
       <SquatContextProvider>
         <PullUpContextProvider>
           <NavContextProvider>
@@ -88,7 +88,8 @@ function App() {
                 />
                 <Route path="testroom" element={<MaxTestRoom />} />
               </Route>
-            </Routes>{' '}
+            </Routes>
+            <Footer />
           </NavContextProvider>
         </PullUpContextProvider>
       </SquatContextProvider>

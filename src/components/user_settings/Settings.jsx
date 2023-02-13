@@ -3,6 +3,7 @@ import { MainUseContext } from '../../context/MainContext'
 import { motion as m } from 'framer-motion'
 import { AiOutlineUser, AiOutlineBars } from 'react-icons/ai'
 import { IoMdLogOut } from 'react-icons/io'
+import { FiMoon, FiSun } from 'react-icons/fi'
 import Buff from '../../utils/userinfo/buff.png'
 import Award from './Award'
 import AccountInfo from '../AccountInfo'
@@ -25,35 +26,57 @@ function Settings() {
     updateUserPhoto,
     updateUserName,
     sureLoading,
+    dark,
+    setDark,
   } = MainUseContext()
   const style = {
-    mainDiv: ` z-50 w-[400px] h-[400px] mt-[3.8rem] gap-2 z-20 right-1 flex flex-col bg-white btnshaddow border-l-2  border-b-2 border-gray-400 rounded-b-[17px] absolute items-center justify-center   `,
-    button: `${
-      user == null
-        ? 'hidden'
-        : 'btnshaddow flex w-[19rem] bg-[#ffd31d] text-white  items-center justify-center rounded-[8px] text-center'
-    }`,
-    header: `${
-      user == null
-        ? 'hidden'
-        : 'btnshaddow w-[190px] h-[30px] bg-white rounded-[8px] flex  items-center  gap-5'
+    mainDiv: `${
+      dark ? 'bg-white border-gray-400' : 'bg-gray-700 border-gray-500'
+    } z-50 w-[400px] h-[420px] mt-[3.8rem] gap-2 z-20 right-1 flex flex-col btnshaddow border-l-2  border-b-2  rounded-b-[17px] absolute items-center justify-center   `,
+    button: `btnshaddow flex w-[19rem] items-center justify-center rounded-[8px] text-center ${
+      dark
+        ? '  bg-[#ffd31d]'
+        : 'text-white bg-gray-700 border-gray-500 border-2'
     } `,
+    header: ` btnshaddow w-[190px] h-[30px]  rounded-[8px] flex  items-center  gap-5 ${
+      dark ? 'bg-white' : 'bg-orange-200'
+    }`,
     profileWrapper: ` `,
-    profileDiv: `flex flex-row items-center justify-center gap-2 border-2  w-[19rem] rounded-[12px] pl-3 pr-3`,
-    p: `text-[0.8rem]`,
-    userIcon: `w-[80px] h-[80px] rounded-[50%] border-2 border-orange-500 cursor-pointer `,
+    profileDiv: `flex flex-row items-center justify-center gap-2 border-2  w-[19rem] rounded-[12px] pl-3 pr-3 ${
+      !dark && 'border-gray-500'
+    } `,
+    p: `text-[0.8rem] ${dark ? 'bg-white' : ' text-white'}`,
+    userIcon: `w-[80px] h-[80px] rounded-[50%] border-2 border-gray-500 cursor-pointer `,
     cameraWrapper: `w-[80px] h-[80px] flex items-center justify-center absolute hover:bg-blue-300 rounded-[50%] hover:bg-opacity-30 cursor-pointer`,
 
     iconWrapper: `flex items-center justify-center  cursor-pointer`,
-    awardWrapper: `flex flex-col items-center justify-center border-2 rounded-[14px] `,
+    awardWrapper: `flex flex-col items-center justify-center border-2  rounded-[14px]   ${
+      !dark && 'border-gray-500'
+    } `,
     editProfile: `flex flex-col items-center justify-center gap-1`,
-    editHeader: `bg-blue-300 rounded-[10px] text-center w-[9rem] text-white hover:bg-blue-400 cursor-pointer btnshaddow`,
-    usersProfilesIcon: `w-[50px] h-[50px] bg-purple-400 hover:bg-blue-300 p-1 rounded-[50%] cursor-pointer z-10 absolute border-2  btnshaddow `,
-    usersProfilesHeader: `border-2 border-l-0 rounded-l-[20px]  text-shaddow w-[21rem] h-[2rem] text-center   rounded-r-[20px] btnshaddow  text-white  bg-purple-400  drop-shadow-md cursor-pointer `,
+    editHeader: ` rounded-[10px] text-center w-[9rem] text-white  cursor-pointer btnshaddow ${
+      dark
+        ? 'bg-blue-300 hover:bg-blue-400'
+        : 'bg-orange-500 hover:bg-orange-400'
+    }`,
+    usersProfilesIcon: `w-[50px] h-[50px]   p-1 rounded-[50%] cursor-pointer z-10 absolute border-2    btnshaddow ${
+      dark
+        ? 'bg-purple-400 hover:bg-blue-300'
+        : ' bg-gray-600 hover:bg-gray-500 border-gray-500'
+    }  `,
+    usersProfilesHeader: ` ${
+      dark ? ' bg-purple-400 ' : ' bg-gray-600 border-gray-500'
+    }  border-2 border-l-0 rounded-l-[20px]  text-shaddow w-[21rem] h-[2rem] text-center   rounded-r-[20px] btnshaddow  text-white   drop-shadow-md cursor-pointer `,
     max: `flex items-center justify-betwneen    w-[19rem] p-2  `,
 
-    maxIcon: `w-[50px] h-[50px] bg-orange-400 hover:bg-orange-600 p-1 rounded-[50%] cursor-pointer z-10 absolute border-2  btnshaddow `,
-    maxHeader: `border-2 border-l-0 rounded-l-[20px]  text-shaddow w-[21rem] h-[2rem] text-center   rounded-r-[20px] btnshaddow  text-white  bg-orange-400  drop-shadow-md cursor-pointer `,
+    maxIcon: `w-[50px] h-[50px] p-1 rounded-[50%] cursor-pointer z-10 absolute border-2  btnshaddow ${
+      dark
+        ? ' bg-orange-400 hover:bg-orange-500 '
+        : 'border-gray-500   bg-gray-600 hover:bg-gray-500 border-gray-500 '
+    } `,
+    maxHeader: ` border-2 border-l-0 rounded-l-[20px]  text-shaddow w-[21rem] h-[2rem] text-center   rounded-r-[20px] btnshaddow  text-white  drop-shadow-md cursor-pointer ${
+      dark ? ' bg-orange-400  ' : 'bg-gray-600 border-gray-500'
+    } `,
   }
   const navigate = useNavigate()
   const [nameEdit, setNameEdit] = useState(false)
@@ -102,7 +125,7 @@ function Settings() {
               <AiOutlineUser className="ml-2 text-green-400" />
               {nameEdit ? (
                 <input
-                  className="w-[120px]"
+                  className={`${!dark && 'bg-orange-200'} w-[120px] `}
                   placeholder="Change Name.."
                   type="text"
                   onChange={(e) => setUserName(e.target.value)}
@@ -113,10 +136,8 @@ function Settings() {
             </h1>
             {htlmImg || photoEdit ? (
               <button
-                className={`${
-                  sureLoading
-                    ? 'hidden'
-                    : `bg-blue-300 text-white rounded-[8px] pr-1 pl-1`
+                className={` text-white rounded-[8px] pr-1 pl-1 ${
+                  dark ? 'bg-blue-300' : 'bg-orange-400'
                 }`}
                 onClick={uploadImg}
               >
@@ -134,7 +155,9 @@ function Settings() {
             )}
             {nameEdit && (
               <button
-                className="bg-blue-300 text-white rounded-[8px] pr-1 pl-1"
+                className={` text-white rounded-[8px] pr-1 pl-1 ${
+                  dark ? 'bg-blue-300 ' : 'bg-orange-300 '
+                }`}
                 onClick={updateUserName}
               >
                 Change name
@@ -144,7 +167,13 @@ function Settings() {
         </div>
       </div>
       <div className={style.awardWrapper}>
-        <h1 className="w-[100%]  text-center  ">Badges</h1>
+        <h1
+          className={` w-[100%]  text-center ${
+            !dark && 'border-b-2 border-gray-500 text-white'
+          }`}
+        >
+          Badges
+        </h1>
         <Award />
       </div>
       <div
@@ -158,6 +187,22 @@ function Settings() {
         <img className={style.maxIcon} src={Buff} />
         <h1 className={style.maxHeader}>Test Your Max</h1>
       </div>
+      {dark ? (
+        <div
+          className="text-gray-400 cursor-pointer hover:text-gray-500 flex items-center justify-center gap-2"
+          onClick={() => setDark(!dark)}
+        >
+          {' '}
+          <FiMoon className="text-[2rem] " /> Dark Mode
+        </div>
+      ) : (
+        <div
+          className="text-white cursor-pointer hover:text-gray-300 flex items-center justify-center gap-2"
+          onClick={() => setDark(!dark)}
+        >
+          <FiSun className="text-[2rem] " /> Light Mode
+        </div>
+      )}
       <m.button
         className={style.button}
         onClick={handleLogOut}

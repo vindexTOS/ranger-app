@@ -1,18 +1,25 @@
 import React from 'react'
 import { PullUpUseContext } from '../../../context/PullUpContext'
+import { MainUseContext } from '../../../context/MainContext'
 import { motion as m } from 'framer-motion'
 function History() {
   const { pullupUid, maxPullUpUid } = PullUpUseContext()
-
+  const { dark } = MainUseContext()
   const style = {
-    mainDiv: `   w-[90%]   text  h-[280px] border-orange-400  pb-4  border-t-2 max_xl:ml-10`,
+    mainDiv: `   w-[90%]   text  h-[280px] border-orange-400  pb-4  border-t-2 max_xl:ml-10 ${
+      dark ? '' : 'text-orange-300'
+    }`,
     outsideMapdiv: `overflow-y-scroll scroll  border-orange-400 mb-[5rem] h-[200px] border-l-2 border-r-2    pb-2`,
 
     mapDiv: `flex flex-row gap-[12rem] max_sm:gap-5 mt-2    ml-[5px]`,
 
-    timeDiv: ` flex  text-color  items-center border-orange-400  border-b-2 justify-center   font-bold  overflow-hidden text-[12px] h-[2rem] w-[50%]`,
+    timeDiv: ` flex     items-center border-orange-400  border-b-2 justify-center   font-bold  overflow-hidden text-[12px] h-[2rem] w-[50%] ${
+      dark ? 'text-color ' : 'text-orange-300'
+    }`,
     setDiv: `flex gap-2 flex-row `,
-    setHeader: `  w-[1.7rem] text-center text-color   border-orange-400 border-b-2   `,
+    setHeader: `  w-[1.7rem] text-center    border-orange-400 border-b-2 ${
+      dark ? 'text-color' : 'text-orange-300'
+    }  `,
     headerDiv: `w-[100%] flex items-center justify-center `,
     header: ` w-[60%] h-[2rem] flex items-center justify-center text-center text-orange-400  mt-[5px] font-bold   rounded-[15px]`,
     titlesDiv: `w-[100%] gap-20 max_sm:gap-0 flex justify-between mt-5 mb-5 `,

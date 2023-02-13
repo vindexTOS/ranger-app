@@ -11,13 +11,18 @@ function Navbar() {
     setDropDown,
     dropdown,
     displayName,
+    dark,
   } = MainUseContext()
 
   const [settingDrop, setSettingDrop] = useState(false)
 
   const style = {
     nav: `${
-      user == null ? 'hidden' : '   flex flex-row   w-[100%] h-[60px]  nav'
+      user == null
+        ? 'hidden'
+        : `flex flex-row    w-[100%] h-[60px]  ${
+            dark ? 'nav' : 'bg-gray-800 border-gray-500'
+          }`
     }	`,
     navdiv: `flex flex-row   gap-5 items-center justify-end h-[100%] w-[95%]  `,
 

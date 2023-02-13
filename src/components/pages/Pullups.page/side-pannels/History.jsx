@@ -1,8 +1,10 @@
 import React from 'react'
 import { PullUpUseContext } from '../../../../context/PullUpContext'
+import { MainUseContext } from '../../../../context/MainContext'
 import { motion as m } from 'framer-motion'
 function History() {
   const { pullupUid, maxPullUpUid } = PullUpUseContext()
+  const { dark } = MainUseContext()
 
   const style = {
     mainDiv: ` w-[350px]     h-[310px] border-orange-400  border-t-2 border-r-2  pb-4 rounded-b-0 rounded-t-[14px] max_xl:ml-10`,
@@ -10,9 +12,13 @@ function History() {
     mapDiv: `flex flex-row gap-5 mt-2  ml-[5px]`,
 
     outsideMapdiv: `overflow-y-scroll scroll h-[200px] rounded-[12px]  pb-2`,
-    timeDiv: ` flex  text-color  items-center border-orange-400  border-b-2 justify-center   font-bold  overflow-hidden text-[12px] h-[1.6rem] w-[40%]`,
+    timeDiv: ` flex    items-center border-orange-400  border-b-2 justify-center   font-bold  overflow-hidden text-[12px] h-[1.6rem] w-[40%]  ${
+      dark ? 'text-color' : 'text-orange-300'
+    }`,
     setDiv: `flex gap-2 flex-row `,
-    setHeader: `  w-[1.7rem] text-center text-color   border-orange-400 border-b-2   `,
+    setHeader: `  w-[1.7rem] text-center   border-orange-400 border-b-2   ${
+      dark ? 'text-color' : 'text-orange-300'
+    } `,
     headerDiv: `w-[100%] flex items-center justify-center `,
     header: ` w-[60%] h-[2rem] flex items-center justify-center text-center text-orange-400  mt-[5px] font-bold   rounded-[15px]`,
     titlesDiv: `w-[100%] flex justify-between mt-5 mb-5 `,

@@ -1,8 +1,10 @@
 import React from 'react'
 import { SquatUseContext } from '../../../context/SquatContext'
+import { MainUseContext } from '../../../context/MainContext'
 import { motion as m } from 'framer-motion'
 function History() {
   const { squatUid, convertDate } = SquatUseContext()
+  const { dark } = MainUseContext()
 
   const style = {
     mainDiv: `   w-[90%]   text  h-[280px] border-blue-400  pb-4 border-t-2   max_xl:ml-10`,
@@ -10,9 +12,13 @@ function History() {
 
     mapDiv: `flex flex-row gap-[12rem] max_sm:gap-5 mt-2  ml-[5px]`,
 
-    timeDiv: `flex  text-color  items-center border-blue-400  border-b-2 justify-center   font-bold  overflow-hidden text-[12px] h-[2rem] w-[50%]`,
+    timeDiv: `flex     items-center border-blue-400  border-b-2 justify-center   font-bold  overflow-hidden text-[12px] h-[2rem] w-[50%] ${
+      dark ? 'text-color ' : 'text-blue-300'
+    }`,
     setDiv: `flex gap-2 flex-row `,
-    setHeader: `  w-[1.7rem] text-center text-color   border-blue-400 border-b-2   `,
+    setHeader: `  w-[1.7rem] text-center    border-blue-400 border-b-2  ${
+      dark ? 'text-color ' : 'text-blue-300'
+    } `,
     headerDiv: `w-[100%] flex items-center justify-center `,
     header: ` w-[60%] h-[2rem] flex items-center justify-center text-center text-blue-400  mt-[5px] font-bold   rounded-[15px]`,
     titlesDiv: `w-[100%] gap-20 max_sm:gap-0 flex justify-between mt-5 mb-5 `,
