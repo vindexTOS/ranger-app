@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { MainUseContext } from '../../context/MainContext'
 import { motion as m } from 'framer-motion'
 import { AiOutlineUser, AiOutlineBars } from 'react-icons/ai'
@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'
 function Settings() {
   const {
     setUserName,
-
+    refClick,
     user,
     handleLogOut,
     displayPhoto,
@@ -28,6 +28,10 @@ function Settings() {
     sureLoading,
     dark,
     setDark,
+    settingDrop,
+    setSettingDrop,
+    nameEdit,
+    setNameEdit,
   } = MainUseContext()
   const style = {
     mainDiv: `${
@@ -45,7 +49,7 @@ function Settings() {
     profileDiv: `flex flex-row items-center justify-center gap-2 border-2  w-[19rem] rounded-[12px] pl-3 pr-3 ${
       !dark && 'border-gray-500'
     } `,
-    p: `text-[0.8rem] ${dark ? 'bg-white' : ' text-white'}`,
+    p: `text-[0.8rem] ${dark ? 'bg-white' : ' text-black'}`,
     userIcon: `w-[80px] h-[80px] rounded-[50%] border-2 border-gray-500 cursor-pointer `,
     cameraWrapper: `w-[80px] h-[80px] flex items-center justify-center absolute hover:bg-blue-300 rounded-[50%] hover:bg-opacity-30 cursor-pointer`,
 
@@ -79,9 +83,19 @@ function Settings() {
     } `,
   }
   const navigate = useNavigate()
-  const [nameEdit, setNameEdit] = useState(false)
+  useEffect(() => {
+    const handler = (e) => {
+      if (!refClick.current.contains(e.target)) {
+        setTimeout(() => {
+          setSettingDrop(!settingDrop)
+        }, 100)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+  }, [settingDrop])
+
   return (
-    <div className={style.mainDiv}>
+    <div className={style.mainDiv} ref={refClick}>
       {' '}
       <div className={style.profileWrapper}>
         {' '}
@@ -134,7 +148,7 @@ function Settings() {
                 <p className={style.p}>{user !== null ? user.email : 'User'}</p>
               )}
             </h1>
-            {htlmImg || photoEdit ? (
+            {htlmImg ? (
               <button
                 className={` text-white rounded-[8px] pr-1 pl-1 ${
                   dark ? 'bg-blue-300' : 'bg-orange-400'

@@ -12,9 +12,9 @@ function Navbar() {
     dropdown,
     displayName,
     dark,
+    settingDrop,
+    setSettingDrop,
   } = MainUseContext()
-
-  const [settingDrop, setSettingDrop] = useState(false)
 
   const style = {
     nav: `${
@@ -35,7 +35,9 @@ function Navbar() {
       <div className="flex flex-row gap-5 items-center 1xl:hidden">
         <AiOutlineBars
           onClick={() => setDropDown(!dropdown)}
-          className="h-[2rem] text-[3rem] "
+          className={`h-[2rem] text-[3rem] ${
+            dark ? 'text-black' : 'text-white'
+          }`}
         />
       </div>
 

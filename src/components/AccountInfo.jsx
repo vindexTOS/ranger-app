@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import userPfp from '../utils/userinfo/user.png'
 import camera from '../utils/userinfo/camera.png'
 import { motion as m } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 import { MainUseContext } from '../context/MainContext'
 function AccountInfo({ handleSubmit, userDataSubmit }) {
@@ -18,7 +19,7 @@ function AccountInfo({ handleSubmit, userDataSubmit }) {
     setPhotoEdit,
     handleUpdateDoc,
   } = MainUseContext()
-
+  const navigate = useNavigate()
   const style = {
     mainDiv: `flex flex-row items-center justify-center  ${
       photoEdit ? 'bg-none' : 'bg-opacity-60 bg-gray-300 w-[100%]   h-[100vh]'
@@ -98,7 +99,13 @@ function AccountInfo({ handleSubmit, userDataSubmit }) {
           <h1 onClick={() => console.log(userName)}>CLICK</h1>
         </div>
 
-        <div onClick={uploadImg} className={style.save}>
+        <div
+          onClick={() => {
+            uploadImg()
+            navigate('/test')
+          }}
+          className={style.save}
+        >
           <h1>Save</h1>
         </div>
       </section>

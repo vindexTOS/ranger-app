@@ -6,8 +6,7 @@ function Timer() {
   const {
     setDummyState,
     dummyState,
-    reducerTimer,
-    countDownTimerStarter,
+
     timeState,
     timerDispatch,
   } = MainUseContext()
@@ -26,12 +25,13 @@ function Timer() {
     mainDiv: `${
       timeState.countDown <= 0
         ? 'hidden'
-        : 'w-[50vw] h-[100vh] rounded-[50%] flex  items-center justify-center bg-gray-300 bg-opacity-30 absolute'
+        : 'w-[50vw] h-[100vh] rounded-[50%] flex   justify-center  bg-gray-500 bg-opacity-50 absolute max_sm:w-[350px] max_sm:h-[350px] max_sm:m-0 max_sm:p-5 text-green-400'
     }`,
-    timerDiv: `flex flex-row items-center justify-center gap-1  w-[300px] h-[200px] text-[5rem] `,
+    timerDiv: `flex flex-row items-center justify-center gap-1  w-[300px] h-[200px] text-[5rem] max_sm:text-[5rem] `,
     timerWrapper: `flex flex-col items-center justify-center`,
-    btnWrapper: `text-[5rem] flex flex-row items-center text-center justify-center gap-3`,
+    btnWrapper: `text-[5rem] flex flex-row items-center text-center justify-center gap-3 max_sm:text-[2.4rem]  `,
     cancelBtn: ``,
+    btnsWrapper: `flex flex-row`,
   }
 
   // converting miliseceonds to actual time
@@ -57,21 +57,25 @@ function Timer() {
       <div className={styles.timerWrapper}>
         {countDownTimer(timeState.countDown)}
         <div>
-          <button
-            className={styles.btnWrapper}
-            onClick={() => timerDispatch({ type: 'increment' })}
-          >
-            <p>15 </p>
-            <AiOutlinePlusCircle />
-          </button>
-          <button
-            className={styles.btnWrapper}
-            onClick={() => timerDispatch({ type: 'decrement' })}
-          >
-            <p>15 </p> <AiOutlineMinusCircle />
-          </button>
+          {' '}
+          <div className={styles.btnsWrapper}>
+            <button
+              className={styles.btnWrapper}
+              onClick={() => timerDispatch({ type: 'increment' })}
+            >
+              <p>15 </p>
+              <AiOutlinePlusCircle className="text-blue-500" />
+            </button>
+            <button
+              className={styles.btnWrapper}
+              onClick={() => timerDispatch({ type: 'decrement' })}
+            >
+              <p>15 </p> <AiOutlineMinusCircle className="text-red-600" />
+            </button>
+          </div>
           <button className={styles.btnWrapper} onClick={() => cancelTimer()}>
-            <p className="text-[2.5rem]"> Skip</p> <ImCancelCircle />
+            <p className="text-[2.5rem]"> Skip</p>{' '}
+            <ImCancelCircle className="text-red-700" />
           </button>
         </div>
       </div>

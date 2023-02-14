@@ -4,6 +4,7 @@ import React, {
   useState,
   useReducer,
   useEffect,
+  useRef,
 } from 'react'
 
 import {
@@ -180,6 +181,7 @@ export const MainContextProvider = ({ children }) => {
       })
       // navigate to main page
       navigate('/workroom/pushups')
+      setSureLoading(false)
     }
   }
   // use effect for max
@@ -561,6 +563,7 @@ export const MainContextProvider = ({ children }) => {
   const [userName, setUserName] = useState('')
   const [upDateName, setUpdateName] = useState('')
   const [sureLoading, setSureLoading] = useState(false)
+  const [nameEdit, setNameEdit] = useState(false)
 
   const [photoEdit, setPhotoEdit] = useState(false)
   const handleImageChange = (e) => {
@@ -586,10 +589,8 @@ export const MainContextProvider = ({ children }) => {
       .catch((error) => {
         console.log(error.message)
       })
-    if (!photoEdit) {
-      navigate('/test')
-    }
-    setSureLoading(true)
+    setSureLoading(!sureLoading)
+    setHtmlImg(null)
   }
   const updateUserPhoto = async () => {
     const docRef = doc(db, 'user_data', docId)
@@ -597,6 +598,9 @@ export const MainContextProvider = ({ children }) => {
       await updateDoc(docRef, {
         pfp: url,
       })
+      setTimeout(() => {
+        setSureLoading(!sureLoading)
+      }, 1000)
       console.log(upDateName)
     } catch (error) {
       console.log(error.message)
@@ -608,6 +612,7 @@ export const MainContextProvider = ({ children }) => {
       await updateDoc(docRef, {
         userName: userName,
       })
+      setNameEdit(false)
     } catch (error) {
       console.log(error.message)
     }
@@ -739,6 +744,12 @@ export const MainContextProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('dark', JSON.stringify(dark))
   }, [dark])
+
+  //ref for drop down menu click
+  let refClick = useRef()
+  //drop down setings state
+  const [settingDrop, setSettingDrop] = useState(false)
+
   return (
     <MainContext.Provider
       value={{
@@ -812,7 +823,13 @@ export const MainContextProvider = ({ children }) => {
         updateUserName,
         dark,
         setDark,
-        navLinksObj 
+        navLinksObj,
+        refClick,
+
+        settingDrop,
+        setSettingDrop,
+        nameEdit,
+        setNameEdit,
       }}
     >
       {children}
