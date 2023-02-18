@@ -13,7 +13,7 @@ Getting Started
 Clone the repository:
 bash
 Copy code
-git clone https://github.com/your-username/ranger-app.git
+git clone  https://github.com/vindexTOS/ranger-app.git
 Navigate to the project directory:
 bash
 Copy code
