@@ -77,15 +77,22 @@ export const MainContextProvider = ({ children }) => {
 
   // push up workout updates
   const [pushup, setPushup] = React.useState([])
-
+  const [popup, setPopUp] = React.useState(true)
   const handlePushupSubmit = async (data, e) => {
     e.preventDefault()
+    setPopUp(true)
     let setOne = getValues('setOne')
     let setTwo = getValues('setTwo')
     let setThree = getValues('setThree')
     let setFour = getValues('setFour')
     let setFive = getValues('setFive')
-    if (setOne || setTwo || setThree || setFour || setFive !== '') {
+    if (
+      setOne !== '' ||
+      setTwo !== '' ||
+      setThree !== '' ||
+      setFour !== '' ||
+      setFive !== ''
+    ) {
       pushup.push(data)
       console.log(pushup)
       const { uid } = auth.currentUser
@@ -147,7 +154,6 @@ export const MainContextProvider = ({ children }) => {
       }
     }
   })
-  useEffect(() => {}, [pushupData])
   // algorithm for push ups //
   // user data is stored next state named maxPushup/setmaxPushup() ///////////////////////////////////
   const [userData, setUserData] = useState([])
@@ -262,6 +268,45 @@ export const MainContextProvider = ({ children }) => {
       return userWeight / Math.pow(2, metricHeight - 0.1)
     }
   }
+
+  // stats functions
+  const [pushupStats, setpushupStats] = useState(null)
+  const statsFunction = () => {
+    let newMap = pushupUid.map((val) => {
+      let setOne = Number(val.sets[0].setOne)
+      let setTwo = Number(val.sets[0].setTwo)
+      let setThree = Number(val.sets[0].setThree)
+      let setFour = Number(val.sets[0].setFour)
+      let setFive = Number(val.sets[0].setFive)
+      let num = null
+
+      for (let i = 0; i < val.sets.length; i++) {
+        num = setOne + setTwo + setThree + setFour + setFive
+      }
+      return num
+    })
+    setpushupStats(newMap)
+  }
+  React.useEffect(() => {
+    statsFunction()
+  }, [pushupData])
+  // this state takes date and time where total collected push ups was done
+  const [pushupStatData, setPushupStatData] = useState([])
+  /// use effect calls two above functions
+
+  useEffect(() => {
+    setTimeout(() => {
+      // this gives us time Date from API
+      let totalPushUps = pushupStats.map((val) => {
+        return { 'Total Push Ups': val }
+      })
+      let prevVal = totalPushUps[totalPushUps.length - 1]['Total Push Ups']
+      let prevCurr = totalPushUps[totalPushUps.length - 2]['Total Push Ups']
+      console.log(totalPushUps)
+      setPushupStatData([prevVal, prevCurr])
+    }, 500)
+  }, [pushupStats])
+
   const pushUpalgo = () => {
     //first set of the last workout user did from firebase IP
     const lastSetCounter = (set) => {
@@ -281,7 +326,10 @@ export const MainContextProvider = ({ children }) => {
 
       return newNum
     }
-
+    const totalData = pushupStatData
+    const currVal = Number(totalData[0])
+    const prevVal = Number(totalData[1])
+    // console.log(currVal, prevVal)
     const newVal = maxUid.map((item, index) => {
       if (maxUid.length - 1 <= index) {
         let procMax = 0
@@ -338,36 +386,72 @@ export const MainContextProvider = ({ children }) => {
           setSug4(Math.floor(procMax))
           setSug5(Math.floor(procMax - 1))
         }
-        // set one
-        if (lastSetCounter('setOne') >= sug1) {
-          setSug1(lastSetCounter('setOne') + 1)
-        } else if (lastSetCounter('setOne') < sug1) {
-          setSug1(procMax - 1)
-        }
+        // currVal prevVal
 
-        // set two
-        if (lastSetCounter('setTwo') >= sug2) {
-          setSug2(lastSetCounter('setTwo') + 1)
-        } else if (lastSetCounter('setTwo') < sug2) {
-          setSug2(lastSetCounter('setTwo') - 1)
-        }
-        // setsetThree
-        if (lastSetCounter('setThree') >= sug3) {
-          setSug3(lastSetCounter('setThree') + 1)
-        } else if (lastSetCounter('setThree') < sug3) {
-          setSug3(lastSetCounter('setThree') - 1)
-        }
-        // set four
-        if (lastSetCounter('setFour') >= sug4) {
-          setSug4(lastSetCounter('setFour') + 1)
-        } else if (lastSetCounter('setFour') < sug4) {
-          setSug4(lastSetCounter('setFour') - 1)
-        }
-        // set five
-        if (lastSetCounter('setFive') >= sug5) {
-          setSug5(lastSetCounter('setFive') + 1)
-        } else if (lastSetCounter('setFive') < sug5) {
-          setSug5(sug5 - 1)
+        // const suggestSetSetter = (set, sug, sugSetter) => {
+        //   let fifty = sug * 0.5
+        //   let forty = sug * 0.4
+        //   let thirty = sug * 0.3
+        //   let twenty = sug * 0.2
+        //   let ten = sug * 0.1
+        //   let five = sug * 0.05
+        //   if (lastSetCounter(set) >= sug + fifty) {
+        //     sugSetter(prevVal * 0.4)
+        //   } else if (lastSetCounter(set) >= sug + forty) {
+        //     sugSetter(prevVal * 0.3)
+        //   } else if (lastSetCounter(set) >= sug + thirty) {
+        //     sugSetter(prevVal * 0.2)
+        //   } else if (lastSetCounter(set) >= sug + twenty) {
+        //     sugSetter(prevVal * 0.1)
+        //   } else if (lastSetCounter(set) >= sug + ten) {
+        //     sugSetter(prevVal * 0.05)
+        //   } else if (lastSetCounter(set) >= sug + five) {
+        //     sugSetter(prevVal * 0.05)
+        //   } else if (lastSetCounter(set) == sug) {
+        //     sugSetter(prevVal * 0.1)
+        //   }
+        // }
+        // suggestSetSetter('setOne', sug1, setSug1)
+        // suggestSetSetter('setTwo', sug2, setSug2)
+        // suggestSetSetter('setThree', sug3, setSug3)
+        // suggestSetSetter('setFour', sug4, setSug4)
+        // suggestSetSetter('setFive', sug5, setSug5)
+        // currVal
+        //  prevVal
+        // set one
+
+        if (sug1 >= procMax) {
+          if (lastSetCounter('setOne') >= sug1) {
+            setSug1(lastSetCounter('setOne') + prevVal * 0.15)
+          } else if (lastSetCounter('setOne') < sug1) {
+            setSug1(lastSetCounter('setOne') - prevVal * 0.05)
+          }
+
+          // set two
+
+          if (lastSetCounter('setTwo') >= sug2) {
+            setSug2(lastSetCounter('setTwo') + prevVal * 0.12)
+          } else if (lastSetCounter('setTwo') < sug2) {
+            setSug2(lastSetCounter('setTwo') - prevVal * 0.05)
+          }
+          // setsetThree
+          if (lastSetCounter('setThree') >= sug3) {
+            setSug3(lastSetCounter('setThree') + prevVal * 0.1)
+          } else if (lastSetCounter('setThree') < sug3) {
+            setSug3(lastSetCounter('setThree') - prevVal * 0.05)
+          }
+          // set four
+          if (lastSetCounter('setFour') >= sug4) {
+            setSug4(lastSetCounter('setFour') + prevVal * 0.09)
+          } else if (lastSetCounter('setFour') < sug4) {
+            setSug4(lastSetCounter('setFour') - prevVal * 0.05)
+          }
+          // set five
+          if (lastSetCounter('setFive') >= sug5) {
+            setSug5(lastSetCounter('setFive') + prevVal * 0.05)
+          } else if (lastSetCounter('setFive') < sug5) {
+            setSug5(sug5 - prevVal * 0.05)
+          }
         }
       }
     })
@@ -375,8 +459,9 @@ export const MainContextProvider = ({ children }) => {
   }
   React.useEffect(() => {
     pushUpalgo()
-  }, [maxPushup, pushupData])
+  }, [pushupStatData, maxPushup, pushupData])
   // getting date from firebase date function
+
   const [timestamp, setTimeStamp] = useState(null)
   React.useEffect(() => {
     let newTime = pushupUid
@@ -415,28 +500,6 @@ export const MainContextProvider = ({ children }) => {
     let newRandom = topArry[randomizer]
     setRandomQuote(newRandom)
   }, [user])
-
-  // stats functions
-  const [pushupStats, setpushupStats] = useState(null)
-  const statsFunction = () => {
-    let newMap = pushupUid.map((val) => {
-      let setOne = Number(val.sets[0].setOne)
-      let setTwo = Number(val.sets[0].setTwo)
-      let setThree = Number(val.sets[0].setThree)
-      let setFour = Number(val.sets[0].setFour)
-      let setFive = Number(val.sets[0].setFive)
-      let num = null
-
-      for (let i = 0; i < val.sets.length; i++) {
-        num = setOne + setTwo + setThree + setFour + setFive
-      }
-      return num
-    })
-    setpushupStats(newMap)
-  }
-  React.useEffect(() => {
-    statsFunction()
-  }, [pushupData])
 
   // statistics logic
   const [totalPushups, setTotalpushups] = React.useState(null)
@@ -601,10 +664,7 @@ export const MainContextProvider = ({ children }) => {
       setTimeout(() => {
         setSureLoading(!sureLoading)
       }, 1000)
-      console.log(upDateName)
-    } catch (error) {
-      console.log(error.message)
-    }
+    } catch (error) {}
   }
   const updateUserName = async () => {
     const docRef = doc(db, 'user_data', docId)
@@ -830,6 +890,9 @@ export const MainContextProvider = ({ children }) => {
         setSettingDrop,
         nameEdit,
         setNameEdit,
+        pushupStatData,
+        popup,
+        setPopUp,
       }}
     >
       {children}

@@ -6,7 +6,7 @@ import { inputDiv } from './styles'
 import PrevSets from './PrevSets'
 import Timer from '../../timer/Timer'
 import SidePushUpPannel from './side-pannels/SidePushUpPannel.jsx'
-
+import Popup from './Popup'
 function Pushups() {
   const {
     handlePushupSubmit,
@@ -17,6 +17,7 @@ function Pushups() {
     sug4,
     sug5,
     dark,
+    popup,
   } = MainUseContext()
   const style = {
     mainDiv: ` w-[100%] h-[100%]   flex flex-col mb-[3.5rem] gap-10   items-center  max_md:mt-[4rem] `,
@@ -78,11 +79,11 @@ function Pushups() {
         >
           <div className={style.inputDiv}>
             {/* single input div //////////////////////////////////////////////// */}
-            {inputDiv(con, setCon, 'setOne', sug1)}
-            {inputDiv(con1, setCon1, 'setTwo', sug2)}
-            {inputDiv(con2, setCon2, 'setThree', sug3)}
-            {inputDiv(con3, setCon3, 'setFour', sug4)}
-            {inputDiv(con4, setCon4, 'setFive', sug5)}
+            {inputDiv(con, setCon, 'setOne', Math.round(sug1))}
+            {inputDiv(con1, setCon1, 'setTwo', Math.round(sug2))}
+            {inputDiv(con2, setCon2, 'setThree', Math.round(sug3))}
+            {inputDiv(con3, setCon3, 'setFour', Math.round(sug4))}
+            {inputDiv(con4, setCon4, 'setFive', Math.round(sug5))}
             <div className={`${'w-[100%] flex     justify-center'}`}>
               <m.button
                 whileTap={{
@@ -98,6 +99,7 @@ function Pushups() {
         </form>
       </div>
       <SidePushUpPannel style={style} />
+      {popup && <Popup />}
     </>
   )
 }

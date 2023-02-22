@@ -13,22 +13,9 @@ function PushUpStatMain() {
     totalPushups,
     testedMax,
     workoutmax,
+    pushupStatData,
+    sug1,
   } = MainUseContext()
-
-  // this state takes date and time where total collected push ups was done
-  const [pushupStatData, setPushupStatData] = useState()
-
-  /// use effect calls two above functions
-  useEffect(() => {
-    setTimeout(() => {
-      // this gives us time Date from API
-      let totalPushUps = pushupStats.map((val) => {
-        return { 'Total Push Ups': val }
-      })
-
-      setPushupStatData(totalPushUps)
-    }, 1000)
-  }, [pushupUid, pushupStats])
 
   const style = {
     conteinerDiv: `flex flex-col justify-center items-center w-[100%] h-[100%]  gap-10 `,
@@ -38,6 +25,16 @@ function PushUpStatMain() {
 
   return (
     <div className={style.conteinerDiv}>
+      <button
+        onClick={() =>
+          console.log(
+            pushupStatData[pushupStatData.length - 1]['Total Push Ups'],
+          )
+        }
+      >
+        CLCISDCDS
+      </button>
+      <button onClick={() => console.log(sug1)}>sdgsdgsdg</button>
       <div className={style.pushupStat}>
         <PushupGraph pushupStatData={pushupStatData} />
       </div>
