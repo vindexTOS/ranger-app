@@ -15,7 +15,13 @@ import { useForm } from 'react-hook-form'
 const PullUpContext = createContext()
 
 export const PullUpContextProvider = ({ children }) => {
-  const { user, maxPushup, BMIconvertor, userInformationa } = MainUseContext() // pulling main context
+  const {
+    user,
+    maxPushup,
+    BMIconvertor,
+    userInformationa,
+    userPullupMax,
+  } = MainUseContext() // pulling main context
   const { handleSubmit, register, getValues } = useForm() /// form hook
 
   //sending pull up data to firestore////////////////////////////////////////////////////////////////////////////
@@ -114,13 +120,53 @@ export const PullUpContextProvider = ({ children }) => {
       }
     }
   })
-
+  useEffect(() => {
+    console.log(maxPushup)
+    console.log(maxPullUpUid)
+    console.log(userPullupMax)
+  }, [maxPushup, maxPullUpUid, userPullupMax])
   /// algorithm for pull ups //////////////////////////////////////////////////////////////////////////////////////////////////////
   const [sug1, setSug1] = useState(0)
   const [sug2, setSug2] = useState(0)
   const [sug3, setSug3] = useState(0)
   const [sug4, setSug4] = useState(0)
   const [sug5, setSug5] = useState(0)
+  // user PR and functions for statistics /////////////////////////////////////////////////////////////////////////////////////////////////
+  const [pullupStats, setPullUpStats] = useState(null)
+  const statsFunction = () => {
+    let newMap = pullupUid.map((val) => {
+      let setOne = Number(val.sets[0].setOne)
+      let setTwo = Number(val.sets[0].setTwo)
+      let setThree = Number(val.sets[0].setThree)
+      let setFour = Number(val.sets[0].setFour)
+      let setFive = Number(val.sets[0].setFive)
+      let num = null
+
+      for (let i = 0; i < val.sets.length; i++) {
+        num = setOne + setTwo + setThree + setFour + setFive
+      }
+      return num
+    })
+    setPullUpStats(newMap)
+  }
+  React.useEffect(() => {
+    statsFunction()
+  }, [pullupData])
+
+  const [pullupStatData, setpullUpStatData] = useState([])
+
+  /// use effect calls two above functions
+  useEffect(() => {
+    setTimeout(() => {
+      // this gives us time Date from API
+      let totalPullups = pullupStats.map((val) => {
+        return { 'Total Pull Ups': val }
+      })
+      let prevVal = totalPullups[totalPullups.length - 1]['Total Pull Ups']
+      let prevCurr = totalPullups[totalPullups.length - 2]['Total Pull Ups']
+      setpullUpStatData([prevVal, prevCurr])
+    }, 500)
+  }, [pullupStats])
 
   const pullUpalgo = () => {
     //first set of the last workout user did from firebase IP
@@ -142,11 +188,15 @@ export const PullUpContextProvider = ({ children }) => {
       return newNum
     }
 
+    const totalData = pullupStatData
+    const currVal = Number(totalData[0])
+    const prevVal = Number(totalData[1])
+
     const newVal = maxPullUpUid.map((item, index) => {
       if (maxPullUpUid.length - 1 <= index) {
         let procMax = 0
-
-        let max = parseInt(item.userInfo[0]['User_pullUp_Max'])
+        console.log(item.userPullupMax)
+        let max = parseInt(item.userPullupMax)
         if (Number(userInformationa('User_age')) >= 40) {
           // if user is more than 40 years old we make procMax aka programs starting max for push ups program to 40% instad of 50% or 60%
           procMax = max * 0.4
@@ -190,44 +240,40 @@ export const PullUpContextProvider = ({ children }) => {
         setSug3(Math.floor(procMax - 4))
         setSug4(Math.floor(procMax - 5))
         setSug5(Math.floor(procMax - 6))
-        // if user is novice and cant do more than 5 pull ups
-        if (procMax < 5) {
-          setSug1(Math.floor(procMax))
-          setSug2(Math.floor(procMax))
-          setSug3(Math.floor(procMax))
-          setSug4(Math.floor(procMax))
-          setSug5(Math.floor(procMax - 1))
-        }
-        // set one
-        if (lastSetCounter('setOne') >= sug1) {
-          setSug1(lastSetCounter('setOne') + 1)
-        } else if (lastSetCounter('setOne') < sug1) {
-          setSug1(procMax - 1)
-        }
 
-        // set two
-        if (lastSetCounter('setTwo') >= sug2) {
-          setSug2(lastSetCounter('setTwo') + 1)
-        } else if (lastSetCounter('setTwo') < sug2) {
-          setSug2(lastSetCounter('setTwo') - 1)
-        }
-        // setsetThree
-        if (lastSetCounter('setThree') >= sug3) {
-          setSug3(lastSetCounter('setThree') + 1)
-        } else if (lastSetCounter('setThree') < sug3) {
-          setSug3(lastSetCounter('setThree') - 1)
-        }
-        // set four
-        if (lastSetCounter('setFour') >= sug4) {
-          setSug4(lastSetCounter('setFour') + 1)
-        } else if (lastSetCounter('setFour') < sug4) {
-          setSug4(lastSetCounter('setFour') - 1)
-        }
-        // set five
-        if (lastSetCounter('setFive') >= sug5) {
-          setSug5(lastSetCounter('setFive') + 1)
-        } else if (lastSetCounter('setFive') < sug5) {
-          setSug5(sug5 - 1)
+        // if user is novice and cant do more than 5 pull ups
+        if (sug1 > procMax) {
+          if (lastSetCounter('setOne') >= sug1) {
+            setSug1(lastSetCounter('setOne') + prevVal * 0.15)
+          } else if (lastSetCounter('setOne') < sug1) {
+            setSug1(lastSetCounter('setOne') - prevVal * 0.05)
+          }
+
+          // set two
+
+          if (lastSetCounter('setTwo') >= sug2) {
+            setSug2(lastSetCounter('setTwo') + prevVal * 0.12)
+          } else if (lastSetCounter('setTwo') < sug2) {
+            setSug2(lastSetCounter('setTwo') + prevVal * 0.05)
+          }
+          // setsetThree
+          if (lastSetCounter('setThree') >= sug3) {
+            setSug3(lastSetCounter('setThree') + prevVal * 0.1)
+          } else if (lastSetCounter('setThree') < sug3) {
+            setSug3(lastSetCounter('setThree') + prevVal * 0.05)
+          }
+          // set four
+          if (lastSetCounter('setFour') >= sug4) {
+            setSug4(lastSetCounter('setFour') + prevVal * 0.09)
+          } else if (lastSetCounter('setFour') < sug4) {
+            setSug4(lastSetCounter('setFour') + prevVal * 0.05)
+          }
+          // set five
+          if (lastSetCounter('setFive') >= sug5) {
+            setSug5(lastSetCounter('setFive') + prevVal * 0.09)
+          } else if (lastSetCounter('setFive') < sug5) {
+            setSug5(lastSetCounter('setFive') + prevVal * 0.05)
+          }
         }
       }
     })
@@ -235,30 +281,7 @@ export const PullUpContextProvider = ({ children }) => {
   }
   React.useEffect(() => {
     pullUpalgo()
-  }, [maxPushup])
-
-  // user PR and functions for statistics /////////////////////////////////////////////////////////////////////////////////////////////////
-  const [pullupStats, setPullUpStats] = useState(null)
-
-  React.useEffect(() => {
-    const statsFunction = () => {
-      let newMap = pullupUid.map((val) => {
-        let setOne = Number(val.sets[0].setOne)
-        let setTwo = Number(val.sets[0].setTwo)
-        let setThree = Number(val.sets[0].setThree)
-        let setFour = Number(val.sets[0].setFour)
-        let setFive = Number(val.sets[0].setFive)
-        let num = null
-
-        for (let i = 0; i < val.sets.length; i++) {
-          num = setOne + setTwo + setThree + setFour + setFive
-        }
-        return num
-      })
-      setPullUpStats(newMap)
-    }
-    statsFunction()
-  }, [pullupData])
+  }, [maxPullUpUid, pullupStatData, pullupData, userPullupMax])
 
   const [totalPullUps, setTotalPullUps] = React.useState(null)
 

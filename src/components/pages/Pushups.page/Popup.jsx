@@ -7,9 +7,11 @@ function Popup() {
   const { pushupStatData, popup, setPopUp } = MainUseContext()
   const style = {
     mainDiv: `w-[90%] h-[100vh] absolute bg-opacity-40 bg-white rounded-[35px] flex flex-col items-center justify-center `,
-    p: `text-[9rem] text-orange-300 h-[10rem]`,
+    p: `text-[9rem] text-orange-300 h-[10rem] flex flex-col mt-10 items-center justify-center`,
     StarDiv: ` flex w-[90%] items-center justify-center   `,
     icon: `w-[15%]`,
+    cancelWrapper: ` cursor-pointer w-[100%]  absolute ml-10 mb-[50rem]`,
+    cancel: `text-[4rem] w-[6rem] h-[6rem] flex items-center justify-center  bg-red-500 rounded-[50%]  `,
   }
   const [loading, setLoading] = useState(true)
   useEffect(() => {
@@ -32,6 +34,7 @@ function Popup() {
   const animationY = () => {
     let y = []
     let i = 0
+
     while (i < 30) {
       i++
       y.push(2, -2)
@@ -41,7 +44,16 @@ function Popup() {
 
   return (
     <div className={style.mainDiv}>
-      <h1 onClick={() => setPopUp(false)}>X</h1>
+      <div className={style.cancelWrapper}>
+        <m.h1
+          animate={{ y: animationY() }}
+          transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+          className={style.cancel}
+          onClick={() => setPopUp(false)}
+        >
+          X
+        </m.h1>
+      </div>
       <div className={style.StarDiv}>
         <m.div
           className={style.icon}
@@ -83,7 +95,24 @@ function Popup() {
         </m.div>
       </div>
 
-      {!loading ? <p className={style.p}>{pushupStatData[0]}</p> : <Cirlce />}
+      {!loading ? (
+        <m.p
+          animate={{ y: animationY() }}
+          transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+          className={style.p}
+        >
+          <m.p
+            animate={{ y: animationY() }}
+            transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+            className="text-[6rem]"
+          >
+            TODAYS TOTAL!!!
+          </m.p>
+          {pushupStatData[0]}
+        </m.p>
+      ) : (
+        <Cirlce />
+      )}
     </div>
   )
 }

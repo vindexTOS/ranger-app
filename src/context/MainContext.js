@@ -77,7 +77,7 @@ export const MainContextProvider = ({ children }) => {
 
   // push up workout updates
   const [pushup, setPushup] = React.useState([])
-  const [popup, setPopUp] = React.useState(true)
+  const [popup, setPopUp] = React.useState(false)
   const handlePushupSubmit = async (data, e) => {
     e.preventDefault()
     setPopUp(true)
@@ -432,25 +432,25 @@ export const MainContextProvider = ({ children }) => {
           if (lastSetCounter('setTwo') >= sug2) {
             setSug2(lastSetCounter('setTwo') + prevVal * 0.12)
           } else if (lastSetCounter('setTwo') < sug2) {
-            setSug2(lastSetCounter('setTwo') - prevVal * 0.05)
+            setSug2(lastSetCounter('setTwo') + prevVal * 0.05)
           }
           // setsetThree
           if (lastSetCounter('setThree') >= sug3) {
             setSug3(lastSetCounter('setThree') + prevVal * 0.1)
           } else if (lastSetCounter('setThree') < sug3) {
-            setSug3(lastSetCounter('setThree') - prevVal * 0.05)
+            setSug3(lastSetCounter('setThree') + prevVal * 0.05)
           }
           // set four
           if (lastSetCounter('setFour') >= sug4) {
             setSug4(lastSetCounter('setFour') + prevVal * 0.09)
           } else if (lastSetCounter('setFour') < sug4) {
-            setSug4(lastSetCounter('setFour') - prevVal * 0.05)
+            setSug4(lastSetCounter('setFour') + prevVal * 0.05)
           }
           // set five
           if (lastSetCounter('setFive') >= sug5) {
-            setSug5(lastSetCounter('setFive') + prevVal * 0.05)
+            setSug5(lastSetCounter('setFive') + prevVal * 0.09)
           } else if (lastSetCounter('setFive') < sug5) {
-            setSug5(sug5 - prevVal * 0.05)
+            setSug5(lastSetCounter('setFive') + prevVal * 0.05)
           }
         }
       }
