@@ -1,7 +1,5 @@
-
-
 Ranger - Workout Planning App
- 
+
 This Fitness App aka Ranger-App is designed to help users achieve their fitness goals in a personalized and engaging way. The app calculates users' BMI, age, and fitness status to create a customized workout program. The app also provides progress tracking and statistical analysis, so users can see how much they have improved over time. To keep users motivated, the app has a reward system that gives users awards and achievements for completing challenges. The app allows users to register and log in using Firebase, and users can also change their username and profile photo. With plans to add features such as user comparison statistics, this app is set to revolutionize the way people approach fitness and stay motivated towards their goals.
 
 Technologies Used
@@ -13,7 +11,7 @@ Getting Started
 Clone the repository:
 bash
 Copy code
-git clone  https://github.com/vindexTOS/ranger-app.git
+git clone https://github.com/vindexTOS/ranger-app.git
 Navigate to the project directory:
 bash
 Copy code
@@ -51,3 +49,4 @@ Firebase
 Tailwind CSS
 Framer Motion
 
+r
