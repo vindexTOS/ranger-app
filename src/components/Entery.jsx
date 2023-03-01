@@ -108,7 +108,7 @@ function Entery() {
         <div className="w-[100%] flex items-center justify-center">
           <m.button
             type="submit"
-            onClick={() => console.log(userData)}
+            // onClick={() => console.log(userData)}
             className={style.button}
             style={{
               background: 'linear-gradient(160deg, #54bff5 0%, #34ffc5 100%)',

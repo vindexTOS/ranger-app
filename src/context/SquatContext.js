@@ -25,9 +25,13 @@ export const SquatContextProvider = ({ children }) => {
   const { user, maxPushup, BMIconvertor, userInformationa } = MainUseContext() // pulling main context
 
   const { handleSubmit, register, getValues } = useForm()
+
+  const [popup, setPopUp] = React.useState(false)
+
   // pushing squat data to new firebase data base//////////////////////////////////////////////////////
   const [squat, setSquat] = React.useState([])
   const handleSquatSubmit = async (data, e) => {
+    setPopUp(true)
     e.preventDefault()
     let setOne = getValues('setOne')
     let setTwo = getValues('setTwo')
@@ -241,6 +245,21 @@ export const SquatContextProvider = ({ children }) => {
   // user PR and functions for statistics /////////////////////////////////////////////////////////////////////////////////////////////////
   const [squatStats, setSquatStats] = useState(null)
 
+  const [SquatStatData, setSquatStatData] = useState([])
+
+  /// use effect calls two above functions
+  useEffect(() => {
+    setTimeout(() => {
+      // this gives us time Date from API
+      let squat = squatStats.map((val) => {
+        return { 'Total squats': val }
+      })
+      let prevVal = squat[squat.length - 1]['Total squats']
+      let prevCurr = squat[squat.length - 2]['Total squats']
+      setSquatStatData([prevVal, prevCurr])
+    }, 500)
+  }, [squatStats])
+
   React.useEffect(() => {
     const statsFunction = () => {
       let newMap = squatUid.map((val) => {
@@ -338,6 +357,9 @@ export const SquatContextProvider = ({ children }) => {
         register,
         getValues,
         testedMaxSquat,
+        SquatStatData,
+        popup,
+        setPopUp,
       }}
     >
       {children}

@@ -5,11 +5,12 @@ import { style, inputDiv } from './styles'
 import PrevSets from './PrevSets'
 import Timer from '../../timer/Timer'
 import SideSquatPannel from './side-pannels/SideSquatPannel'
+import Popup from './Popup'
 function Squats(props) {
   const {
     handleSquatSubmit,
     handleSubmit,
-
+    popup,
     sug1,
     sug2,
     sug3,
@@ -85,6 +86,7 @@ function Squats(props) {
         </form>
       </div>
       <SideSquatPannel />
+      {popup && <Popup />}
     </>
   )
 }
