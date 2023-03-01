@@ -168,7 +168,7 @@ export const PullUpContextProvider = ({ children }) => {
     }, 500)
   }, [pullupStats])
 
-  const pullUpalgo = () => {
+  const pushUpalgo = () => {
     //first set of the last workout user did from firebase IP
     const lastSetCounter = (set) => {
       let newVal = pullupUid.filter((item, index) => {
@@ -188,15 +188,11 @@ export const PullUpContextProvider = ({ children }) => {
       return newNum
     }
 
-    const totalData = pullupStatData
-    const currVal = Number(totalData[0])
-    const prevVal = Number(totalData[1])
-
     const newVal = maxPullUpUid.map((item, index) => {
       if (maxPullUpUid.length - 1 <= index) {
         let procMax = 0
-        console.log(item.userPullupMax)
-        let max = parseInt(item.userPullupMax)
+
+        let max = parseInt(item.userInfo[0]['User_pullUp_Max'])
         if (Number(userInformationa('User_age')) >= 40) {
           // if user is more than 40 years old we make procMax aka programs starting max for push ups program to 40% instad of 50% or 60%
           procMax = max * 0.4
@@ -211,14 +207,14 @@ export const PullUpContextProvider = ({ children }) => {
           //inner if statemnt
         } else if (Number(userInformationa('User_age')) >= 25) {
           // if user is more than 25 years old we make procMax aka programs starting max for push ups program to 50% instad of 60%
-          procMax = max * 0.6
+          procMax = max * 0.5
           // calucating procMax by BMI  inner If statment
           if (BMIconvertor() >= 35) {
             procMax = max * 0.3
           } else if (BMIconvertor() >= 30) {
             procMax = max * 0.4
           } else if (BMIconvertor() > 25) {
-            procMax = max * 0.5
+            procMax = max * 0.4555
           }
           //inner if statemnt
         } else if (Number(userInformationa('User_age')) < 25) {
@@ -233,55 +229,81 @@ export const PullUpContextProvider = ({ children }) => {
           }
           //inner if statemnt
         }
-
-        // this returns 60% of max pull up input
-        setSug1(Math.floor(procMax))
-        setSug2(Math.floor(procMax) - 2)
-        setSug3(Math.floor(procMax - 4))
-        setSug4(Math.floor(procMax - 5))
-        setSug5(Math.floor(procMax - 6))
-
-        // if user is novice and cant do more than 5 pull ups
-        if (sug1 > procMax) {
-          if (lastSetCounter('setOne') >= sug1) {
-            setSug1(lastSetCounter('setOne') + prevVal * 0.15)
-          } else if (lastSetCounter('setOne') < sug1) {
-            setSug1(lastSetCounter('setOne') - prevVal * 0.05)
-          }
-
-          // set two
-
-          if (lastSetCounter('setTwo') >= sug2) {
-            setSug2(lastSetCounter('setTwo') + prevVal * 0.12)
-          } else if (lastSetCounter('setTwo') < sug2) {
-            setSug2(lastSetCounter('setTwo') + prevVal * 0.05)
-          }
-          // setsetThree
-          if (lastSetCounter('setThree') >= sug3) {
-            setSug3(lastSetCounter('setThree') + prevVal * 0.1)
-          } else if (lastSetCounter('setThree') < sug3) {
-            setSug3(lastSetCounter('setThree') + prevVal * 0.05)
-          }
-          // set four
-          if (lastSetCounter('setFour') >= sug4) {
-            setSug4(lastSetCounter('setFour') + prevVal * 0.09)
-          } else if (lastSetCounter('setFour') < sug4) {
-            setSug4(lastSetCounter('setFour') + prevVal * 0.05)
-          }
-          // set five
-          if (lastSetCounter('setFive') >= sug5) {
-            setSug5(lastSetCounter('setFive') + prevVal * 0.09)
-          } else if (lastSetCounter('setFive') < sug5) {
-            setSug5(lastSetCounter('setFive') + prevVal * 0.05)
-          }
+        // this returns 60% of max pushup input
+        setSug1(procMax)
+        setSug2(procMax - 2)
+        setSug3(procMax - 4)
+        setSug4(procMax - 5)
+        setSug5(procMax - 6)
+        // set one
+        if (lastSetCounter('setOne') >= procMax) {
+          setSug1(lastSetCounter('setOne') + 3)
+        } else if (lastSetCounter('setOne') >= procMax + 2) {
+          setSug1(lastSetCounter('setOne') + 4)
+        } else if (lastSetCounter('setOne') >= procMax + 4) {
+          setSug1(lastSetCounter('setOne') + 5)
+        } else if (lastSetCounter('setOne') < sug1) {
+          setSug1(procMax - 1)
+        }
+        // set two
+        if (lastSetCounter('setTwo') >= sug2) {
+          setSug2(lastSetCounter('setTwo') + 2)
+        }
+        if (lastSetCounter('setTwo') >= sug2 + 2) {
+          setSug2(lastSetCounter('setTwo') + 3)
+        }
+        if (lastSetCounter('setTwo') >= sug2 + 4) {
+          setSug2(lastSetCounter('setTwo') + 4)
+        }
+        if (lastSetCounter('setTwo') < sug2) {
+          setSug2(sug2 - 1)
+        }
+        // setsetThree
+        if (lastSetCounter('setThree') >= sug3) {
+          setSug3(lastSetCounter('setThree') + 1)
+        }
+        if (lastSetCounter('setThree') >= sug3 + 2) {
+          setSug3(lastSetCounter('setThree') + 2)
+        }
+        if (lastSetCounter('setThree') >= sug3 + 4) {
+          setSug3(lastSetCounter('setThree') + 3)
+        }
+        if (lastSetCounter('setThree') < sug3) {
+          setSug3(sug3 - 1)
+        }
+        // set four
+        if (lastSetCounter('setFour') >= sug4) {
+          setSug4(lastSetCounter('setFour') + 2)
+        }
+        if (lastSetCounter('setFour') >= sug4 + 2) {
+          setSug4(lastSetCounter('setFour') + 2)
+        }
+        if (lastSetCounter('setFour') >= sug4 + 4) {
+          setSug4(lastSetCounter('setFour') + 3)
+        }
+        if (lastSetCounter('setFour') < sug4) {
+          setSug4(sug4 - 1)
+        }
+        // set five
+        if (lastSetCounter('setFive') >= sug5) {
+          setSug5(lastSetCounter('setFive') + 2)
+        }
+        if (lastSetCounter('setFive') >= sug5 + 2) {
+          setSug5(lastSetCounter('setFive') + 2)
+        }
+        if (lastSetCounter('setFive') >= sug5 + 3) {
+          setSug5(lastSetCounter('setFive') + 3)
+        }
+        if (lastSetCounter('setFive') < sug5) {
+          setSug5(sug5 - 1)
         }
       }
     })
     return newVal
   }
   React.useEffect(() => {
-    pullUpalgo()
-  }, [maxPullUpUid, pullupStatData, pullupData, userPullupMax])
+    pushUpalgo()
+  }, [pullupData, user])
 
   const [totalPullUps, setTotalPullUps] = React.useState(null)
 
