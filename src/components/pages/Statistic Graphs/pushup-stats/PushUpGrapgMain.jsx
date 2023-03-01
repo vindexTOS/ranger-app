@@ -25,16 +25,16 @@ function PushUpStatMain() {
 
   return (
     <div className={style.conteinerDiv}>
-      <button
+      {/* <button
         onClick={() =>
           console.log(
             pushupStatData[pushupStatData.length - 1]['Total Push Ups'],
           )
         }
       >
-        CLCISDCDS
-      </button>
-      <button onClick={() => console.log(sug1)}>sdgsdgsdg</button>
+        
+      </button> */}
+      {/* <button onClick={() => console.log(sug1)}>sdgsdgsdg</button> */}
       <div className={style.pushupStat}>
         <PushupGraph pushupStatData={pushupStatData} />
       </div>

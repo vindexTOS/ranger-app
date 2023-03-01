@@ -66,7 +66,7 @@ export const MainContextProvider = ({ children }) => {
   //changing different users hanndle
   React.useEffect(() => {
     const unsub = onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser)
+      // console.log(currentUser)
 
       setUser(currentUser)
     })
@@ -94,7 +94,7 @@ export const MainContextProvider = ({ children }) => {
       setFive !== ''
     ) {
       pushup.push(data)
-      console.log(pushup)
+      // console.log(pushup)
       const { uid } = auth.currentUser
       await addDoc(collection(db, 'pushup'), {
         sets: pushup,
@@ -118,7 +118,7 @@ export const MainContextProvider = ({ children }) => {
       querySnapshot.forEach((doc) => {
         pushUp.push({ ...doc.data(), id: doc.id })
       })
-      console.log(pushUp)
+      // console.log(pushUp)
       let userUid = pushUp
         .filter((item, index) => {
           if (user?.uid === item.uid) {
@@ -137,8 +137,8 @@ export const MainContextProvider = ({ children }) => {
           }
         })
         .join('')
-      console.log(user?.uid)
-      console.log(lastUserUid)
+      // console.log(user?.uid)
+      // console.log(lastUserUid)
       if (lastUserUid == user?.uid) {
         setPushupdata(pushUp)
       }
@@ -302,7 +302,7 @@ export const MainContextProvider = ({ children }) => {
       })
       let prevVal = totalPushUps[totalPushUps.length - 1]['Total Push Ups']
       let prevCurr = totalPushUps[totalPushUps.length - 2]['Total Push Ups']
-      console.log(totalPushUps)
+      // console.log(totalPushUps)
       setPushupStatData([prevVal, prevCurr])
     }, 500)
   }, [pushupStats])
@@ -387,38 +387,6 @@ export const MainContextProvider = ({ children }) => {
           setSug5(Math.floor(procMax - 1))
         }
         // currVal prevVal
-
-        // const suggestSetSetter = (set, sug, sugSetter) => {
-        //   let fifty = sug * 0.5
-        //   let forty = sug * 0.4
-        //   let thirty = sug * 0.3
-        //   let twenty = sug * 0.2
-        //   let ten = sug * 0.1
-        //   let five = sug * 0.05
-        //   if (lastSetCounter(set) >= sug + fifty) {
-        //     sugSetter(prevVal * 0.4)
-        //   } else if (lastSetCounter(set) >= sug + forty) {
-        //     sugSetter(prevVal * 0.3)
-        //   } else if (lastSetCounter(set) >= sug + thirty) {
-        //     sugSetter(prevVal * 0.2)
-        //   } else if (lastSetCounter(set) >= sug + twenty) {
-        //     sugSetter(prevVal * 0.1)
-        //   } else if (lastSetCounter(set) >= sug + ten) {
-        //     sugSetter(prevVal * 0.05)
-        //   } else if (lastSetCounter(set) >= sug + five) {
-        //     sugSetter(prevVal * 0.05)
-        //   } else if (lastSetCounter(set) == sug) {
-        //     sugSetter(prevVal * 0.1)
-        //   }
-        // }
-        // suggestSetSetter('setOne', sug1, setSug1)
-        // suggestSetSetter('setTwo', sug2, setSug2)
-        // suggestSetSetter('setThree', sug3, setSug3)
-        // suggestSetSetter('setFour', sug4, setSug4)
-        // suggestSetSetter('setFive', sug5, setSug5)
-        // currVal
-        //  prevVal
-        // set one
 
         if (sug1 >= procMax) {
           if (lastSetCounter('setOne') >= sug1) {
@@ -687,8 +655,8 @@ export const MainContextProvider = ({ children }) => {
       querrySnapShot.forEach((doc) => {
         photo.push({ ...doc.data(), id: doc.id })
       })
-      console.log(photo)
-      console.log('data resived')
+      // console.log(photo)
+      // console.log('data resived')
 
       let userUid = photo
         .filter((item) => {
@@ -724,9 +692,9 @@ export const MainContextProvider = ({ children }) => {
       })
       setDisplayName(photoFilter)
       setUserProfiles(photo)
-      console.log(displayPhoto)
+      // console.log(displayPhoto)
     })
-    console.log('re render ? ')
+    // console.log('re render ? ')
 
     return () => unsub()
   }, [user])

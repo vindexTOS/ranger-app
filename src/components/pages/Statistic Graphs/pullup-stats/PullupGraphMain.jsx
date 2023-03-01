@@ -14,22 +14,10 @@ function PullupGraphMain() {
 
     workoutmax,
     testedMaxPullUp,
+    pullupStatData,
   } = PullUpUseContext()
 
   // this state takes date and time where total collected push ups was done
-  const [pullupStatData, setpullUpStatData] = useState()
-
-  /// use effect calls two above functions
-  useEffect(() => {
-    setTimeout(() => {
-      // this gives us time Date from API
-      let totalPullups = pullupStats.map((val) => {
-        return { 'Total Pull Ups': val }
-      })
-
-      setpullUpStatData(totalPullups)
-    }, 1000)
-  }, [pullupUid, pullupStats])
 
   const style = {
     conteinerDiv: `flex flex-col justify-center items-center w-[100%] h-[100%]  gap-10 `,

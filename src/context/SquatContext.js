@@ -36,7 +36,7 @@ export const SquatContextProvider = ({ children }) => {
     let setFive = getValues('setFive')
     if (setOne || setTwo || setThree || setFour || setFive !== '') {
       squat.push(data)
-      console.log(squat)
+      // console.log(squat)
       const { uid } = auth.currentUser
       await addDoc(collection(db, 'squat'), {
         sets: squat,
@@ -51,7 +51,7 @@ export const SquatContextProvider = ({ children }) => {
   const [squatData, setSquatData] = React.useState([])
 
   useEffect(() => {
-    console.log(squat + '<<<<<<<<<<<<<<<<<<<<,')
+    // console.log(squat + '<<<<<<<<<<<<<<<<<<<<,')
     const q = query(collection(db, 'squat'), orderBy('timestamp'))
     const unsub = onSnapshot(q, (querySnapshot) => {
       let squat = []

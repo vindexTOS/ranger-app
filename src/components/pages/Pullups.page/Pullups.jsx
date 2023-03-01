@@ -7,6 +7,7 @@ import SidePullUpPannel from './side-pannels/SidePullUpPannel'
 import { MainUseContext } from '../../../context/MainContext'
 import { PullUpUseContext } from '../../../context/PullUpContext'
 import PrevSets from './PrevSets'
+import Popup from './Popup'
 function Pullups(props) {
   const {
     handleSubmit,
@@ -19,6 +20,7 @@ function Pullups(props) {
     sug3,
     sug4,
     sug5,
+    popup,
   } = PullUpUseContext()
 
   const reducer = (state, action) => {
@@ -90,6 +92,7 @@ function Pullups(props) {
         </form>
       </div>
       <SidePullUpPannel />
+      {popup && <Popup />}
     </>
   )
 }

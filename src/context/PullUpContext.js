@@ -29,6 +29,7 @@ export const PullUpContextProvider = ({ children }) => {
   const [pullup, setPullUp] = useState([])
 
   const handlePullUpSubmit = async (data, e) => {
+    setPopUp(true)
     e.preventDefault()
     let setOne = getValues('setOne')
     let setTwo = getValues('setTwo')
@@ -38,7 +39,7 @@ export const PullUpContextProvider = ({ children }) => {
 
     if (setOne || setTwo || setThree || setFour || setFive !== '') {
       pullup.push(data)
-      console.log(pullup)
+      // console.log(pullup)
       const { uid } = auth.currentUser
       await addDoc(collection(db, 'pullups'), {
         sets: pullup,
@@ -49,6 +50,9 @@ export const PullUpContextProvider = ({ children }) => {
       })
     }
   }
+  /// pop up
+  const [popup, setPopUp] = React.useState(false)
+  // pop up
   /////pulling pull up data to firestore////////////////////////////////////////////////////////////////////////////
 
   const [pullupData, setPullUpdata] = React.useState([])
@@ -120,11 +124,11 @@ export const PullUpContextProvider = ({ children }) => {
       }
     }
   })
-  useEffect(() => {
-    console.log(maxPushup)
-    console.log(maxPullUpUid)
-    console.log(userPullupMax)
-  }, [maxPushup, maxPullUpUid, userPullupMax])
+  // useEffect(() => {
+  //   // console.log(maxPushup)
+  //   // console.log(maxPullUpUid)
+  //   // console.log(userPullupMax)
+  // }, [maxPushup, maxPullUpUid, userPullupMax])
   /// algorithm for pull ups //////////////////////////////////////////////////////////////////////////////////////////////////////
   const [sug1, setSug1] = useState(0)
   const [sug2, setSug2] = useState(0)
@@ -165,6 +169,7 @@ export const PullUpContextProvider = ({ children }) => {
       let prevVal = totalPullups[totalPullups.length - 1]['Total Pull Ups']
       let prevCurr = totalPullups[totalPullups.length - 2]['Total Pull Ups']
       setpullUpStatData([prevVal, prevCurr])
+      console.log(pullupStatData)
     }, 500)
   }, [pullupStats])
 
@@ -187,12 +192,14 @@ export const PullUpContextProvider = ({ children }) => {
 
       return newNum
     }
+    // console.log(maxPullUpUid)
 
     const newVal = maxPullUpUid.map((item, index) => {
       if (maxPullUpUid.length - 1 <= index) {
         let procMax = 0
 
         let max = parseInt(item.userInfo[0]['User_pullUp_Max'])
+        console.log(procMax)
         if (Number(userInformationa('User_age')) >= 40) {
           // if user is more than 40 years old we make procMax aka programs starting max for push ups program to 40% instad of 50% or 60%
           procMax = max * 0.4
@@ -236,66 +243,68 @@ export const PullUpContextProvider = ({ children }) => {
         setSug4(procMax - 5)
         setSug5(procMax - 6)
         // set one
-        if (lastSetCounter('setOne') >= procMax) {
-          setSug1(lastSetCounter('setOne') + 3)
-        } else if (lastSetCounter('setOne') >= procMax + 2) {
-          setSug1(lastSetCounter('setOne') + 4)
-        } else if (lastSetCounter('setOne') >= procMax + 4) {
-          setSug1(lastSetCounter('setOne') + 5)
-        } else if (lastSetCounter('setOne') < sug1) {
-          setSug1(procMax - 1)
-        }
-        // set two
-        if (lastSetCounter('setTwo') >= sug2) {
-          setSug2(lastSetCounter('setTwo') + 2)
-        }
-        if (lastSetCounter('setTwo') >= sug2 + 2) {
-          setSug2(lastSetCounter('setTwo') + 3)
-        }
-        if (lastSetCounter('setTwo') >= sug2 + 4) {
-          setSug2(lastSetCounter('setTwo') + 4)
-        }
-        if (lastSetCounter('setTwo') < sug2) {
-          setSug2(sug2 - 1)
-        }
-        // setsetThree
-        if (lastSetCounter('setThree') >= sug3) {
-          setSug3(lastSetCounter('setThree') + 1)
-        }
-        if (lastSetCounter('setThree') >= sug3 + 2) {
-          setSug3(lastSetCounter('setThree') + 2)
-        }
-        if (lastSetCounter('setThree') >= sug3 + 4) {
-          setSug3(lastSetCounter('setThree') + 3)
-        }
-        if (lastSetCounter('setThree') < sug3) {
-          setSug3(sug3 - 1)
-        }
-        // set four
-        if (lastSetCounter('setFour') >= sug4) {
-          setSug4(lastSetCounter('setFour') + 2)
-        }
-        if (lastSetCounter('setFour') >= sug4 + 2) {
-          setSug4(lastSetCounter('setFour') + 2)
-        }
-        if (lastSetCounter('setFour') >= sug4 + 4) {
-          setSug4(lastSetCounter('setFour') + 3)
-        }
-        if (lastSetCounter('setFour') < sug4) {
-          setSug4(sug4 - 1)
-        }
-        // set five
-        if (lastSetCounter('setFive') >= sug5) {
-          setSug5(lastSetCounter('setFive') + 2)
-        }
-        if (lastSetCounter('setFive') >= sug5 + 2) {
-          setSug5(lastSetCounter('setFive') + 2)
-        }
-        if (lastSetCounter('setFive') >= sug5 + 3) {
-          setSug5(lastSetCounter('setFive') + 3)
-        }
-        if (lastSetCounter('setFive') < sug5) {
-          setSug5(sug5 - 1)
+        if (sug1 !== procMax) {
+          if (lastSetCounter('setOne') >= procMax) {
+            setSug1(lastSetCounter('setOne') + 3)
+          } else if (lastSetCounter('setOne') >= procMax + 2) {
+            setSug1(lastSetCounter('setOne') + 4)
+          } else if (lastSetCounter('setOne') >= procMax + 4) {
+            setSug1(lastSetCounter('setOne') + 5)
+          } else if (lastSetCounter('setOne') < sug1) {
+            setSug1(procMax - 1)
+          }
+          // set two
+          if (lastSetCounter('setTwo') >= sug2) {
+            setSug2(lastSetCounter('setTwo') + 2)
+          }
+          if (lastSetCounter('setTwo') >= sug2 + 2) {
+            setSug2(lastSetCounter('setTwo') + 3)
+          }
+          if (lastSetCounter('setTwo') >= sug2 + 4) {
+            setSug2(lastSetCounter('setTwo') + 4)
+          }
+          if (lastSetCounter('setTwo') < sug2) {
+            setSug2(sug2 - 1)
+          }
+          // setsetThree
+          if (lastSetCounter('setThree') >= sug3) {
+            setSug3(lastSetCounter('setThree') + 1)
+          }
+          if (lastSetCounter('setThree') >= sug3 + 2) {
+            setSug3(lastSetCounter('setThree') + 2)
+          }
+          if (lastSetCounter('setThree') >= sug3 + 4) {
+            setSug3(lastSetCounter('setThree') + 3)
+          }
+          if (lastSetCounter('setThree') < sug3) {
+            setSug3(sug3 - 1)
+          }
+          // set four
+          if (lastSetCounter('setFour') >= sug4) {
+            setSug4(lastSetCounter('setFour') + 2)
+          }
+          if (lastSetCounter('setFour') >= sug4 + 2) {
+            setSug4(lastSetCounter('setFour') + 2)
+          }
+          if (lastSetCounter('setFour') >= sug4 + 4) {
+            setSug4(lastSetCounter('setFour') + 3)
+          }
+          if (lastSetCounter('setFour') < sug4) {
+            setSug4(sug4 - 1)
+          }
+          // set five
+          if (lastSetCounter('setFive') >= sug5) {
+            setSug5(lastSetCounter('setFive') + 2)
+          }
+          if (lastSetCounter('setFive') >= sug5 + 2) {
+            setSug5(lastSetCounter('setFive') + 2)
+          }
+          if (lastSetCounter('setFive') >= sug5 + 3) {
+            setSug5(lastSetCounter('setFive') + 3)
+          }
+          if (lastSetCounter('setFive') < sug5) {
+            setSug5(sug5 - 1)
+          }
         }
       }
     })
@@ -303,7 +312,7 @@ export const PullUpContextProvider = ({ children }) => {
   }
   React.useEffect(() => {
     pushUpalgo()
-  }, [pullupData, user])
+  }, [pullupData, user, pullupStats])
 
   const [totalPullUps, setTotalPullUps] = React.useState(null)
 
@@ -359,6 +368,7 @@ export const PullUpContextProvider = ({ children }) => {
     .map((val) => {
       return val.userPullupMax
     })
+
   return (
     <PullUpContext.Provider
       value={{
@@ -379,6 +389,9 @@ export const PullUpContextProvider = ({ children }) => {
         totalPullUps,
         workoutmax,
         testedMaxPullUp,
+        popup,
+        setPopUp,
+        pullupStatData,
       }}
     >
       {children}
