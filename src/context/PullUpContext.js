@@ -29,7 +29,6 @@ export const PullUpContextProvider = ({ children }) => {
   const [pullup, setPullUp] = useState([])
 
   const handlePullUpSubmit = async (data, e) => {
-    setPopUp(true)
     e.preventDefault()
     let setOne = getValues('setOne')
     let setTwo = getValues('setTwo')
@@ -38,6 +37,7 @@ export const PullUpContextProvider = ({ children }) => {
     let setFive = getValues('setFive')
 
     if (setOne || setTwo || setThree || setFour || setFive !== '') {
+      setPopUp(true)
       pullup.push(data)
       // console.log(pullup)
       const { uid } = auth.currentUser

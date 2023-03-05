@@ -80,7 +80,7 @@ export const MainContextProvider = ({ children }) => {
   const [popup, setPopUp] = React.useState(false)
   const handlePushupSubmit = async (data, e) => {
     e.preventDefault()
-    setPopUp(true)
+
     let setOne = getValues('setOne')
     let setTwo = getValues('setTwo')
     let setThree = getValues('setThree')
@@ -93,6 +93,7 @@ export const MainContextProvider = ({ children }) => {
       setFour !== '' ||
       setFive !== ''
     ) {
+      setPopUp(true)
       pushup.push(data)
       // console.log(pushup)
       const { uid } = auth.currentUser

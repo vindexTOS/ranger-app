@@ -31,7 +31,6 @@ export const SquatContextProvider = ({ children }) => {
   // pushing squat data to new firebase data base//////////////////////////////////////////////////////
   const [squat, setSquat] = React.useState([])
   const handleSquatSubmit = async (data, e) => {
-    setPopUp(true)
     e.preventDefault()
     let setOne = getValues('setOne')
     let setTwo = getValues('setTwo')
@@ -39,6 +38,7 @@ export const SquatContextProvider = ({ children }) => {
     let setFour = getValues('setFour')
     let setFive = getValues('setFive')
     if (setOne || setTwo || setThree || setFour || setFive !== '') {
+      setPopUp(true)
       squat.push(data)
       // console.log(squat)
       const { uid } = auth.currentUser

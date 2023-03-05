@@ -13,7 +13,7 @@ function PushUpStatMain() {
     totalPushups,
     testedMax,
     workoutmax,
-    pushupStatData,
+
     sug1,
   } = MainUseContext()
 
@@ -22,7 +22,19 @@ function PushUpStatMain() {
     pushupStat: `w-[90%] h-[100%] bg-[#f0f0f0] flex flex-col items-center justify-center   border-2 rounded-[12px]   max_sm:pd-10  max_sm:mt-0  max_sm:mb-10  max_sm:w-[100%] max_sm:ml-10   max_md:h-[300px] max_md:w-[370px]`,
     smallStatsDiv: `w-[90%] flex items-center   justify-center flex-row gap-5 max_sm:gap-1 max_sm:ml-10 `,
   }
+  const [pushupStatData, setPushupStatData] = useState(null)
 
+  useEffect(() => {
+    setTimeout(() => {
+      // this gives us time Date from API
+      let totalPushUps = pushupStats.map((val) => {
+        return { 'Total Push Ups': val }
+      })
+
+      console.log(totalPushUps)
+      setPushupStatData(totalPushUps)
+    }, 500)
+  }, [pushupStats])
   return (
     <div className={style.conteinerDiv}>
       {/* <button
