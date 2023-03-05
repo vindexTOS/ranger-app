@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore'
 import { auth, db } from '../FirebaseConfig'
 import { useForm } from 'react-hook-form'
-
+import { useLocation } from 'react-router-dom'
 const PullUpContext = createContext()
 
 export const PullUpContextProvider = ({ children }) => {
@@ -310,9 +310,10 @@ export const PullUpContextProvider = ({ children }) => {
     })
     return newVal
   }
+  const location = useLocation()
   React.useEffect(() => {
     pushUpalgo()
-  }, [pullupData, user, pullupStats])
+  }, [pullupData, user, pullupStats, location])
 
   const [totalPullUps, setTotalPullUps] = React.useState(null)
 
