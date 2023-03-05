@@ -31,7 +31,7 @@ function PushUpStatMain() {
         return { 'Total Push Ups': val }
       })
 
-      console.log(totalPushUps)
+      // console.log(totalPushUps)
       setPushupStatData(totalPushUps)
     }, 500)
   }, [pushupStats])

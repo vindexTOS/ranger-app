@@ -296,16 +296,16 @@ export const MainContextProvider = ({ children }) => {
   /// use effect calls two above functions
 
   useEffect(() => {
-    setTimeout(() => {
+    if (pushupStats && pushupStats.length > 0) {
       // this gives us time Date from API
-      let totalPushUps = pushupStats.map((val) => {
+      let totalPushUps = pushupStats?.map((val) => {
         return { 'Total Push Ups': val }
       })
-      let prevVal = totalPushUps[totalPushUps.length - 1]['Total Push Ups']
-      let prevCurr = totalPushUps[totalPushUps.length - 2]['Total Push Ups']
+      let prevVal = totalPushUps[totalPushUps?.length - 1]['Total Push Ups']
+      let prevCurr = totalPushUps[totalPushUps?.length - 2]['Total Push Ups']
       // console.log(totalPushUps)
       setPushupStatData([prevVal, prevCurr])
-    }, 500)
+    }
   }, [pushupStats])
 
   const pushUpalgo = () => {
@@ -767,7 +767,7 @@ export const MainContextProvider = ({ children }) => {
     }
   }
   /// dark mode
-  const darkFromLocal = JSON.parse(localStorage.getItem('dark') || false)
+  const darkFromLocal = JSON.parse(localStorage.getItem('dark') || true)
 
   const [dark, setDark] = useState(darkFromLocal)
   useEffect(() => {
@@ -775,7 +775,7 @@ export const MainContextProvider = ({ children }) => {
   }, [dark])
 
   //ref for drop down menu click
-  let refClick = useRef()
+  let refClick = useRef(null)
   //drop down setings state
   const [settingDrop, setSettingDrop] = useState(false)
 

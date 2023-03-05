@@ -14,6 +14,7 @@ import { AchievementProvider } from './context/AchievementContext'
 import { NavContextProvider } from './context/NavBarContext'
 //pages
 import Navbar from './components/navigation/Navbar'
+import Error from './components/pages/Error'
 import Footer from './components/navigation/Footer'
 import Protectedroute from './components/protectedroute'
 import Pushups from './components/pages/Pushups.page/Pushups'
@@ -88,6 +89,7 @@ function App() {
                 />
                 <Route path="testroom" element={<MaxTestRoom />} />
               </Route>
+              <Route path="*" element={<Error />} />
             </Routes>
             <Footer />
           </NavContextProvider>

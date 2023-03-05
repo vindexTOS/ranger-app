@@ -134,13 +134,11 @@ const UserAwards = ({ uid, id, userMax, userPullupMax, userSquatMax }) => {
 
   const totalPullUpCompiler = async () => {
     try {
-      setTimeout(() => {
-        let pushupStatReducer = pullupStats.reduce(
-          (accumulator, currentValue) => accumulator + currentValue,
-          0,
-        )
-        setTotalPullUps(pushupStatReducer)
-      }, 1000)
+      let pushupStatReducer = pullupStats?.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        0,
+      )
+      setTotalPullUps(pushupStatReducer)
     } catch (error) {
       console.log(error)
     }

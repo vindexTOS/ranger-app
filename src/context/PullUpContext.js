@@ -161,16 +161,15 @@ export const PullUpContextProvider = ({ children }) => {
 
   /// use effect calls two above functions
   useEffect(() => {
-    setTimeout(() => {
+    if (pullupStats && pullupStats.length > 0) {
       // this gives us time Date from API
-      let totalPullups = pullupStats.map((val) => {
+      let totalPullups = pullupStats?.map((val) => {
         return { 'Total Pull Ups': val }
       })
-      let prevVal = totalPullups[totalPullups.length - 1]['Total Pull Ups']
-      let prevCurr = totalPullups[totalPullups.length - 2]['Total Pull Ups']
+      let prevVal = totalPullups[totalPullups?.length - 1]['Total Pull Ups']
+      let prevCurr = totalPullups[totalPullups?.length - 2]['Total Pull Ups']
       setpullUpStatData([prevVal, prevCurr])
-      console.log(pullupStatData)
-    }, 500)
+    }
   }, [pullupStats])
 
   const pushUpalgo = () => {
@@ -199,7 +198,7 @@ export const PullUpContextProvider = ({ children }) => {
         let procMax = 0
 
         let max = parseInt(item.userInfo[0]['User_pullUp_Max'])
-        console.log(procMax)
+
         if (Number(userInformationa('User_age')) >= 40) {
           // if user is more than 40 years old we make procMax aka programs starting max for push ups program to 40% instad of 50% or 60%
           procMax = max * 0.4
@@ -344,7 +343,7 @@ export const PullUpContextProvider = ({ children }) => {
   const totalPullUpCompiler = async () => {
     try {
       setTimeout(() => {
-        let pushupStatReducer = pullupStats.reduce(
+        let pushupStatReducer = pullupStats?.reduce(
           (accumulator, currentValue) => accumulator + currentValue,
           0,
         )

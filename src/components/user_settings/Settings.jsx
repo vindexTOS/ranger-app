@@ -85,10 +85,12 @@ function Settings() {
   const navigate = useNavigate()
   useEffect(() => {
     const handler = (e) => {
-      if (!refClick.current.contains(e.target)) {
-        setTimeout(() => {
-          setSettingDrop(!settingDrop)
-        }, 100)
+      if (refClick) {
+        if (!refClick.current.contains(e.target)) {
+          setTimeout(() => {
+            setSettingDrop(!settingDrop)
+          }, 100)
+        }
       }
     }
     document.addEventListener('mousedown', handler)
