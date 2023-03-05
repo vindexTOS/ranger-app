@@ -251,12 +251,14 @@ export const SquatContextProvider = ({ children }) => {
   useEffect(() => {
     // this gives us time Date from API
     if (squatStats && squatStats.length > 1) {
-      let squat = squatStats?.map((val) => {
-        return { 'Total squats': val }
-      })
-      let prevVal = squat[squat?.length - 1]['Total squats']
-      let prevCurr = squat[squat?.length - 2]['Total squats']
-      setSquatStatData([prevVal, prevCurr])
+      setTimeout(() => {
+        let squat = squatStats?.map((val) => {
+          return { 'Total squats': val }
+        })
+        let prevVal = squat[squat?.length - 1]['Total squats']
+        let prevCurr = squat[squat?.length - 2]['Total squats']
+        setSquatStatData([prevVal, prevCurr])
+      }, 1000)
     }
   }, [squatStats])
 

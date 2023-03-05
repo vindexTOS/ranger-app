@@ -12,7 +12,7 @@ function Error() {
   }
   return (
     <div className=" flex flex-col items-center justify-center w-[100vw] h-[100vh] ">
-      <Link className="text-[2rem] text-blue-400" to="/workroom">
+      <Link className="text-[2rem] text-blue-400" to="/workroom/pushups">
         <m.h1
           animate={{ scale: repaet() }}
           transition={{ duration: 150, repeat: Infinity, ease: 'linear' }}
