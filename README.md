@@ -55,9 +55,6 @@ git clone https://github.com/vindexTOS/ranger-app.git
 ## Contributing
 If you would like to contribute to this project, please submit a pull request.
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
 ## Acknowledgments
 - React
 - Firebase
