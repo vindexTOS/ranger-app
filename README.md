@@ -1,4 +1,4 @@
-Live Link: [https://ranger-app.netlify.app/](https://ranger-app.netlify.app/)
+Live Link: [Ranger App](https://ranger-app.netlify.app/)
 
 # Ranger - Workout Planning App
 ![Alt Text](https://firebasestorage.googleapis.com/v0/b/pcmarket-8f5e8.appspot.com/o/Fitness%20App%20Demo%20Photo%20.jpg?alt=media&token=d25b6c9f-d6c2-49af-ab71-182371cbbaab)
